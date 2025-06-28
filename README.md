@@ -1,3 +1,10 @@
+**AVISO:** esse repositório é um clone utilizado para realização de trabalhos para a faculdade, o código em si não foi criado pelos integrantes do grupo.
+**Integrantes do grupo:**
+  - Henrique Ângelo Duarte Alves
+  - Luis Eduardo Bastos Rocha
+  - Bianca Fernanda Tomé
+
+
 # Projeto Adote Fácil
 
 ## Introdução
