@@ -1,8 +1,8 @@
 **AVISO:** esse repositório é um clone utilizado para realização de trabalhos para a faculdade, o código em si não foi criado pelos integrantes do grupo.
 **Integrantes do grupo:**
-  - Henrique Ângelo Duarte Alves
-  - Luis Eduardo Bastos Rocha
-  - Bianca Fernanda Tomé
+  - Henrique Ângelo Duarte Alves - 23.1.8028
+  - Luis Eduardo Bastos Rocha - 23.1.8095
+  - Bianca Fernanda Tomé - 21.1.8189
 
 
 # Projeto Adote Fácil
