@@ -10,18 +10,19 @@ O sistema Adote Fácil segue um **Monolito em camadas**:
 
 ```mermaid
 flowchart TD
+  U[Browser] -->|HTTP/HTTPS| A[React Pages / Components]
   subgraph Frontend
-    A[React Pages / Components] --> B[API Client (Axios)]
+    A -->|HTTP/HTTPS| B[API Client (Axios)]
   end
-
   subgraph Backend
-    B --> C[Express Controllers]
-    C --> D[Services]
-    D --> E[Prisma Client]
-    E --> F[(PostgreSQL)]
+    B -->|REST JSON| C[Express Controllers / Routes]
+    C -->|invocação de serviços| D[Services]
+    D -->|chamada ORM| E[Prisma Client]
+    E -->|SQL| F[(PostgreSQL)]
   end
+```
 
-  **Legenda:**  
+**Legenda:**
 - **React Pages / Components**: UI e rotas do Next.js  
 - **API Client**: abstrai chamadas HTTP ao backend  
 - **Express Controllers / Routes**: definem endpoints REST  
