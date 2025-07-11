@@ -15,16 +15,12 @@ O sistema Adote Fácil segue um **Monolito em camadas**, uma abordagem que promo
 
 O diagrama a seguir ilustra o fluxo de uma requisição através das camadas do sistema.
 
-```mermaid
 flowchart TD
-  U[Browser] -->|HTTP/HTTPS| A[React Pages / Components]
-  subgraph Frontend
-    A -->|HTTP/HTTPS| B[API Client (Axios)]
-  end
+    A --> B
+    subgraph Frontend
+        B --> C
+    end
 
-  subgraph Backend
-    B -->|REST JSON| C[Express Controllers / Routes]
-    C -->|invocação de serviços| D[Services]
-    D -->|chamada ORM| E[Prisma Client]
-    E -->|SQL| F[(PostgreSQL)]
-  end
+    subgraph Backend
+        C --> D
+    end
