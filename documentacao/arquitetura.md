@@ -21,6 +21,7 @@ flowchart TD
   subgraph Frontend
     A -->|HTTP/HTTPS| B[API Client (Axios)]
   end
+
   subgraph Backend
     B -->|REST JSON| C[Express Controllers / Routes]
     C -->|invocação de serviços| D[Services]
