@@ -8,15 +8,16 @@ O sistema Adote Fácil segue um **Monolito em camadas**:
 
 ## 2. Diagrama de Componentes
 
-```mermaid
-flowchart TD
-U[Browser] -->|HTTP/HTTPS| A[React Pages / Components]
-subgraph Frontend
-  A -->|HTTP/HTTPS| B[API Client (Axios)]
-end
-subgraph Backend
-  B -->|REST JSON| C[Express Controllers / Routes]
-  C -->|invocação de serviços| D[Services]
-  D -->|chamada ORM| E[Prisma Client]
-  E -->|SQL| F[(PostgreSQL)]
-end
+graph TD
+    subgraph "Frontend (Browser do Usuário)"
+        A[<b>Páginas/Componentes React</b><br><i>Renderizados pelo Next.js</i>] -->|Requisição HTTP| B(<b>API Client</b><br><i>Axios</i>)
+    end
+
+    subgraph "Backend (Servidor Node.js)"
+        B -->|REST (JSON)| C{<b>Controllers / Rotas</b><br><i>Express.js</i>}
+        C -->|Chama o serviço| D[<b>Services</b><br><i>Lógica de Negócio</i>]
+        D -->|Usa o ORM| E[<b>Prisma Client</b><br><i>Abstração do Banco</i>]
+        E -->|Gera SQL| F[(<b>PostgreSQL</b><br><i>Banco de Dados</i>)]
+    end
+
+    U[Usuário] -->|Interage com a UI| A
