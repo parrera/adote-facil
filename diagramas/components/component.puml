@@ -1,0 +1,36 @@
+@startuml Adote-Facil Component Diagram
+
+package "Frontend" {
+  [Next.js App] as frontend
+  [Animal Components]
+  [User Components]
+  [Chat Components]
+  [API Client]
+}
+
+package "Backend" {
+  [API Server] as backend
+  [Animal Controller]
+  [User Controller]
+  [Chat Controller]
+  [Services Layer]
+  [Repositories Layer]
+  [Database]
+}
+
+[User] --> [frontend]
+[frontend] --> [backend] : HTTP/JSON
+[API Client] --> [backend]
+
+[backend] --> [Animal Controller]
+[backend] --> [User Controller]
+[backend] --> [Chat Controller]
+
+[Animal Controller] --> [Services Layer]
+[User Controller] --> [Services Layer]
+[Chat Controller] --> [Services Layer]
+
+[Services Layer] --> [Repositories Layer]
+[Repositories Layer] --> [Database]
+
+@enduml

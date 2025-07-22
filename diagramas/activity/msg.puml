@@ -1,0 +1,9 @@
+@startuml
+start
+:Usuário digita mensagem no chat;
+:Pressiona botão de enviar;
+:Envia requisição para API;
+:Mensagem salva no banco;
+:Atualiza interface com nova mensagem;
+stop
+@enduml

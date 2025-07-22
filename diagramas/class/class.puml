@@ -1,0 +1,79 @@
+@startuml Adote-Facil Class Diagram
+
+class User {
+  +id: string
+  +name: string
+  +email: string
+  +password: string
+  +phone: string
+  +createdAt: Date
+  +updatedAt: Date
+  +animals: Animal[]
+  +chats: Chat[]
+}
+
+class Animal {
+  +id: string
+  +name: string
+  +type: AnimalType
+  +gender: AnimalGender
+  +status: AnimalStatus
+  +description: string
+  +images: AnimalImage[]
+  +userId: string
+  +createdAt: Date
+  +updatedAt: Date
+  +user: User
+}
+
+class Chat {
+  +id: string
+  +animalId: string
+  +userId: string
+  +createdAt: Date
+  +updatedAt: Date
+  +messages: UserMessage[]
+  +animal: Animal
+  +user: User
+}
+
+class UserMessage {
+  +id: string
+  +chatId: string
+  +senderId: string
+  +content: string
+  +createdAt: Date
+}
+
+class AnimalImage {
+  +id: string
+  +animalId: string
+  +url: string
+  +createdAt: Date
+}
+
+enum AnimalType {
+  DOG
+  CAT
+  BIRD
+  OTHER
+}
+
+enum AnimalGender {
+  MALE
+  FEMALE
+}
+
+enum AnimalStatus {
+  AVAILABLE
+  ADOPTED
+  PENDING
+}
+
+User "1" *-- "0..*" Animal
+User "1" *-- "0..*" Chat
+Animal "1" *-- "0..*" AnimalImage
+Animal "1" *-- "0..*" Chat
+Chat "1" *-- "0..*" UserMessage
+
+@enduml

@@ -1,0 +1,10 @@
+@startuml
+start
+:Usuário acessa tela "editar dados";
+:Modifica nome/email;
+:Envia requisição para atualizar;
+:Validação dos dados;
+:Atualiza informações no banco;
+:Confirmação ao usuário;
+stop
+@enduml

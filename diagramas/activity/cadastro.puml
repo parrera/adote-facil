@@ -1,0 +1,10 @@
+@startuml
+start
+:Usuário acessa tela de cadastro de animal;
+:Preenche informações e anexa imagem;
+:Envia requisição para API;
+:Validação dos dados;
+:Salva animal no banco;
+:Confirmação para o usuário;
+stop
+@enduml

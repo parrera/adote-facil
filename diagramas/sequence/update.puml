@@ -1,0 +1,15 @@
+@startuml
+actor Usuário
+participant "UpdateUserInfoPage.tsx" as Page
+participant "api/update-user.ts" as Api
+participant "UserService" as Service
+participant "UserRepository" as Repo
+
+Usuário -> Page : altera nome/email
+Page -> Api : updateUser(data)
+Api -> Service : updateUser(data)
+Service -> Repo : update(user)
+Repo --> Service : user atualizado
+Service -> Api : sucesso
+Api -> Page : exibe confirmação
+@enduml

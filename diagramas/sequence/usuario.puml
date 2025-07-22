@@ -1,0 +1,16 @@
+@startuml
+actor Usuário
+participant "RegisterAnimalPage.tsx" as Page
+participant "api/register-animal.ts" as Api
+participant "AnimalService" as Service
+participant "AnimalRepository" as Repo
+
+Usuário -> Page : preenche dados e imagem
+Page -> Api : registerAnimal(data)
+Api -> Service : createAnimal(data)
+Service -> Repo : save(animal)
+Repo --> Service : animal salvo
+Service -> Api : sucesso
+Api -> Page : mostrar feedback
+Page --> Usuário : animal cadastrado
+@enduml
