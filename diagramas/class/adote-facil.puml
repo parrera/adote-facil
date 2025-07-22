@@ -1,0 +1,82 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam classBackgroundColor #FAFAFA
+
+package "Backend - Domain" {
+  class Animal {
+    +id: string
+    +name: string
+    +type: string
+    +status: AnimalStatus
+    +ownerId: string
+    +imageUrl: string
+  }
+
+  class User {
+    +id: string
+    +name: string
+    +email: string
+    +password: string
+  }
+
+  class Chat {
+    +id: string
+    +user1Id: string
+    +user2Id: string
+  }
+
+  class Message {
+    +id: string
+    +chatId: string
+    +senderId: string
+    +content: string
+    +timestamp: Date
+  }
+}
+
+package "Backend - Services" {
+  class AnimalService {
+    +createAnimal()
+    +getAvailable()
+    +getUserAnimals()
+    +updateAnimalStatus()
+  }
+
+  class UserService {
+    +createUser()
+    +updateUser()
+    +login()
+  }
+
+  class ChatService {
+    +createChat()
+    +sendMessage()
+    +getChats()
+  }
+}
+
+package "Frontend - Components" {
+  class AnimalCard
+  class AnimalRegisterForm
+  class Chat
+  class UserMenu
+}
+
+package "Frontend - Pages" {
+  class AvailableAnimalsPage
+  class RegisterAnimalPage
+  class UpdateUserInfoPage
+  class UserChatsPage
+}
+
+AnimalService --> Animal
+UserService --> User
+ChatService --> Chat
+ChatService --> Message
+
+AvailableAnimalsPage --> AnimalCard
+RegisterAnimalPage --> AnimalRegisterForm
+UpdateUserInfoPage --> UserMenu
+UserChatsPage --> Chat
+
+@enduml

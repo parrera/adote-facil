@@ -1,0 +1,29 @@
+@startuml Adote-Facil Activity Diagram - Animal Registration
+
+start
+:User logs in;
+if (User authenticated?) then (yes)
+  :Navigate to animal registration;
+  :Fill animal details form;
+  :Submit form;
+  
+  repeat
+    :Validate input;
+    if (Validation errors?) then (yes)
+      :Show error messages;
+    else (no)
+      break
+    endif
+  repeat while (Form valid?) is (no) not (yes)
+  
+  :Send registration request;
+  :Save animal to database;
+  :Show success message;
+  :Redirect to animal list;
+else (no)
+  :Redirect to login;
+endif
+stop
+
+@enduml
+

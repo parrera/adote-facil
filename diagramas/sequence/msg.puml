@@ -1,0 +1,15 @@
+@startuml
+actor Usuário
+participant "Chat.tsx" as ChatComponent
+participant "api/send-chat-message.ts" as Api
+participant "ChatService" as Service
+participant "MessageRepository" as Repo
+
+Usuário -> ChatComponent : digita mensagem
+ChatComponent -> Api : sendMessage(chatId, content)
+Api -> Service : createMessage(chatId, content)
+Service -> Repo : save(message)
+Repo --> Service : mensagem salva
+Service -> Api : sucesso
+Api -> ChatComponent : renderiza nova mensagem
+@enduml
