@@ -1,0 +1,94 @@
+@startuml
+skinparam folderStyle rectangle
+skinparam folderBorderColor #555555
+skinparam folderBackgroundColor #F5F5F5
+skinparam fileBackgroundColor #FFFFFF
+skinparam arrowColor #333333
+allowmixing
+
+package "Adote-Facil" {
+  package "backend" {
+    folder "src" {
+      folder "services" {
+        folder "animal" {
+          file "create-animal.js"
+          file "create-animal.ts"
+          file "get-available.js"
+          file "get-available.ts"
+          file "get-user.js"
+          file "get-user.ts"
+          file "update-animal-status.js"
+          file "update-animal-status.ts"
+        }
+
+        folder "chat" {
+          file "create-user-chat-message.js"
+          file "create-user-chat-message.ts"
+          file "create-user-chat.js"
+          file "create-user-chat.ts"
+          file "get-user-chat.js"
+          file "get-user-chat.ts"
+          file "get-user-chats.js"
+          file "get-user-chats.ts"
+        }
+
+        folder "user" {
+          file "create-user.js"
+          file "create-user.ts"
+          file "update-user.js"
+          file "update-user.ts"
+          file "user-login.js"
+          file "user-login.ts"
+        }
+      }
+
+      folder "utils" {
+        file "either.js"
+        file "either.ts"
+        file "app.ts"
+      }
+
+      file "app.ts"
+      file "database.ts"
+      file "index.ts"
+      file "routes.ts"
+      file "server.ts"
+    }
+
+    file ".dockerignore"
+    file ".env"
+    file ".eslintrc.json"
+    file ".gitignore"
+    file ".nvmrc"
+    file ".prettierrc.json"
+    file "Dockerfile"
+    file "package-lock.json"
+    file "package.json"
+    file "tsconfig.json"
+    file "wait-for-ft.sh"
+  }
+}
+
+note right of services
+  Business logic layer with:
+  - Animal services
+  - Chat services
+  - User services
+  Mirroring controller structure
+end note
+
+note left of utils
+  Utility functions and
+  application helpers
+end note
+
+legend
+  | Color | Meaning |
+  | #F5F5F5 | Folders |
+  | #FFFFFF | Files |
+  | #EEEEEE | Configuration |
+end legend
+@enduml
+
+
+Part 2: Services and Configuration

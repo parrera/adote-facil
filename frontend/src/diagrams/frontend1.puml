@@ -1,0 +1,82 @@
+'PARTE 1: Diagrama de Arquitetura do Frontend'
+@startuml
+skinparam monochrome true
+skinparam folderBackgroundColor #F5F5F5
+skinparam fileBackgroundColor #FFFFFF
+skinparam shadowing false
+
+folder "frontend" {
+    folder "src" {
+        folder "@types" {
+            file "animal.d.ts"
+            file "chat.d.ts"
+            file "user-data.d.ts"
+        }
+        
+        folder "api" {
+            file "get-available-animals.ts"
+            file "get-user-animals.ts"
+            file "get-user-chat.ts"
+            file "get-user-chats.ts"
+            file "index.ts"
+            file "insert-user-chat.ts"
+            file "register-animal.ts"
+            file "register-user.ts"
+            file "send-chat-message.ts"
+            file "update-animal-status.ts"
+            file "update-user.ts"
+            file "user-login.ts"
+        }
+        
+        folder "app" {
+            folder "area_logada" {
+                folder "animals_disponiveis" {
+                    folder "[id]" {
+                        file "AnimalDetailsPage.styles.ts"
+                        file "AnimalDetailsPage.tsx"
+                        file "page.tsx"
+                    }
+                    file "AvailableAnimalsPage.styles.ts"
+                    file "AvailableAnimalsPage.tsx"
+                    file "page.tsx"
+                }
+                
+                folder "conversas\\[...active-chat-id]" {
+                    file "page.tsx"
+                    file "UserChatsPage.styles.ts"
+                    file "UserChatsPage.tsx"
+                }
+                
+                folder "disponibilizar_animal" {
+                    file "page.tsx"
+                    file "RegisterAnimalPage.styles.ts"
+                    file "RegisterAnimalPage.tsx"
+                }
+                
+                folder "editar_dados" {
+                    file "page.tsx"
+                    file "UpdateUserInfoPage.styles.ts"
+                    file "UpdateUserInfoPage.tsx"
+                }
+                
+                folder "meus_animals" {
+                    file "layout.tsx"
+                }
+            }
+            
+            folder "cadastro" {
+                file "page.tsx"
+                file "styles.ts"
+            }
+            
+            folder "login" {
+                file "page.tsx"
+                file "styles.ts"
+            }
+            
+            file "layout.tsx"
+            file "page.tsx"
+        }
+    }
+}
+@enduml

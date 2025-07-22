@@ -1,4 +1,7 @@
-FROM node:20-alpine
+FROM node:20-alpine3.20
+
+# Update Alpine packages to reduce vulnerabilities
+RUN apk update && apk upgrade --no-cache
 
 WORKDIR /app
 

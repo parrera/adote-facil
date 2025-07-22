@@ -61,7 +61,9 @@ export class CreateAnimalService {
     )
 
     if (!images) {
-      return Failure.create({ message: 'Erro ao salvar as imagens do animal.' })
+      return Failure.create({
+        message: 'Erro ao salvar as imagens do animal.',
+      })
     }
 
     return Success.create({ animal })

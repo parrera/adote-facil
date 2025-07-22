@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev ",
     "build": "next build",
     "start": "next start",
+    "format": "prettier --write .",
     "lint": "next lint"
   },
   "dependencies": {
@@ -33,7 +34,9 @@
     "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
     "eslint": "^8.57.0",
     "eslint-config-next": "15.0.3",
-    "typescript": "^5"
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-prettier": "^5.5.1",
+    "typescript": "5.8.3"
   },
   "overrides": {
     "@types/react": "npm:types-react@19.0.0-rc.1",

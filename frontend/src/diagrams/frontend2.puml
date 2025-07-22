@@ -1,0 +1,136 @@
+'PARTE 2: Diagrama de Arquitetura do Frontend'
+@startuml
+skinparam monochrome true
+skinparam folderBackgroundColor #F5F5F5
+skinparam fileBackgroundColor #FFFFFF
+skinparam shadowing false
+
+folder "frontend" {
+    folder "assets" {
+        file "logo-big.png"
+        file "logo.png"
+    }
+    
+    folder "components" {
+        folder "AnimalCard" {
+            file "AnimalCard.styles.ts"
+            file "AnimalCard.tsx"
+            file "index.ts"
+        }
+        
+        folder "AnimalRegisterForm" {
+            file "AnimalRegisterForm.styles.ts"
+            file "AnimalRegisterForm.tsx"
+            file "index.ts"
+        }
+        
+        folder "Button" {
+            file "Button.styles.ts"
+            file "Button.tsx"
+            file "index.ts"
+        }
+        
+        folder "Chat" {
+            file "Chat.styles.ts"
+            file "Chat.tsx"
+            file "index.ts"
+        }
+        
+        folder "DefaultDialog" {
+            file "DefaultDialog.styles.ts"
+            file "DefaultDialog.tsx"
+            file "index.ts"
+        }
+        
+        folder "DefaultSelect" {
+            file "DefaultSelect.styles.ts"
+            file "DefaultSelect.tsx"
+            file "index.ts"
+        }
+        
+        folder "EmptyAnimals" {
+            file "EmptyAnimals.styles.ts"
+            file "EmptyAnimals.tsx"
+            file "index.ts"
+        }
+        
+        folder "PasswordInput" {
+            file "PasswordInput.styles.ts"
+            file "PasswordInput.tsx"
+            file "index.ts"
+        }
+        
+        folder "UpdateUserInfoForm" {
+            file "UpdateUserInfoForm.styles.ts"
+            file "UpdateUserInfoForm.tsx"
+            file "index.ts"
+        }
+        
+        folder "UserMenu" {
+            file "UserMenu.styles.ts"
+            file "UserMenu.tsx"
+            file "index.ts"
+        }
+    }
+    
+    folder "constants" {
+        file "animal-gender-for-select.ts"
+        file "animal-types-for-select.ts"
+    }
+    
+    folder "contexts" {
+        file "animals.tsx"
+    }
+    
+    folder "enums" {
+        file "animal-status.ts"
+    }
+    
+    folder "helpers" {
+        file "get-user-data.ts"
+    }
+    
+    folder "layout" {
+        folder "DefaultLoggedPage" {
+            file "DefaultLoggedPageLayout.style.s.tsx"
+            file "DefaultLoggedPageLayout.tsx"
+            file "index.ts"
+        }
+    }
+    
+    folder "lib" {
+        file "registry.tsx"
+    }
+    
+    folder "providers" {
+        file "AnimalsContextClientProvider.tsx"
+        file "index.ts"
+        file "ThemeClientProvider.tsx"
+    }
+    
+    folder "styles" {
+        file "global.ts"
+        file "theme.ts"
+    }
+    
+    file "middleware.ts"
+    file ".dockerignore"
+    file ".env.local"
+    file ".eslintrc.json"
+    file ".gitignore"
+    file ".nvmrc"
+    file ".prettierrc.json"
+    file "Dockerfile"
+    file "next-env.d.ts"
+    file "next.config.mjs"
+    file "package-lock.json"
+    file "package.json"
+    file "README.md"
+    file "tsconfig.json"
+    file ".prettierignore"
+    file "docker-compose.yml"
+    
+    folder ".next"
+    folder "node_modules"
+}
+@enduml

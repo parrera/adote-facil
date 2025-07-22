@@ -1,0 +1,100 @@
+@startuml
+skinparam packageStyle rectangle
+skinparam packageBorderColor #555555
+skinparam packageBackgroundColor<<Frontend>> #E6F3FF
+skinparam packageBackgroundColor<<Backend>> #F0FFF0
+skinparam packageBackgroundColor<<Config>> #EEEEEE
+skinparam arrowColor #333333
+
+package "Adote-Facil" {
+  package "Backend" <<Backend>> {
+    package "src" {
+      package "config" <<Config>> {
+        file "database.ts"
+        file "server.ts"
+      }
+      
+      package "controllers" {
+        file "animal.controller.ts"
+        file "chat.controller.ts"
+        file "user.controller.ts"
+      }
+      
+      package "middlewares" {
+        file "auth.middleware.ts"
+      }
+      
+      package "providers" {
+        file "encrypter.ts"
+      }
+      
+      package "repositories" {
+        file "animal.repository.ts"
+      }
+      
+      package "services" {
+        file "animal.service.ts"
+      }
+      
+      package "utils" {
+        file "helpers.ts"
+      }
+    }
+    
+    package "prisma" <<Config>> {
+      file "schema.prisma"
+    }
+  }
+
+  package "Frontend" <<Frontend>> {
+    package "src" {
+      package "components" {
+        file "AnimalCard.tsx"
+        file "UserForm.tsx"
+      }
+      
+      package "constants" {
+        file "animal-types.ts"
+      }
+      
+      package "contexts" {
+        file "AuthContext.tsx"
+      }
+      
+      package "enums" {
+        file "animal-status.ts"
+      }
+      
+      package "helpers" {
+        file "api.ts"
+      }
+      
+      package "layout" {
+        file "MainLayout.tsx"
+      }
+      
+      package "lib" {
+        file "registry.ts"
+      }
+      
+      package "providers" {
+        file "ThemeProvider.tsx"
+      }
+      
+      package "styles" {
+        file "global.css"
+      }
+    }
+  }
+}
+
+[Frontend] --> [Backend] : "API REST\n(axios/fetch)"
+note right: JSON communication\nJWT authentication
+
+legend
+  | Color | Purpose |
+  | #E6F3FF | Frontend modules |
+  | #F0FFF0 | Backend modules |
+  | #EEEEEE | Configuration |
+end legend
+@enduml

@@ -130,7 +130,7 @@ O sistema **Adote-Facil** tem como objetivo facilitar o processo de adoção de 
 
 ## 🗂️ Local de Armazenamento
 
-Este arquivo deve ser salvo como:
+[Este arquivo deve ser salvo como:](https://github.com/parrera/adote-facil/pull/10)
 
 ```bash
 documentacao/especificacao.md

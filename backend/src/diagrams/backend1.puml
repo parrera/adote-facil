@@ -1,0 +1,80 @@
+@startuml
+skinparam folderStyle rectangle
+skinparam folderBorderColor #555555
+skinparam folderBackgroundColor #F5F5F5
+skinparam fileBackgroundColor #FFFFFF
+skinparam arrowColor #333333
+allowmixing
+
+package "Adote-Facil" {
+  package "backend" {
+    folder "src" {
+      folder "controllers" {
+        folder "animal" {
+          file "animal.controller.js"
+          file "animal.controller.ts"
+        }
+        folder "chat" {
+          file "chat.controller.js"
+          file "chat.controller.ts"
+        }
+        folder "user" {
+          file "user.controller.js"
+          file "user.controller.ts"
+        }
+      }
+
+      folder "middlewares" {
+        file "user-auth.js"
+        file "user-auth.ts"
+      }
+
+      folder "providers" {
+        file "authenticator.js"
+        file "authenticator.ts"
+        file "encrypter.js"
+        file "encrypter.ts"
+      }
+
+      folder "repositories" {
+        file "animal-image.dto.d.ts"
+        file "animal-image.js"
+        file "animal-image.ts"
+        file "animal.dto.d.ts"
+        file "animal.js"
+        file "animal.ts"
+        file "chat.dto.d.ts"
+        file "chat.js"
+        file "chat.ts"
+        file "user-message.dto.d.ts"
+        file "user-message.js"
+        file "user-message.ts"
+        file "user.dto.d.ts"
+        file "user.js"
+        file "user.ts"
+      }
+    }
+  }
+}
+
+note right of controllers
+  Controller files organized by
+  domain: Animal, Chat, User
+  with both JS and TS versions
+end note
+
+note right of repositories
+  Data access layer with:
+  - Entity files (.js/.ts)
+  - DTO definitions (.d.ts)
+end note
+
+legend
+  | Color | Meaning |
+  | #F5F5F5 | Folders |
+  | #FFFFFF | Files |
+  | #EEEEEE | Configuration |
+end legend
+@enduml
+
+'Part 1: Core Backend Structure'
