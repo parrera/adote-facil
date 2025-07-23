@@ -45,7 +45,6 @@ export const MaxAnimalPicturesWarningModalContent = styled(Dialog.Content)`
 
 export const Form = styled.form`
   display: flex;
-  justify-content: space-between;
   flex-direction: column;
   width: 100%;
   max-width: 500px;
@@ -168,6 +167,18 @@ export const AnimalDescriptionWrapper = styled.div`
       padding: 0.5rem;
       height: 4rem;
     }
+  }
+`
+
+export const AnimalDescriptionLabel = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  span:last-child {
+    font-size: 0.75rem;
+    color: ${({ theme }) => theme.colors.gray[600]};
   }
 `
 

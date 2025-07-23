@@ -6,7 +6,7 @@ import {
 } from '../../repositories/chat.js'
 import { Either, Failure, Success } from '../../utils/either.js'
 
-namespace CreateUserChatDTO {
+export namespace CreateUserChatDTO {
   export type Params = {
     user1Id: string
     user2Id: string

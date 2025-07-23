@@ -1,4 +1,4 @@
 export const animalGenderForSelect = [
-  { value: 'macho', placeholder: 'Macho' },
-  { value: 'femea', placeholder: 'Fêmea' },
+  { value: 'Macho', placeholder: 'Macho' },
+  { value: 'Fêmea', placeholder: 'Fêmea' },
 ]

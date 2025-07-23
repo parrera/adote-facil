@@ -6,6 +6,17 @@ export const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   height: calc(100vh - 5rem);
+  max-width: calc(100vw - 2rem);
+
+  gap: 1rem;
+
+  @media (min-width: 770px) {
+    max-width: calc(100vw - 18.75rem - 4rem);
+  }
+
+  @media (min-width: 1300px) {
+    max-width: calc(100vw - 25rem - 4rem);
+  }
 `
 
 export const GoBackButtonWrapper = styled.div`
@@ -29,12 +40,31 @@ export const GoBackButtonWrapper = styled.div`
 export const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
 
-  gap: 1rem;
+  gap: 2rem;
 
   width: 100%;
-  max-width: 600px;
+  height: 100%;
+
+  @media (min-width: 1000px) {
+    flex-direction: row;
+  }
+`
+
+export const AnimalPicturesWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 50vh;
+
+  border-radius: 30px;
+  overflow: hidden;
+
+  @media (min-width: 1000px) {
+    width: calc(50% - 1rem);
+  }
 `
 
 export const AnimalPicturesSwiper = styled(Swiper)`
@@ -42,8 +72,8 @@ export const AnimalPicturesSwiper = styled(Swiper)`
   align-items: flex-start;
   justify-content: flex-start;
 
-  width: 10rem;
-  height: 16rem;
+  width: 100%;
+  height: 100%;
 
   .swiper-wrapper {
     display: flex;
@@ -62,29 +92,43 @@ export const AnimalPictureSwiperSlide = styled(SwiperSlide)`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 10rem;
-  height: 14rem;
+
+  width: 100%;
 
   position: relative;
 
   img {
-    border-radius: 6px;
+    border-radius: 30px;
   }
 `
 
 export const AnimalInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1rem;
+
+  width: 100%;
 
   align-items: flex-start;
 
-  font-size: 1.5rem;
+  @media (min-width: 1000px) {
+    width: calc(50% - 1rem);
+  }
+`
+
+export const AnimalTitleWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 `
 
 export const AnimalDescriptionWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 0.25rem;
+
+  span:first-child {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
 `

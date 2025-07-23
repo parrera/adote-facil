@@ -56,38 +56,43 @@ export function AnimalDetailsPage() {
         </Link>
       </S.GoBackButtonWrapper>
       <S.ContentWrapper>
-        <S.AnimalPicturesSwiper
-          spaceBetween={10}
-          slidesPerView={1}
-          modules={[Pagination]}
-          pagination={{ clickable: true }}
-        >
-          {animal.images.map((image, index) => (
-            <S.AnimalPictureSwiperSlide key={index}>
-              <Image
-                src={`data:image/jpeg;base64,${image}`}
-                alt="Animal"
-                fill={true}
-                objectFit="cover"
-              />
-            </S.AnimalPictureSwiperSlide>
-          ))}
-        </S.AnimalPicturesSwiper>
+        <S.AnimalPicturesWrapper>
+          <S.AnimalPicturesSwiper
+            spaceBetween={10}
+            slidesPerView={1}
+            modules={[Pagination]}
+            pagination={{ clickable: true }}
+          >
+            {animal.images.map((image, index) => (
+              <S.AnimalPictureSwiperSlide key={index}>
+                <Image
+                  src={`data:image/jpeg;base64,${image}`}
+                  alt="Animal"
+                  fill={true}
+                  objectFit="cover"
+                />
+              </S.AnimalPictureSwiperSlide>
+            ))}
+          </S.AnimalPicturesSwiper>
+        </S.AnimalPicturesWrapper>
 
         <S.AnimalInfoWrapper>
-          <span>Tipo: {animal.type}</span>
-          <span>Gênero: {animal.gender}</span>
-          <span>Raça: {animal.race ?? 'SRD'}</span>
+          <S.AnimalTitleWrapper>
+            <h1>{animal.name}</h1>
+            <span>
+              {animal.type} | {animal.gender} | {animal.race ?? 'SRD'}
+            </span>
+          </S.AnimalTitleWrapper>
+
+          <S.AnimalDescriptionWrapper>
+            <span>Descrição</span>
+            <span>{animal.description ?? 'N/D'}</span>
+          </S.AnimalDescriptionWrapper>
+
+          <Button type="button" onClick={handleContactAnimalOwner}>
+            Entrar em contato com o dono
+          </Button>
         </S.AnimalInfoWrapper>
-
-        <S.AnimalDescriptionWrapper>
-          <span>Descrição</span>
-          <span>{animal.description ?? 'N/D'}</span>
-        </S.AnimalDescriptionWrapper>
-
-        <Button type="button" onClick={handleContactAnimalOwner}>
-          Entrar em contato com o dono
-        </Button>
       </S.ContentWrapper>
     </S.Wrapper>
   )

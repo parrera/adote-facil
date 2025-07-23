@@ -10,7 +10,7 @@ export const TitleWrapper = styled.div`
   ${({ theme }) => css`
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 
     width: 100%;
@@ -44,23 +44,26 @@ export const TitleWrapper = styled.div`
 `
 
 export const AnimalsListWrapper = styled.div`
-  display: grid;
-
   gap: 1rem;
 
-  @media (min-width: 770px) {
-    grid-template-columns: repeat(1, 1fr);
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-  @media (min-width: 1100px) {
+  @media (min-width: 880px) {
+    display: grid;
     grid-template-columns: repeat(2, 1fr);
   }
 
-  @media (min-width: 1400px) {
+  @media (min-width: 1120px) {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  @media (min-width: 1700px) {
+  @media (min-width: 1480px) {
     grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media (min-width: 1740px) {
+    grid-template-columns: repeat(5, 1fr);
   }
 `

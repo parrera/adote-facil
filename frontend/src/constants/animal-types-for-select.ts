@@ -1,9 +1,9 @@
 export const animalTypesForSelect = [
-  { value: 'cachorro', placeholder: 'Cachorro' },
-  { value: 'coelho', placeholder: 'Coelho' },
-  { value: 'gato', placeholder: 'Gato' },
-  { value: 'hamster', placeholder: 'Hamster' },
-  { value: 'passaro', placeholder: 'Pássaro' },
-  { value: 'peixe', placeholder: 'Peixe' },
-  { value: 'outro', placeholder: 'Outro' },
+  { value: 'Cachorro', placeholder: 'Cachorro' },
+  { value: 'Coelho', placeholder: 'Coelho' },
+  { value: 'Gato', placeholder: 'Gato' },
+  { value: 'Hamster', placeholder: 'Hamster' },
+  { value: 'Pássaro', placeholder: 'Pássaro' },
+  { value: 'Peixe', placeholder: 'Peixe' },
+  { value: 'Outro', placeholder: 'Outro' },
 ]

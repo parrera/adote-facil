@@ -10,7 +10,7 @@ import { Button } from '@/components/Button'
 import { PasswordInput } from '@/components/PasswordInput'
 
 import * as S from './styles'
-import logo from '../../assets/logo-big.png'
+import logo from '../../assets/logo-with-name.png'
 import { userLogin } from '@/api/user-login'
 
 import { setCookie } from 'cookies-next'

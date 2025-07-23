@@ -5,7 +5,7 @@ import {
   animalRepositoryInstance,
 } from '../../repositories/animal.js'
 
-namespace GetUserAnimalsDTO {
+export namespace GetUserAnimalsDTO {
   export type Params = {
     userId: string
   }

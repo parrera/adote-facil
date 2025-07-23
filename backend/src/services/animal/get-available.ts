@@ -5,9 +5,12 @@ import {
   animalRepositoryInstance,
 } from '../../repositories/animal.js'
 
-namespace GetAvailableAnimalsDTO {
+export namespace GetAvailableAnimalsDTO {
   export type Params = {
     userId: string
+    gender?: string
+    type?: string
+    name?: string
   }
 
   export type Failure = { message: string }
@@ -23,10 +26,14 @@ export class GetAvailableAnimalsService {
   async execute(
     params: GetAvailableAnimalsDTO.Params,
   ): Promise<GetAvailableAnimalsDTO.Result> {
-    const { userId } = params
+    const { userId, gender, type, name } = params
 
-    const animals =
-      await this.animalRepository.findAllAvailableNotFromUser(userId)
+    const animals = await this.animalRepository.findAllAvailableNotFromUser({
+      userId,
+      gender,
+      type,
+      name,
+    })
 
     const formattedAnimals = animals.map((animal) => {
       return {

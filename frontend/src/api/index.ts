@@ -7,16 +7,19 @@ export async function makeRequest({
   method,
   data,
   headers,
+  params,
 }: {
   url: string
   method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'
   data?: object
   headers?: object
+  params?: object
 }) {
   try {
     const response = await api.request({
       url,
       method,
+      params,
       headers,
       data,
     })

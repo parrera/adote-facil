@@ -11,10 +11,14 @@ class GetAvailableAnimalsController {
 
   async handle(request: Request, response: Response): Promise<Response> {
     const { user } = request
+    const { gender, type, name } = request.query
 
     try {
       const result = await this.getAvailableAnimals.execute({
         userId: user?.id || '',
+        gender: gender ? String(gender) : undefined,
+        type: type ? String(type) : undefined,
+        name: name ? String(name) : undefined,
       })
 
       const statusCode = result.isFailure() ? 400 : 200

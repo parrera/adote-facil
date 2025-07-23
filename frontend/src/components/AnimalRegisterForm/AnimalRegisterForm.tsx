@@ -13,26 +13,15 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { getCookie } from 'cookies-next'
 import { animalRegister } from '@/api/register-animal'
-
-enum AnimalType {
-  CACHORRO = 'cachorro',
-  COELHO = 'coelho',
-  GATO = 'gato',
-  HAMSTER = 'hamster',
-  PASSARO = 'passaro',
-  PEIXE = 'peixe',
-  OUTRO = 'outro',
-}
-
-enum AnimalGender {
-  MACHO = 'macho',
-  FEMEA = 'femea',
-}
+import { AnimalTypeEnum } from '@/enums/animal-type'
+import { AnimalGenderEnum } from '@/enums/animal-gender'
 
 const animalRegisterFormSchema = z.object({
   name: z.string().min(1, { message: 'O nome é obrigatório' }),
-  type: z.nativeEnum(AnimalType, { required_error: 'O tipo é obrigatório' }),
-  gender: z.nativeEnum(AnimalGender, {
+  type: z.nativeEnum(AnimalTypeEnum, {
+    required_error: 'O tipo é obrigatório',
+  }),
+  gender: z.nativeEnum(AnimalGenderEnum, {
     required_error: 'O gênero é obrigatório',
   }),
   race: z
@@ -60,10 +49,13 @@ export function AnimalRegisterForm() {
     handleSubmit,
     formState: { errors },
     setValue,
+    watch,
   } = useForm<AnimalRegisterFormData>({
     resolver: zodResolver(animalRegisterFormSchema),
     defaultValues: { pictures: [] },
   })
+
+  const descriptionValue = watch('description', '')
 
   const handleAnimalImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -159,7 +151,9 @@ export function AnimalRegisterForm() {
                 placeholder="Selecione um tipo"
                 items={animalTypesForSelect}
                 {...register('type')}
-                onValueChange={(value) => setValue('type', value as AnimalType)}
+                onValueChange={(value) =>
+                  setValue('type', value as AnimalTypeEnum)
+                }
               />
             </S.AnimalTypeInputWrapper>
           </S.FormRow>
@@ -176,7 +170,7 @@ export function AnimalRegisterForm() {
                 items={animalGenderForSelect}
                 {...register('gender')}
                 onValueChange={(value) =>
-                  setValue('gender', value as AnimalGender)
+                  setValue('gender', value as AnimalGenderEnum)
                 }
               />
             </S.AnimalGenderInputWrapper>
@@ -192,8 +186,11 @@ export function AnimalRegisterForm() {
           <S.FormRow>
             <S.AnimalDescriptionWrapper>
               <label>
-                Descrição
-                <textarea {...register('description')} />
+                <S.AnimalDescriptionLabel>
+                  <span>Descrição</span>
+                  <span>{descriptionValue?.length}/300</span>
+                </S.AnimalDescriptionLabel>
+                <textarea maxLength={300} {...register('description')} />
               </label>
             </S.AnimalDescriptionWrapper>
           </S.FormRow>

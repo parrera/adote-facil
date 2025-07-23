@@ -24,7 +24,7 @@ export const TitleWrapper = styled.div`
   ${({ theme }) => css`
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 
     width: 100%;
