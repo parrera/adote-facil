@@ -1,10 +1,10 @@
 # Arquitetura do Sistema - Adote Fácil
 
-Este documento descreve a arquitetura de software adotada no projeto "Adote Fácil", detalhando os padrões utilizados, a estrutura dos componentes e o fluxo de dados entre eles.
+Este documento descreve a arquitetura de software adotada no projeto Adote Fácil, detalhando os padrões utilizados, a estrutura dos componentes e o fluxo de dados entre eles.
 
 ## 1. Modelo Arquitetural Adotado
 
-A arquitetura do "Adote Fácil" pode ser definida como um **Monólito Modular com Frontend Separado**, operando sob o modelo **Cliente-Servidor**.
+A arquitetura do Adote Fácil pode ser definida como um **Monólito Modular com Frontend Separado**, operando sob o modelo **Cliente-Servidor**.
 
 Vamos entender o que cada termo significa no contexto do projeto:
 
@@ -26,7 +26,7 @@ Essa abordagem combina a simplicidade de desenvolvimento e implantação de um m
 
 O diagrama a seguir ilustra a visão macro da arquitetura, mostrando o Cliente, o Servidor Monolítico e o Banco de Dados, bem como o fluxo de interação entre eles.
 
-![Diagrama de Alto Nível da Arquitetura](mermaid-diagram-2025-07-15-132319.png)
+![Diagrama de Alto Nível da Arquitetura](images/mermaid-diagram-2025-07-15-132319.png)
 
 O código-fonte para este diagrama foi gerado com o auxílio da IA Gemini e pode ser visualizado ou editado em ferramentas como o [Mermaid Live Editor](https://mermaid.live).
 
