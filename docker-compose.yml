@@ -2,20 +2,19 @@ services:
   adote-facil-postgres:
     image: postgres:14-alpine
     container_name: 'adote-facil-postgres'
+    # ✅ CORREÇÃO: Apenas o 'env_file' é necessário.
+    # Ele já carrega todas as variáveis do arquivo .env para dentro do contêiner.
     env_file:
       - ./backend/.env
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_CONTAINER_PORT: ${POSTGRES_CONTAINER_PORT}
+    # ❌ ERRO: A seção 'environment' abaixo era redundante e foi removida.
     ports:
-      - ${POSTGRES_CONTAINER_PORT}:5432
+      - '6500:5432'
     volumes:
       - db_data:/var/lib/postgresql/data
     networks:
       - adote-facil-network
     healthcheck:
+      # O healthcheck funciona melhor assim, pois usa as variáveis já carregadas pelo env_file
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 3s
       timeout: 3s
@@ -26,14 +25,15 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     container_name: 'adote-facil-backend'
+    # ✅ CORREÇÃO: Adicionamos o 'env_file' aqui.
+    # Agora o backend receberá a DATABASE_URL e saberá como se conectar ao banco.
+    env_file:
+      - ./backend/.env
     ports:
       - "8080:8080"
-    environment:
-      - NODE_ENV=production
     depends_on:
       adote-facil-postgres:
         condition: service_healthy
-    command: sh -c "until nc -z adote-facil-postgres 5432; do echo 'Waiting for postgres...'; sleep 1; done; npm start"
     networks:
       - adote-facil-network
 
@@ -44,8 +44,6 @@ services:
     container_name: 'adote-facil-frontend'
     ports:
       - "3000:3000"
-    environment:
-      - NODE_ENV=production
     depends_on:
       - adote-facil-backend
     networks:
