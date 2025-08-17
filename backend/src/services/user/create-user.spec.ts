@@ -55,4 +55,26 @@ describe('CreateUserService', () => {
     const result = await sut.execute(defaultParams)
     expect(result).toEqual(Success.create({ id: '1' }))
   })
+
+  test('should propagate error when encrypter throws', async () => {
+    encrypter.encrypt.mockImplementationOnce(() => {
+      throw new Error('encryption error')
+    })
+
+    await expect(sut.execute(defaultParams)).rejects.toThrow('encryption error')
+  })
+
+  test('should propagate error when repository.create rejects', async () => {
+    userRepository.create.mockRejectedValueOnce(new Error('DB failure'))
+
+    await expect(sut.execute(defaultParams)).rejects.toThrow('DB failure')
+  })
+
+  test('success result should not expose password property', async () => {
+    const result = await sut.execute(defaultParams)
+    expect(result.isSuccess()).toBeTruthy()
+    const value = (result as any).value
+    expect(value).toHaveProperty('id')
+    expect(value).not.toHaveProperty('password')
+  })
 })
