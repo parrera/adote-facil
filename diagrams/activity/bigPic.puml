@@ -1,0 +1,27 @@
+@startuml bigPic
+left to right direction
+actor Usuário as User
+
+rectangle Sistema {
+  (Login) as (Login)
+  (Cadastrar Animal) as (CreatePet)
+  (Enviar Mensagem no Chat) as (SendMessage)
+  (Editar Dados do Perfil) as (EditProfile)
+
+  User --> (Login)
+  User --> (CreatePet)
+  User --> (SendMessage)
+  User --> (EditProfile)
+}
+
+note top of (Login)
+  Inclui validação de
+  credenciais e geração de JWT
+end note
+
+note right of (CreatePet)
+  Inclui upload
+  de imagem
+end note
+
+@enduml

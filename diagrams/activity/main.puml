@@ -1,0 +1,54 @@
+@startuml main
+start
+:Usuário acessa o aplicativo/site;
+
+if (Sessão ativa?) then (Sim)
+  :Redireciona para Dashboard;
+else (Não)
+  :Exibe página de login;
+  :Usuário preenche email e senha;
+  :Envia requisição de login;
+  if (Credenciais válidas?) then (Sim)
+    :Gera token JWT;
+    :Redireciona para Dashboard (área logada);
+  else (Não)
+    :Exibe mensagem de erro;
+    stop
+  endif
+endif
+
+partition "Funcionalidades da Área Logada" {
+
+  partition "Cadastrar Animal" {
+    :Usuário acessa tela de cadastro de animal;
+    :Preenche informações e anexa imagem;
+    :Envia requisição para API;
+    :Validação dos dados;
+    :Salva animal no banco;
+    :Exibe confirmação para o usuário;
+  }
+
+  partition "Usar o Chat" {
+    repeat
+      :Usuário digita mensagem no chat;
+      :Pressiona botão de enviar;
+      :Envia requisição para API;
+      :Mensagem salva no banco;
+      :Atualiza interface com nova mensagem;
+    repeat while (Chat ativo?) is (Sim) not (Não)
+  }
+
+  partition "Editar Perfil" {
+    :Usuário acessa tela "editar dados";
+    :Modifica nome/email;
+    :Envia requisição para atualizar;
+    :Validação dos dados;
+    :Atualiza informações no banco;
+    :Exibe confirmação ao usuário;
+  }
+
+}
+
+:Usuário faz logout;
+stop
+@enduml

@@ -1,0 +1,43 @@
+@startuml Adote-Facil Sequence Diagram - Animal Adoption
+
+actor User as user
+participant Frontend as front
+participant AnimalController as controller
+participant AnimalService as service
+participant AnimalRepository as repo
+database Database as db
+
+user -> front: Browse available animals
+front -> controller: GET /animals/available
+controller -> service: getAvailableAnimals()
+service -> repo: findAvailable()
+repo -> db: SELECT * FROM animals WHERE status='AVAILABLE'
+db --> repo: Animal[]
+repo --> service: AnimalDTO[]
+service --> controller: AnimalResponse[]
+controller --> front: JSON response
+front --> user: Display animals
+
+user -> front: Select animal to adopt
+front -> controller: GET /animals/:id
+controller -> service: getAnimalDetails(id)
+service -> repo: findById(id)
+repo -> db: SELECT * FROM animals WHERE id=?
+db --> repo: Animal
+repo --> service: AnimalDTO
+service --> controller: AnimalDetailsResponse
+controller --> front: JSON response
+front --> user: Display animal details
+
+user -> front: Initiate chat
+front -> controller: POST /chats {animalId}
+controller -> service: createChat(animalId, userId)
+service -> repo: create()
+repo -> db: INSERT INTO chats
+db --> repo: Chat
+repo --> service: ChatDTO
+service --> controller: ChatResponse
+controller --> front: JSON response
+front --> user: Open chat interface
+
+@enduml

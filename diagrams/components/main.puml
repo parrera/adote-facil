@@ -1,0 +1,97 @@
+@startuml main_components
+skinparam componentStyle rectangle
+skinparam component {
+  BackgroundColor<<Frontend>> #E6F3FF
+  BackgroundColor<<Backend>> #F0FFF0
+  BackgroundColor<<Config>> #EEEEEE
+  BorderColor #555555
+}
+skinparam arrowColor #333333
+
+package "Adote-Facil" {
+
+  component "Frontend" <<Frontend>> {
+    component "UI Components" as UI <<Frontend>> {
+      [AnimalCard.tsx]
+      [UserForm.tsx]
+    }
+
+    component "State & Context" as Contexts <<Frontend>> {
+      [AuthContext.tsx]
+      [ThemeProvider.tsx]
+    }
+
+    component "Helpers & API" as HelpersF <<Frontend>> {
+      [api.ts]
+      [animal-types.ts]
+      [animal-status.ts]
+    }
+
+    component "Layout & Styles" as LayoutF <<Frontend>> {
+      [MainLayout.tsx]
+      [global.css]
+      [registry.ts]
+    }
+  }
+
+  component "Backend" <<Backend>> {
+    component "Controllers" as Controllers <<Backend>> {
+      [animal.controller.ts]
+      [chat.controller.ts]
+      [user.controller.ts]
+    }
+
+    component "Services" as Services <<Backend>> {
+      [animal.service.ts]
+    }
+
+    component "Repositories" as Repositories <<Backend>> {
+      [animal.repository.ts]
+    }
+
+    component "Middlewares" as Middlewares <<Backend>> {
+      [auth.middleware.ts]
+    }
+
+    component "Providers" as Providers <<Backend>> {
+      [encrypter.ts]
+    }
+
+    component "Utils" as Utils <<Backend>> {
+      [helpers.ts]
+    }
+
+    component "Config" <<Config>> {
+      [database.ts]
+      [server.ts]
+      [schema.prisma]
+    }
+  }
+}
+
+' Relações principais Frontend -> Backend
+UI --> HelpersF
+HelpersF --> [Controllers] : "Chamadas REST\n(axios/fetch)"
+Contexts --> HelpersF
+LayoutF --> UI
+
+' Backend fluxos
+[Controllers] --> [Services]
+[Services] --> [Repositories]
+[Repositories] --> [Config]
+[Controllers] --> [Middlewares]
+[Providers] --> [Middlewares]
+[Services] --> [Utils]
+
+note right of HelpersF
+  Comunicação via JSON
+  Autenticação JWT
+end note
+
+legend
+  | Color | Purpose |
+  | #E6F3FF | Frontend |
+  | #F0FFF0 | Backend |
+  | #EEEEEE | Configuração |
+end legend
+@enduml

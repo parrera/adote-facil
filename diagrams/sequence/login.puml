@@ -1,0 +1,17 @@
+@startuml login-sequence
+actor Usuário
+participant "LoginPage.tsx" as LoginPage
+participant "api/user-login.ts" as Api
+participant "UserService" as Service
+participant "UserRepository" as Repo
+
+Usuário -> LoginPage : insere email/senha
+LoginPage -> Api : login(email, senha)
+Api -> Service : login(email, senha)
+Service -> Repo : findByEmail(email)
+Repo --> Service : User
+Service -> Service : verifica senha
+Service -> Api : retorna token JWT
+Api -> LoginPage : armazena token
+LoginPage --> Usuário : redireciona para área logada
+@enduml
