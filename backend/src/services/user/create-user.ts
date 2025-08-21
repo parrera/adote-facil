@@ -27,11 +27,9 @@ export class CreateUserService {
   ) {}
 
   async execute(params: CreateUserDTO.Params): Promise<CreateUserDTO.Result> {
-    const { password } = params
+    const { name, email, password } = params
 
-    const userAlreadyExists = await this.userRepository.findByEmail(
-      params.email,
-    )
+    const userAlreadyExists = await this.userRepository.findByEmail(email)
 
     if (userAlreadyExists) {
       return Failure.create({ message: 'Email já cadastrado.' })
@@ -40,7 +38,8 @@ export class CreateUserService {
     const hashedPassword = this.encrypter.encrypt(password)
 
     const user = await this.userRepository.create({
-      ...params,
+      name,
+      email,
       password: hashedPassword,
     })
 

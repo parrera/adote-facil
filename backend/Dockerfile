@@ -12,6 +12,8 @@ COPY . .
 
 RUN npm run generate
 
+RUN npm run test
+
 RUN npm run build
 
 EXPOSE 8080

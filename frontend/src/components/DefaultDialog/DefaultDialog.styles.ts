@@ -17,6 +17,13 @@ export const DialogClose = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  cursor: pointer;
+  transition: color 0.2s;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.red[700]};
+  }
 `
 
 export const DialogContent = styled(Dialog.Content)`

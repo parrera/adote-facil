@@ -5,6 +5,8 @@ import { ArrowLeft, List, User } from '@phosphor-icons/react'
 import { getUserData } from '@/helpers/get-user-data'
 import { UserMenu } from '@/components/UserMenu'
 import { useState } from 'react'
+import Image from 'next/image'
+import logo from '../../assets/logo-with-name.png'
 
 // BUG se o menu mobile estiver aberto, o conteúdo da página não é renderizado, portanto se a largura da tela aumentar e o menu mobile sumir, o conteúdo da página não aparece
 export function DefaultLoggedPageLayout({
@@ -32,6 +34,9 @@ export function DefaultLoggedPageLayout({
         <S.MobileHeaderIconWrapper onClick={handleChangeOpenMobileMenu}>
           <List size={32} />
         </S.MobileHeaderIconWrapper>
+        <S.LogoWrapper>
+          <Image src={logo} alt="Logo" width={145} height={42} />
+        </S.LogoWrapper>
         <S.UserInfo>
           <User size={32} />
           <span>{userData?.name}</span>

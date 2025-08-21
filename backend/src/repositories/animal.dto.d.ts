@@ -4,7 +4,7 @@ export namespace CreateAnimalRepositoryDTO {
   export type Params = {
     name: string
     type: string
-    gender: 'macho' | 'femea'
+    gender: 'Macho' | 'Fêmea'
     race?: string
     description?: string
     userId: string

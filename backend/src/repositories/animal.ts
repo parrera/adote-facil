@@ -11,6 +11,13 @@ enum AnimalStatusEnum {
   removed = 'removed',
 }
 
+type FindAllAvailableNotFromUserParams = {
+  userId: string
+  gender?: string
+  type?: string
+  name?: string
+}
+
 export class AnimalRepository {
   constructor(private readonly repository: PrismaClient) {}
 
@@ -31,9 +38,20 @@ export class AnimalRepository {
     })
   }
 
-  async findAllAvailableNotFromUser(userId: string) {
+  async findAllAvailableNotFromUser({
+    userId,
+    gender,
+    type,
+    name,
+  }: FindAllAvailableNotFromUserParams) {
     return this.repository.animal.findMany({
-      where: { userId: { not: userId }, status: AnimalStatusEnum.available },
+      where: {
+        userId: { not: userId },
+        status: AnimalStatusEnum.available,
+        ...(gender ? { gender } : {}),
+        ...(type ? { type } : {}),
+        ...(name ? { name: { contains: name, mode: 'insensitive' } } : {}),
+      },
       include: { images: true },
     })
   }

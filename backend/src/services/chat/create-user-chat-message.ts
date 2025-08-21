@@ -10,7 +10,7 @@ import {
 } from '../../repositories/chat.js'
 import { Either, Failure, Success } from '../../utils/either.js'
 
-namespace CreateUserChatMessageDTO {
+export namespace CreateUserChatMessageDTO {
   export type Params = {
     senderId: string
     receiverId: string

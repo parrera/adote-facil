@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 
-export type ButtonStyleTypes = 'green-filled' | 'green-outlined'
+export type ButtonStyleTypes = 'green-filled' | 'green-outlined' | 'red-filled'
 
 interface ButtonProps {
   $buttonStyle: ButtonStyleTypes
@@ -16,6 +16,11 @@ const buttonStyles = {
     background-color: transparent;
     color: ${({ theme }) => theme.colors.green[300]};
     border-color: ${({ theme }) => theme.colors.green[300]};
+  `,
+  'red-filled': css`
+    background-color: ${({ theme }) => theme.colors.red[700]};
+    color: ${({ theme }) => theme.colors.white};
+    border-color: transparent;
   `,
 }
 

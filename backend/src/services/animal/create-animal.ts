@@ -9,11 +9,11 @@ import {
   animalImageRepositoryInstance,
 } from '../../repositories/animal-image.js'
 
-namespace CreateAnimalDTO {
+export namespace CreateAnimalDTO {
   export type Params = {
     name: string
     type: string
-    gender: 'macho' | 'femea'
+    gender: 'Macho' | 'Fêmea'
     race?: string
     description?: string
     userId: string
@@ -51,7 +51,7 @@ export class CreateAnimalService {
       return Failure.create({ message: 'Erro ao criar o animal.' })
     }
 
-    const images = await Promise.all(
+    await Promise.all(
       pictures.map((picture) =>
         this.animalImageRepository.create({
           animalId: animal.id,
@@ -59,10 +59,6 @@ export class CreateAnimalService {
         }),
       ),
     )
-
-    if (!images) {
-      return Failure.create({ message: 'Erro ao salvar as imagens do animal.' })
-    }
 
     return Success.create({ animal })
   }

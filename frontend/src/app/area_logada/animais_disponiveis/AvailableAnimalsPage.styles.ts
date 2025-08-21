@@ -43,24 +43,33 @@ export const TitleWrapper = styled.div`
   `}
 `
 
-export const AnimalsListWrapper = styled.div`
-  display: grid;
+export const FilterButtonsWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+`
 
+export const AnimalsListWrapper = styled.div`
   gap: 1rem;
 
-  @media (min-width: 770px) {
-    grid-template-columns: repeat(1, 1fr);
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-  @media (min-width: 1000px) {
+  @media (min-width: 880px) {
+    display: grid;
     grid-template-columns: repeat(2, 1fr);
   }
 
-  @media (min-width: 1400px) {
+  @media (min-width: 1120px) {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  @media (min-width: 1700px) {
+  @media (min-width: 1480px) {
     grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media (min-width: 1740px) {
+    grid-template-columns: repeat(5, 1fr);
   }
 `

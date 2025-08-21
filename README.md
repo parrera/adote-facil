@@ -68,7 +68,7 @@ O "Adote Fácil" é um sistema voltado para facilitar a adoção de animais. A A
 
 ## Tutorial de implantação
 
-Certifique-se de ter o Docker e o Docker Compose instalados na sua máquina. Antes de iniciar o sistema, crie os arquivos .env nos diretórios /backend e /frontend baseando-se nos respectivos arquivos .env.example.
+Certifique-se de ter o Docker e o Docker Compose instalados na sua máquina. Antes de iniciar o sistema, crie os arquivos .env nos diretórios /backend e /frontend baseando-se nos respectivos arquivos .env.example de cada um destes dois diretórios. Perceba que o conteúdo deles é diferente um do outro.
 
 O arquivo .env.example do backend já contém as variáveis usadas pelo Docker Compose para criar os containers do banco e do backend com os valores corretos, então basta replicá-los. Caso queira, é possível alterá-las também.
 

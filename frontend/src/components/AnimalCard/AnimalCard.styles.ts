@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 export const Wrapper = styled.div`
   ${({ theme }) => css`
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 
     justify-content: space-between;
 
@@ -14,16 +14,22 @@ export const Wrapper = styled.div`
     gap: 0.5rem;
 
     background-color: ${theme.colors.gray[200]};
+
+    max-width: 18rem;
+    min-width: 14rem;
   `}
 `
 
 export const ImageWrapper = styled.div`
   overflow: hidden;
-  border-radius: 6px;
+  border-radius: 6px 6px 0 0;
   position: relative;
 
-  min-width: 9rem;
-  height: 10.5rem;
+  width: calc(100% + 1rem + 2px);
+  height: 15rem;
+
+  margin-top: calc(-0.5rem - 1px);
+  margin-left: calc(-0.5rem - 1px);
 
   img {
     object-fit: cover;
@@ -34,9 +40,8 @@ export const Content = styled.div`
   display: flex;
   flex-direction: column;
 
-  justify-content: space-between;
-
-  width: 100%;
+  gap: 1rem;
+  padding: 1rem;
 
   button {
     height: 2rem;
@@ -48,9 +53,10 @@ export const AnimalInfo = styled.div`
   display: flex;
   flex-direction: column;
 
-  gap: 0.5rem;
-
-  margin-top: 1rem;
+  span:first-child {
+    font-weight: bold;
+    font-size: 1.25rem;
+  }
 `
 
 export const MyAnimalsButtonsWrapper = styled.div`
