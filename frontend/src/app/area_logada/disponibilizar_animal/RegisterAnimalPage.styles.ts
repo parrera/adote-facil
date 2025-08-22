@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -11,14 +11,14 @@ export const Wrapper = styled.div`
   @media (min-width: 770px) {
     height: calc(100vh - 4rem);
   }
-`
+`;
 
 export const FormWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-`
+`;
 
 export const TitleWrapper = styled.div`
   ${({ theme }) => css`
@@ -40,4 +40,4 @@ export const TitleWrapper = styled.div`
       }
     }
   `}
-`
+`;

@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components';
 
 export const Form = styled.form`
   display: flex;
@@ -12,13 +12,13 @@ export const Form = styled.form`
     max-width: 50%;
     max-height: 2.5rem;
   }
-`
+`;
 
 export const FormContent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-`
+`;
 
 export const FormRow = styled.div`
   display: flex;
@@ -27,16 +27,16 @@ export const FormRow = styled.div`
   justify-content: space-between;
 
   gap: 1rem;
-`
+`;
 
 export const FormButtonWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`
+`;
 
 interface InputLabelProps {
-  $hasError: boolean
+  $hasError: boolean;
 }
 
 export const InputLabel = styled.div<InputLabelProps>`
@@ -55,7 +55,7 @@ export const InputLabel = styled.div<InputLabelProps>`
       }
     `}
   `}
-`
+`;
 
 export const InputWrapper = styled.div`
   display: flex;
@@ -72,4 +72,4 @@ export const InputWrapper = styled.div`
       padding: 0.5rem;
     }
   }
-`
+`;

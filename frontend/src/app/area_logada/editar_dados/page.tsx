@@ -1,7 +1,7 @@
-'use client'
+'use client';
 
-import UpdateUserInfoPage from './UpdateUserInfoPage'
+import UpdateUserInfoPage from './UpdateUserInfoPage';
 
 export default function Page() {
-  return <UpdateUserInfoPage />
+  return <UpdateUserInfoPage />;
 }

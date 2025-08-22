@@ -1,7 +1,7 @@
-'use client'
+'use client';
 
-import { RegisterAnimalPage } from './RegisterAnimalPage'
+import { RegisterAnimalPage } from './RegisterAnimalPage';
 
 export default function Page() {
-  return <RegisterAnimalPage />
+  return <RegisterAnimalPage />;
 }

@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.div`
   ${({ theme }) => css`
@@ -21,7 +21,7 @@ export const Wrapper = styled.div`
       width: calc(100vw - 400px - 4rem);
     }
   `}
-`
+`;
 
 export const ChatHeader = styled.div`
   ${({ theme }) => css`
@@ -40,7 +40,7 @@ export const ChatHeader = styled.div`
       font-size: 1.5rem;
     }
   `}
-`
+`;
 
 export const GoBackButton = styled.div`
   ${({ theme }) => css`
@@ -56,7 +56,7 @@ export const GoBackButton = styled.div`
       color: ${theme.colors.green[300]};
     }
   `}
-`
+`;
 
 export const ChatMessageList = styled.div`
   display: flex;
@@ -67,10 +67,10 @@ export const ChatMessageList = styled.div`
   gap: 0.5rem;
   overflow-y: auto;
   flex-grow: 1;
-`
+`;
 
 interface ChatMessageWrapperProps {
-  $isUserMessage: boolean
+  $isUserMessage: boolean;
 }
 
 export const ChatMessageWrapper = styled.div<ChatMessageWrapperProps>`
@@ -82,7 +82,7 @@ export const ChatMessageWrapper = styled.div<ChatMessageWrapperProps>`
 
     justify-content: ${$isUserMessage ? 'flex-end' : 'flex-start'};
   `}
-`
+`;
 
 export const ChatMessage = styled.div<ChatMessageWrapperProps>`
   ${({ theme, $isUserMessage }) => css`
@@ -101,7 +101,7 @@ export const ChatMessage = styled.div<ChatMessageWrapperProps>`
       font-size: 0.75rem;
     }
   `}
-`
+`;
 
 export const ChatSendMessageForm = styled.form`
   ${({ theme }) => css`
@@ -116,11 +116,11 @@ export const ChatSendMessageForm = styled.form`
 
     gap: 0.75rem;
   `}
-`
+`;
 
 export const ChatSendMessageInput = styled.input`
   width: calc(100% - 4.75rem);
-`
+`;
 
 export const ChatSendMessageButton = styled.button`
   ${({ theme }) => css`
@@ -141,4 +141,4 @@ export const ChatSendMessageButton = styled.button`
       color: ${theme.colors.green[300]};
     }
   `}
-`
+`;

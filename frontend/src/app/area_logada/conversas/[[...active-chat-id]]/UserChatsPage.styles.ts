@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -18,7 +18,7 @@ export const Wrapper = styled.div`
   @media (min-width: 1300px) {
     max-width: calc(100vw - 400px - 2rem);
   }
-`
+`;
 
 export const TitleWrapper = styled.div`
   ${({ theme }) => css`
@@ -40,7 +40,7 @@ export const TitleWrapper = styled.div`
       }
     }
   `}
-`
+`;
 
 export const UserChat = styled.div`
   display: flex;
@@ -64,7 +64,7 @@ export const UserChat = styled.div`
   svg {
     flex-shrink: 0;
   }
-`
+`;
 
 export const ChatContent = styled.div`
   display: flex;
@@ -74,22 +74,22 @@ export const ChatContent = styled.div`
 
   width: 100%;
   overflow: hidden;
-`
+`;
 
 export const ChatContentHeader = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-`
+`;
 
 export const ChatUserName = styled.span`
   font-weight: bold;
   font-size: 18px;
-`
+`;
 
 export const ChatLastMessageTime = styled.span`
   font-size: 14px;
-`
+`;
 export const ChatLastMessage = styled.div`
   display: flex;
   flex-direction: row;
@@ -101,4 +101,4 @@ export const ChatLastMessage = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
   }
-`
+`;

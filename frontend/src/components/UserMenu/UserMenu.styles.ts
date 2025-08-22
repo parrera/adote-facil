@@ -1,12 +1,12 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-`
+`;
 
 interface MenuItemProps {
-  $isActive?: boolean
+  $isActive?: boolean;
 }
 
 export const MenuItem = styled.div<MenuItemProps>`
@@ -26,4 +26,4 @@ export const MenuItem = styled.div<MenuItemProps>`
       background-color: ${theme.colors.gray[100]};
     }
   `}
-`
+`;

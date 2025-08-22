@@ -1,17 +1,17 @@
-import { CaretDown, Check } from '@phosphor-icons/react'
-import * as Select from '@radix-ui/react-select'
+import { CaretDown, Check } from '@phosphor-icons/react';
+import * as Select from '@radix-ui/react-select';
 
-import * as S from './DefaultSelect.styles'
+import * as S from './DefaultSelect.styles';
 
 interface SelectItem {
-  value: string
-  placeholder: string
+  value: string;
+  placeholder: string;
 }
 
 interface DefaultSelectProps {
-  placeholder: string
-  items: SelectItem[]
-  onValueChange?: (value: string) => void
+  placeholder: string;
+  items: SelectItem[];
+  onValueChange?: (value: string) => void;
 }
 
 // TODO adicionar animações de estilo
@@ -34,7 +34,7 @@ export function DefaultSelect({
             <CaretDown />
           </S.SelectScrollUpButton>
           <S.SelectViewport>
-            {items.map((item) => (
+            {items.map(item => (
               <S.SelectItem key={item.value} value={item.value}>
                 <S.SelectItemIndicator>
                   <Check size={14} />
@@ -49,5 +49,5 @@ export function DefaultSelect({
         </S.SelectContent>
       </Select.Portal>
     </Select.Root>
-  )
+  );
 }

@@ -1,11 +1,11 @@
-import { UserMessage } from '@prisma/client'
+import { UserMessage } from '@prisma/client';
 
 export namespace CreateUserChatMessageRepositoryDTO {
   export type Params = {
-    chatId: string
-    senderId: string
-    content: string
-  }
+    chatId: string;
+    senderId: string;
+    content: string;
+  };
 
-  export type Result = UserMessage
+  export type Result = UserMessage;
 }

@@ -1,18 +1,18 @@
-import { animalTypesForSelect } from '@/constants/animal-types-for-select'
-import { DefaultSelect } from '../DefaultSelect'
-import * as S from './AnimalRegisterForm.styles'
-import { animalGenderForSelect } from '@/constants/animal-gender-for-select'
-import { Plus, Trash } from '@phosphor-icons/react'
-import { useState } from 'react'
-import { z } from 'zod'
+import { animalTypesForSelect } from '@/constants/animal-types-for-select';
+import { DefaultSelect } from '../DefaultSelect';
+import * as S from './AnimalRegisterForm.styles';
+import { animalGenderForSelect } from '@/constants/animal-gender-for-select';
+import { Plus, Trash } from '@phosphor-icons/react';
+import { useState } from 'react';
+import { z } from 'zod';
 
-import * as Dialog from '@radix-ui/react-dialog'
-import { DefaultDialog } from '../DefaultDialog'
-import { Button } from '../Button'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { getCookie } from 'cookies-next'
-import { animalRegister } from '@/api/register-animal'
+import * as Dialog from '@radix-ui/react-dialog';
+import { DefaultDialog } from '../DefaultDialog';
+import { Button } from '../Button';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { getCookie } from 'cookies-next';
+import { animalRegister } from '@/api/register-animal';
 
 enum AnimalType {
   CACHORRO = 'cachorro',
@@ -38,22 +38,22 @@ const animalRegisterFormSchema = z.object({
   race: z
     .string()
     .optional()
-    .transform((value) => (value === '' ? undefined : value)),
+    .transform(value => (value === '' ? undefined : value)),
   description: z
     .string()
     .optional()
-    .transform((value) => (value === '' ? undefined : value)),
+    .transform(value => (value === '' ? undefined : value)),
   pictures: z
     .array(z.instanceof(File))
     .min(1, 'Adicione ao menos uma foto do animal')
     .max(5, { message: 'Você pode adicionar no máximo 5 fotos' }),
-})
+});
 
-export type AnimalRegisterFormData = z.infer<typeof animalRegisterFormSchema>
+export type AnimalRegisterFormData = z.infer<typeof animalRegisterFormSchema>;
 
 export function AnimalRegisterForm() {
-  const [animalPictures, setAnimalPictures] = useState<File[]>([])
-  const [maxPicsWarningModalOpen, setMaxPicsWarningModalOpen] = useState(false)
+  const [animalPictures, setAnimalPictures] = useState<File[]>([]);
+  const [maxPicsWarningModalOpen, setMaxPicsWarningModalOpen] = useState(false);
 
   const {
     register,
@@ -63,56 +63,56 @@ export function AnimalRegisterForm() {
   } = useForm<AnimalRegisterFormData>({
     resolver: zodResolver(animalRegisterFormSchema),
     defaultValues: { pictures: [] },
-  })
+  });
 
   const handleAnimalImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      const uploadedFiles = Array.from(e.target.files)
+      const uploadedFiles = Array.from(e.target.files);
 
       if (
         uploadedFiles.length > 5 ||
         animalPictures.length + uploadedFiles.length > 5
       ) {
-        setMaxPicsWarningModalOpen(true)
-        return
+        setMaxPicsWarningModalOpen(true);
+        return;
       }
 
-      const newPictures = [...animalPictures, ...uploadedFiles]
-      setAnimalPictures(newPictures)
-      setValue('pictures', newPictures) // Atualiza no react-hook-form
+      const newPictures = [...animalPictures, ...uploadedFiles];
+      setAnimalPictures(newPictures);
+      setValue('pictures', newPictures); // Atualiza no react-hook-form
     }
-  }
+  };
 
   const handleRemoveAnimalPicture = (picIndex: number) => {
     const newAnimalPictures = animalPictures.filter(
-      (pic, index) => picIndex !== index,
-    )
+      (pic, index) => picIndex !== index
+    );
 
-    setAnimalPictures(newAnimalPictures)
-    setValue('pictures', newAnimalPictures) // Atualiza no react-hook-form
-  }
+    setAnimalPictures(newAnimalPictures);
+    setValue('pictures', newAnimalPictures); // Atualiza no react-hook-form
+  };
 
   const onSubmit = async (data: AnimalRegisterFormData) => {
     try {
-      const token = getCookie('token')
+      const token = getCookie('token');
 
-      const response = await animalRegister(data, token)
+      const response = await animalRegister(data, token);
 
       if (response.status === 201) {
-        alert('Animal cadastrado com sucesso!')
-        window.location.href = '/area_logada/meus_animais'
+        alert('Animal cadastrado com sucesso!');
+        window.location.href = '/area_logada/meus_animais';
       } else {
         alert(
           response.data.message ||
-            'Ocorreu um erro ao tentar registrar o animal.',
-        )
+            'Ocorreu um erro ao tentar registrar o animal.'
+        );
       }
     } catch (err) {
-      const error = err as Error
-      console.error('Erro no registro do animal:', error)
-      alert(error.message || 'Ocorreu um erro ao tentar registrar o animal.')
+      const error = err as Error;
+      console.error('Erro no registro do animal:', error);
+      alert(error.message || 'Ocorreu um erro ao tentar registrar o animal.');
     }
-  }
+  };
 
   return (
     <>
@@ -159,7 +159,7 @@ export function AnimalRegisterForm() {
                 placeholder="Selecione um tipo"
                 items={animalTypesForSelect}
                 {...register('type')}
-                onValueChange={(value) => setValue('type', value as AnimalType)}
+                onValueChange={value => setValue('type', value as AnimalType)}
               />
             </S.AnimalTypeInputWrapper>
           </S.FormRow>
@@ -175,7 +175,7 @@ export function AnimalRegisterForm() {
                 placeholder="Selecione um gênero"
                 items={animalGenderForSelect}
                 {...register('gender')}
-                onValueChange={(value) =>
+                onValueChange={value =>
                   setValue('gender', value as AnimalGender)
                 }
               />
@@ -252,5 +252,5 @@ export function AnimalRegisterForm() {
         </S.FormButton>
       </S.Form>
     </>
-  )
+  );
 }

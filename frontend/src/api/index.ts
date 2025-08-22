@@ -1,6 +1,6 @@
-import axios, { AxiosError } from 'axios'
+import axios, { AxiosError } from 'axios';
 
-const api = axios.create()
+const api = axios.create();
 
 export async function makeRequest({
   url,
@@ -8,10 +8,10 @@ export async function makeRequest({
   data,
   headers,
 }: {
-  url: string
-  method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'
-  data?: object
-  headers?: object
+  url: string;
+  method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
+  data?: object;
+  headers?: object;
 }) {
   try {
     const response = await api.request({
@@ -19,16 +19,16 @@ export async function makeRequest({
       method,
       headers,
       data,
-    })
+    });
 
-    return response
+    return response;
   } catch (err) {
-    const error = err as AxiosError
+    const error = err as AxiosError;
 
     if (error.response) {
-      return { status: error.response.status, data: error.response.data }
+      return { status: error.response.status, data: error.response.data };
     }
 
-    return { status: 500, data: { message: error.message } }
+    return { status: 500, data: { message: error.message } };
   }
 }

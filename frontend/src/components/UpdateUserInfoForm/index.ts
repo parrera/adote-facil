@@ -1,1 +1,1 @@
-export * from './UpdateUserInfoForm'
+export * from './UpdateUserInfoForm';

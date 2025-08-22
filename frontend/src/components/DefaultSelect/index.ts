@@ -1,1 +1,1 @@
-export * from './DefaultSelect'
+export * from './DefaultSelect';

@@ -1,5 +1,5 @@
-import styled, { css } from 'styled-components'
-import * as Dialog from '@radix-ui/react-dialog'
+import styled, { css } from 'styled-components';
+import * as Dialog from '@radix-ui/react-dialog';
 
 export const DialogOverlay = styled(Dialog.Overlay)`
   ${({ theme }) => css`
@@ -8,7 +8,7 @@ export const DialogOverlay = styled(Dialog.Overlay)`
     position: fixed;
     inset: 0;
   `}
-`
+`;
 
 export const DialogClose = styled.div`
   position: absolute;
@@ -17,7 +17,7 @@ export const DialogClose = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`
+`;
 
 export const DialogContent = styled(Dialog.Content)`
   ${({ theme }) => css`
@@ -32,4 +32,4 @@ export const DialogContent = styled(Dialog.Content)`
 
     padding: 1rem;
   `}
-`
+`;

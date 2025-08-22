@@ -1,11 +1,11 @@
-'use client'
+'use client';
 
-import { DefaultLoggedPageLayout } from '@/layout/DefaultLoggedPage'
+import { DefaultLoggedPageLayout } from '@/layout/DefaultLoggedPage';
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
-  return <DefaultLoggedPageLayout>{children}</DefaultLoggedPageLayout>
+  return <DefaultLoggedPageLayout>{children}</DefaultLoggedPageLayout>;
 }

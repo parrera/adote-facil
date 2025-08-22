@@ -1,4 +1,4 @@
-import { makeRequest } from '.'
+import { makeRequest } from '.';
 
 export async function insertUserChat(userId: string, token: string) {
   return makeRequest({
@@ -6,5 +6,5 @@ export async function insertUserChat(userId: string, token: string) {
     method: 'POST',
     headers: { Authorization: `Bearer ${token}` },
     data: { userId },
-  })
+  });
 }

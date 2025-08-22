@@ -1,9 +1,9 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components';
 
-export type ButtonStyleTypes = 'green-filled' | 'green-outlined'
+export type ButtonStyleTypes = 'green-filled' | 'green-outlined';
 
 interface ButtonProps {
-  $buttonStyle: ButtonStyleTypes
+  $buttonStyle: ButtonStyleTypes;
 }
 
 const buttonStyles = {
@@ -17,7 +17,7 @@ const buttonStyles = {
     color: ${({ theme }) => theme.colors.green[300]};
     border-color: ${({ theme }) => theme.colors.green[300]};
   `,
-}
+};
 
 export const Button = styled.button<ButtonProps>`
   ${({ $buttonStyle }) => css`
@@ -39,4 +39,4 @@ export const Button = styled.button<ButtonProps>`
       filter: brightness(0.9);
     }
   `}
-`
+`;

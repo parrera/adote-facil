@@ -1,75 +1,75 @@
-'use client'
+'use client';
 
-import { getUserChats } from '@/api/get-user-chats'
-import * as S from './UserChatsPage.styles'
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { getUserData } from '@/helpers/get-user-data'
-import { ChatCircleText, ArrowUp, ArrowDown } from '@phosphor-icons/react'
-import { getCookie } from 'cookies-next'
-import { format, isSameDay, differenceInDays } from 'date-fns'
-import { ptBR } from 'date-fns/locale'
-import { ChatComponent } from '@/components/Chat'
-import { Chat } from '@/@types/chat'
-import { useParams } from 'next/navigation'
+import { getUserChats } from '@/api/get-user-chats';
+import * as S from './UserChatsPage.styles';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { getUserData } from '@/helpers/get-user-data';
+import { ChatCircleText, ArrowUp, ArrowDown } from '@phosphor-icons/react';
+import { getCookie } from 'cookies-next';
+import { format, isSameDay, differenceInDays } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
+import { ChatComponent } from '@/components/Chat';
+import { Chat } from '@/@types/chat';
+import { useParams } from 'next/navigation';
 
 export function UserChatsPage() {
-  const [chats, setChats] = useState<Chat[]>([])
-  const [openChat, setOpenChat] = useState<Chat | null>(null)
-  const loggedUser = getUserData()
+  const [chats, setChats] = useState<Chat[]>([]);
+  const [openChat, setOpenChat] = useState<Chat | null>(null);
+  const loggedUser = getUserData();
 
-  const params = useParams<{ 'active-chat-id'?: string[] }>()
+  const params = useParams<{ 'active-chat-id'?: string[] }>();
 
   const fetchUserChats = useCallback(async () => {
-    const token = getCookie('token')
+    const token = getCookie('token');
 
-    const response = await getUserChats(token || '')
+    const response = await getUserChats(token || '');
 
     if (response.status === 200) {
-      setChats(response.data)
+      setChats(response.data);
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
-    fetchUserChats()
-  }, [fetchUserChats])
+    fetchUserChats();
+  }, [fetchUserChats]);
 
   useMemo(() => {
     if (params['active-chat-id']) {
-      const chatId = params['active-chat-id'][0]
+      const chatId = params['active-chat-id'][0];
 
-      const chat = chats.find((chat) => chat.id === chatId)
+      const chat = chats.find(chat => chat.id === chatId);
 
       if (chat) {
         // window.location.href = `/area_logada/conversas`
-        setOpenChat(chat)
+        setOpenChat(chat);
       }
     }
-  }, [params, chats])
+  }, [params, chats]);
 
   const formatDate = (dateString: string): string => {
-    const date = new Date(dateString)
-    const now = new Date()
+    const date = new Date(dateString);
+    const now = new Date();
 
     if (isSameDay(date, now)) {
-      return format(date, 'HH:mm')
+      return format(date, 'HH:mm');
     } else if (differenceInDays(now, date) < 7) {
-      return format(date, 'eeee', { locale: ptBR })
+      return format(date, 'eeee', { locale: ptBR });
     } else {
-      return format(date, 'dd/MM/yyyy')
+      return format(date, 'dd/MM/yyyy');
     }
-  }
+  };
 
   const handleOpenChatClick = (chat: Chat) => {
-    setOpenChat(chat)
-  }
+    setOpenChat(chat);
+  };
 
   const handleReturnToChatsListClick = () => {
-    window.location.href = '/area_logada/conversas'
+    window.location.href = '/area_logada/conversas';
     setTimeout(() => {
-      setOpenChat(null)
-      fetchUserChats()
-    }, 1000)
-  }
+      setOpenChat(null);
+      fetchUserChats();
+    }, 1000);
+  };
 
   return (
     <S.Wrapper>
@@ -84,7 +84,7 @@ export function UserChatsPage() {
           handleReturnToChatsListClick={handleReturnToChatsListClick}
         />
       ) : (
-        chats.map((chat) => (
+        chats.map(chat => (
           <S.UserChat key={chat.id} onClick={() => handleOpenChatClick(chat)}>
             <ChatCircleText size={48} />
 
@@ -119,5 +119,5 @@ export function UserChatsPage() {
         ))
       )}
     </S.Wrapper>
-  )
+  );
 }

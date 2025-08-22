@@ -22,7 +22,7 @@ services:
       dockerfile: Dockerfile
     container_name: 'adote-facil-backend'
     ports:
-      - "8080:8080"
+      - '8080:8080'
     environment:
       - NODE_ENV=production
     depends_on:
@@ -36,7 +36,7 @@ services:
       dockerfile: Dockerfile
     container_name: 'adote-facil-frontend'
     ports:
-      - "3000:3000"
+      - '3000:3000'
     environment:
       - NODE_ENV=production
     depends_on:
@@ -50,3 +50,57 @@ volumes:
 networks:
   adote-facil-network:
     driver: bridge
+# version: '3.8'
+
+# services:
+#   adote-facil-postgres:
+#     image: postgres:14-alpine
+#     container_name: 'adote-facil-postgres'
+#     environment:
+#       POSTGRES_USER: postgres
+#       POSTGRES_PASSWORD: postgres
+#       POSTGRES_DB: adote_facil
+#     ports:
+#       - "6500:5432"  # Host:Container port mapping
+#     volumes:
+#       - db_data:/var/lib/postgresql/data
+#     networks:
+#       - adote-facil-network
+
+#   adote-facil-backend:
+#     build:
+#       context: ./backend
+#       dockerfile: Dockerfile
+#     container_name: 'adote-facil-backend'
+#     ports:
+#       - "8080:8080"
+#     environment:
+#       - NODE_ENV=production
+#       - DATABASE_URL=postgresql://postgres:postgres@adote-facil-postgres:5432/adote_facil?schema=public
+#       - JWT_SECRET=secret
+#     depends_on:
+#       - adote-facil-postgres
+#     networks:
+#       - adote-facil-network
+
+#   adote-facil-frontend:
+#     build:
+#       context: ./frontend
+#       dockerfile: Dockerfile
+#     container_name: 'adote-facil-frontend'
+#     ports:
+#       - "3000:3000"
+#     environment:
+#       - NODE_ENV=production
+#       - NEXT_PUBLIC_API_URL=http://adote-facil-backend:8080
+#     depends_on:
+#       - adote-facil-backend
+#     networks:
+#       - adote-facil-network
+
+# volumes:
+#   db_data:
+
+# networks:
+#   adote-facil-network:
+#     driver: bridge

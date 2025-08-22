@@ -1,29 +1,29 @@
-'use client'
+'use client';
 
-import * as S from './MyAnimalsPage.styles'
-import { AnimalCard } from '@/components/AnimalCard'
-import { EmptyAnimals } from '@/components/EmptyAnimals'
-import { useContext, useEffect } from 'react'
-import { AnimalsContext } from '@/contexts/animals'
-import { getCookie } from 'cookies-next'
-import { getUserAnimals } from '@/api/get-user-animals'
+import * as S from './MyAnimalsPage.styles';
+import { AnimalCard } from '@/components/AnimalCard';
+import { EmptyAnimals } from '@/components/EmptyAnimals';
+import { useContext, useEffect } from 'react';
+import { AnimalsContext } from '@/contexts/animals';
+import { getCookie } from 'cookies-next';
+import { getUserAnimals } from '@/api/get-user-animals';
 
 export function MyAnimalsPage() {
-  const { userAnimals, setUserAnimals } = useContext(AnimalsContext)
+  const { userAnimals, setUserAnimals } = useContext(AnimalsContext);
 
   useEffect(() => {
     const fetchAvailableAnimals = async () => {
-      const token = getCookie('token')
+      const token = getCookie('token');
 
-      const response = await getUserAnimals(token || '')
+      const response = await getUserAnimals(token || '');
 
       if (response.status === 200) {
-        setUserAnimals(response.data.animals)
+        setUserAnimals(response.data.animals);
       }
-    }
+    };
 
-    fetchAvailableAnimals()
-  }, [setUserAnimals])
+    fetchAvailableAnimals();
+  }, [setUserAnimals]);
 
   return (
     <S.Wrapper>
@@ -32,7 +32,7 @@ export function MyAnimalsPage() {
       </S.TitleWrapper>
       {userAnimals.length ? (
         <S.AnimalsListWrapper>
-          {userAnimals.map((animal) => (
+          {userAnimals.map(animal => (
             <AnimalCard key={animal.id} animal={animal} listType="my-animals" />
           ))}
         </S.AnimalsListWrapper>
@@ -40,5 +40,5 @@ export function MyAnimalsPage() {
         <EmptyAnimals page="my-animals" />
       )}
     </S.Wrapper>
-  )
+  );
 }

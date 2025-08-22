@@ -1,8 +1,8 @@
-import styled, { css } from 'styled-components'
-import * as Dialog from '@radix-ui/react-dialog'
+import styled, { css } from 'styled-components';
+import * as Dialog from '@radix-ui/react-dialog';
 
-import Image from 'next/image'
-import { Swiper, SwiperSlide } from 'swiper/react'
+import Image from 'next/image';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 export const MaxAnimalPicturesWarningModalOverlay = styled(Dialog.Overlay)`
   ${({ theme }) => css`
@@ -11,7 +11,7 @@ export const MaxAnimalPicturesWarningModalOverlay = styled(Dialog.Overlay)`
     position: fixed;
     inset: 0;
   `}
-`
+`;
 
 export const MaxAnimalPicturesWarningModalContent = styled(Dialog.Content)`
   ${({ theme }) => css`
@@ -41,7 +41,7 @@ export const MaxAnimalPicturesWarningModalContent = styled(Dialog.Content)`
       height: 2rem;
     }
   `}
-`
+`;
 
 export const Form = styled.form`
   display: flex;
@@ -51,17 +51,17 @@ export const Form = styled.form`
   max-width: 500px;
   height: 100%;
   gap: 2rem;
-`
+`;
 
 export const FormContent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-`
+`;
 
 export const FormButton = styled.div`
   display: flex;
-`
+`;
 
 export const FormRow = styled.div`
   display: flex;
@@ -70,9 +70,9 @@ export const FormRow = styled.div`
   justify-content: space-between;
 
   gap: 1rem;
-`
+`;
 interface RequiredInputLabelProps {
-  $hasError: boolean
+  $hasError: boolean;
 }
 
 export const RequiredInputLabel = styled.div<RequiredInputLabelProps>`
@@ -96,7 +96,7 @@ export const RequiredInputLabel = styled.div<RequiredInputLabelProps>`
       }
     `}
   `}
-`
+`;
 
 export const AnimalNameInputWrapper = styled.div`
   display: flex;
@@ -113,7 +113,7 @@ export const AnimalNameInputWrapper = styled.div`
       padding: 0.5rem;
     }
   }
-`
+`;
 
 export const AnimalTypeInputWrapper = styled.div`
   display: flex;
@@ -122,7 +122,7 @@ export const AnimalTypeInputWrapper = styled.div`
   gap: 0.25rem;
 
   width: 100%;
-`
+`;
 
 export const AnimalGenderInputWrapper = styled.div`
   display: flex;
@@ -131,7 +131,7 @@ export const AnimalGenderInputWrapper = styled.div`
   gap: 0.25rem;
 
   width: 50%;
-`
+`;
 
 export const AnimalRaceInputWrapper = styled.div`
   display: flex;
@@ -148,7 +148,7 @@ export const AnimalRaceInputWrapper = styled.div`
       padding: 0.5rem;
     }
   }
-`
+`;
 
 export const AnimalDescriptionWrapper = styled.div`
   display: flex;
@@ -169,7 +169,7 @@ export const AnimalDescriptionWrapper = styled.div`
       height: 4rem;
     }
   }
-`
+`;
 
 export const AnimalPicturesInputWrapper = styled.div`
   display: flex;
@@ -182,7 +182,7 @@ export const AnimalPicturesInputWrapper = styled.div`
   input {
     display: none;
   }
-`
+`;
 
 export const AddAnimalPicturesSwiper = styled(Swiper)`
   display: flex;
@@ -196,7 +196,7 @@ export const AddAnimalPicturesSwiper = styled(Swiper)`
     flex-direction: row;
     align-items: flex-start;
   }
-`
+`;
 
 export const AnimalPictureSwiperSlide = styled(SwiperSlide)`
   ${({ theme }) => css`
@@ -226,10 +226,10 @@ export const AnimalPictureSwiperSlide = styled(SwiperSlide)`
       font-size: 10px;
     }
   `}
-`
+`;
 
 interface AnimalPicturesInputProps {
-  $enabled: boolean
+  $enabled: boolean;
 }
 
 export const AnimalPicturesInput = styled.label<AnimalPicturesInputProps>`
@@ -263,7 +263,7 @@ export const AnimalPicturesInput = styled.label<AnimalPicturesInputProps>`
       height: 32px;
     }
   `}
-`
+`;
 
 export const AnimalPicture = styled(Image)`
   border-radius: 6px;
@@ -271,4 +271,4 @@ export const AnimalPicture = styled(Image)`
   height: 135px;
 
   object-fit: cover;
-`
+`;

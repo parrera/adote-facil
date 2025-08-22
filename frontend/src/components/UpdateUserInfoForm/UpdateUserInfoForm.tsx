@@ -1,13 +1,13 @@
-import * as S from './UpdateUserInfoForm.styles'
-import { useEffect, useState } from 'react'
-import { z } from 'zod'
+import * as S from './UpdateUserInfoForm.styles';
+import { useEffect, useState } from 'react';
+import { z } from 'zod';
 
-import { Button } from '../Button'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { PasswordInput } from '../PasswordInput'
-import { getCookie } from 'cookies-next'
-import { updateUser } from '@/api/update-user'
+import { Button } from '../Button';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { PasswordInput } from '../PasswordInput';
+import { getCookie } from 'cookies-next';
+import { updateUser } from '@/api/update-user';
 
 const updateUserInfoFormSchema = z
   .object({
@@ -22,25 +22,25 @@ const updateUserInfoFormSchema = z
     password: z
       .string()
       .optional()
-      .refine((val) => !val || val.length >= 8, {
+      .refine(val => !val || val.length >= 8, {
         message: 'A senha deve conter no mínimo 8 caracteres',
       }),
     confirmPassword: z
       .string()
       .optional()
-      .refine((val) => !val || val.length >= 8, {
+      .refine(val => !val || val.length >= 8, {
         message: 'A confirmação da senha deve conter no mínimo 8 caracteres',
       }),
   })
   .refine(({ password, confirmPassword }) => password === confirmPassword, {
     message: 'As senhas não coincidem',
     path: ['confirmPassword'],
-  })
+  });
 
-export type UpdateUserInfoFormData = z.infer<typeof updateUserInfoFormSchema>
+export type UpdateUserInfoFormData = z.infer<typeof updateUserInfoFormSchema>;
 
 export function UpdateUserInfoForm() {
-  const [displayPasswordFields, setDisplayPasswordFields] = useState(false)
+  const [displayPasswordFields, setDisplayPasswordFields] = useState(false);
 
   const {
     register,
@@ -53,39 +53,39 @@ export function UpdateUserInfoForm() {
       password: undefined,
       confirmPassword: undefined,
     },
-  })
+  });
 
   useEffect(() => {
-    const user = localStorage.getItem('user')
+    const user = localStorage.getItem('user');
 
     if (user) {
-      const parsedUser = JSON.parse(user)
-      setValue('name', parsedUser.name)
-      setValue('email', parsedUser.email)
+      const parsedUser = JSON.parse(user);
+      setValue('name', parsedUser.name);
+      setValue('email', parsedUser.email);
     }
-  }, [setValue])
+  }, [setValue]);
 
   const onSubmit = async (data: UpdateUserInfoFormData) => {
     try {
-      const token = getCookie('token')
+      const token = getCookie('token');
 
-      console.log({ data })
+      console.log({ data });
 
-      const response = await updateUser(data, token)
+      const response = await updateUser(data, token);
 
       if (response.status === 200) {
-        alert('Dados editados com sucesso!')
+        alert('Dados editados com sucesso!');
       } else {
-        alert(response.data.message || 'Ocorreu um erro ao editar os dados.')
+        alert(response.data.message || 'Ocorreu um erro ao editar os dados.');
       }
 
-      window.location.reload()
+      window.location.reload();
     } catch (err) {
-      const error = err as Error
-      console.error('Erro na edição de dados do usuário:', error)
-      alert(error.message || 'Ocorreu um erro ao editar os dados.')
+      const error = err as Error;
+      console.error('Erro na edição de dados do usuário:', error);
+      alert(error.message || 'Ocorreu um erro ao editar os dados.');
     }
-  }
+  };
 
   return (
     <S.Form onSubmit={handleSubmit(onSubmit)}>
@@ -166,5 +166,5 @@ export function UpdateUserInfoForm() {
         <Button type="submit">Salvar alterações</Button>
       </S.FormButtonWrapper>
     </S.Form>
-  )
+  );
 }

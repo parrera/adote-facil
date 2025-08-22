@@ -1,5 +1,5 @@
-import { UserChatsPage } from './UserChatsPage'
+import { UserChatsPage } from './UserChatsPage';
 
 export default function Page() {
-  return <UserChatsPage />
+  return <UserChatsPage />;
 }

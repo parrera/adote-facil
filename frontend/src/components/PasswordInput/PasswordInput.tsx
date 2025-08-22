@@ -1,24 +1,24 @@
-import { Eye, EyeSlash } from '@phosphor-icons/react'
-import { useState } from 'react'
+import { Eye, EyeSlash } from '@phosphor-icons/react';
+import { useState } from 'react';
 
-import * as S from './PasswordInput.styles'
+import * as S from './PasswordInput.styles';
 
-import { FieldValues, Path, UseFormRegister } from 'react-hook-form'
+import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
 interface InputProps<T extends FieldValues> {
-  fieldName: Path<T>
-  zodRegister: UseFormRegister<T>
+  fieldName: Path<T>;
+  zodRegister: UseFormRegister<T>;
 }
 
 export function PasswordInput<T extends FieldValues>({
   fieldName,
   zodRegister,
 }: InputProps<T>) {
-  const [inputType, setInputType] = useState('password')
+  const [inputType, setInputType] = useState('password');
 
   const handleChangeInputType = () => {
-    setInputType(inputType === 'password' ? 'text' : 'password')
-  }
+    setInputType(inputType === 'password' ? 'text' : 'password');
+  };
 
   return (
     <S.Wrapper>
@@ -27,5 +27,5 @@ export function PasswordInput<T extends FieldValues>({
         {inputType === 'password' ? <Eye /> : <EyeSlash />}
       </button>
     </S.Wrapper>
-  )
+  );
 }

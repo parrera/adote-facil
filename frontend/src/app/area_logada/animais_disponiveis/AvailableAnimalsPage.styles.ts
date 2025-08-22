@@ -1,10 +1,10 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-`
+`;
 
 export const TitleWrapper = styled.div`
   ${({ theme }) => css`
@@ -41,7 +41,7 @@ export const TitleWrapper = styled.div`
       }
     }
   `}
-`
+`;
 
 export const AnimalsListWrapper = styled.div`
   display: grid;
@@ -63,4 +63,4 @@ export const AnimalsListWrapper = styled.div`
   @media (min-width: 1700px) {
     grid-template-columns: repeat(4, 1fr);
   }
-`
+`;

@@ -1,8 +1,8 @@
-'use client'
+'use client';
 
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
 
 export default function Page() {
-  const router = useRouter()
-  router.push('/area_logada/animais_disponiveis')
+  const router = useRouter();
+  router.push('/area_logada/animais_disponiveis');
 }

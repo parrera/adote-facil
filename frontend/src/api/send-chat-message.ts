@@ -1,9 +1,9 @@
-import { makeRequest } from '.'
+import { makeRequest } from '.';
 
 type SendMessageData = {
-  receiverId: string
-  content: string
-}
+  receiverId: string;
+  content: string;
+};
 
 export function sendChatMessage(token: string, data: SendMessageData) {
   return makeRequest({
@@ -11,5 +11,5 @@ export function sendChatMessage(token: string, data: SendMessageData) {
     method: 'POST',
     headers: { Authorization: `Bearer ${token}` },
     data,
-  })
+  });
 }

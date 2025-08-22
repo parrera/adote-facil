@@ -1,7 +1,7 @@
-'use client'
+'use client';
 
-import { AvailableAnimalsPage } from './AvailableAnimalsPage'
+import { AvailableAnimalsPage } from './AvailableAnimalsPage';
 
 export default function Page() {
-  return <AvailableAnimalsPage />
+  return <AvailableAnimalsPage />;
 }

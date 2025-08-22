@@ -1,20 +1,20 @@
-import { User } from '@prisma/client'
+import { User } from '@prisma/client';
 
 export namespace CreateUserRepositoryDTO {
   export type Params = {
-    name: string
-    email: string
-    password: string
-  }
+    name: string;
+    email: string;
+    password: string;
+  };
 
-  export type Result = User
+  export type Result = User;
 }
 
 export namespace UpdateUserRepositoryDTO {
   export type Params = {
-    id: string
-    data: { name?: string; email?: string; password?: string }
-  }
+    id: string;
+    data: { name?: string; email?: string; password?: string };
+  };
 
-  export type Result = User
+  export type Result = User;
 }

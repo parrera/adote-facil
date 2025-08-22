@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import {
   Cat,
@@ -7,11 +7,11 @@ import {
   PencilSimple,
   SignOut,
   ChatCircleText,
-} from '@phosphor-icons/react'
-import Link from 'next/link'
-import { ReactElement, useEffect, useState } from 'react'
-import * as S from './UserMenu.styles'
-import { deleteCookie } from 'cookies-next'
+} from '@phosphor-icons/react';
+import Link from 'next/link';
+import { ReactElement, useEffect, useState } from 'react';
+import * as S from './UserMenu.styles';
+import { deleteCookie } from 'cookies-next';
 
 enum MenuItemsEnum {
   AVAILABLE_ANIMALS = 'AVAILABLE_ANIMALS',
@@ -22,11 +22,11 @@ enum MenuItemsEnum {
 }
 
 type MenuItem = {
-  id: MenuItemsEnum
-  label: string
-  icon: ReactElement
-  route: string
-}
+  id: MenuItemsEnum;
+  label: string;
+  icon: ReactElement;
+  route: string;
+};
 
 const menuItems: MenuItem[] = [
   {
@@ -59,34 +59,34 @@ const menuItems: MenuItem[] = [
     icon: <PencilSimple size={24} />,
     route: '/area_logada/editar_dados',
   },
-]
+];
 
 export function UserMenu() {
   const [activeMenuItem, setActiveMenuItem] = useState<MenuItemsEnum>(
-    MenuItemsEnum.AVAILABLE_ANIMALS,
-  )
+    MenuItemsEnum.AVAILABLE_ANIMALS
+  );
 
   useEffect(() => {
-    const currentPath = window?.location?.pathname
-    const activeItem = menuItems.find((item) => item.route === currentPath)
+    const currentPath = window?.location?.pathname;
+    const activeItem = menuItems.find(item => item.route === currentPath);
     if (activeItem) {
-      setActiveMenuItem(activeItem.id)
+      setActiveMenuItem(activeItem.id);
     }
-  }, [setActiveMenuItem])
+  }, [setActiveMenuItem]);
 
   const handleMenuItemClick = (menuItem: MenuItem) => {
-    setActiveMenuItem(menuItem.id)
-  }
+    setActiveMenuItem(menuItem.id);
+  };
 
   const handleLogout = () => {
-    deleteCookie('token', { path: '/' })
-    localStorage.removeItem('user')
-    window.location.href = '/login'
-  }
+    deleteCookie('token', { path: '/' });
+    localStorage.removeItem('user');
+    window.location.href = '/login';
+  };
 
   return (
     <S.Wrapper>
-      {menuItems.map((menuItem) => (
+      {menuItems.map(menuItem => (
         <Link href={menuItem.route} key={menuItem.id}>
           <S.MenuItem
             $isActive={activeMenuItem === menuItem.id}
@@ -102,5 +102,5 @@ export function UserMenu() {
         <span>Sair</span>
       </S.MenuItem>
     </S.Wrapper>
-  )
+  );
 }

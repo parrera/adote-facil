@@ -1,7 +1,7 @@
-'use client'
+'use client';
 
-import * as S from './UpdateUserInfoPage.styles'
-import { UpdateUserInfoForm } from '@/components/UpdateUserInfoForm'
+import * as S from './UpdateUserInfoPage.styles';
+import { UpdateUserInfoForm } from '@/components/UpdateUserInfoForm';
 
 export default function UpdateUserInfoPage() {
   return (
@@ -12,5 +12,5 @@ export default function UpdateUserInfoPage() {
 
       <UpdateUserInfoForm />
     </S.Wrapper>
-  )
+  );
 }

@@ -18,4 +18,4 @@ export const theme = {
       700: '#F75A68',
     },
   },
-}
+};

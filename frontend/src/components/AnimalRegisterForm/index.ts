@@ -1,1 +1,1 @@
-export * from './AnimalRegisterForm'
+export * from './AnimalRegisterForm';

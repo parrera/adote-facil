@@ -1,11 +1,11 @@
-'use client'
+'use client';
 
-import { AnimalsContextProvider } from '@/contexts/animals'
+import { AnimalsContextProvider } from '@/contexts/animals';
 
 export function AnimalsContextClientProvider({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
-  return <AnimalsContextProvider>{children}</AnimalsContextProvider>
+  return <AnimalsContextProvider>{children}</AnimalsContextProvider>;
 }

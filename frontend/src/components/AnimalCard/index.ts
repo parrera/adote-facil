@@ -1,1 +1,1 @@
-export * from './AnimalCard'
+export * from './AnimalCard';

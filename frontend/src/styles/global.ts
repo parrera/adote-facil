@@ -1,6 +1,6 @@
-'use client'
+'use client';
 
-import { createGlobalStyle, css } from 'styled-components'
+import { createGlobalStyle, css } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
   ${({ theme }) => css`
@@ -43,4 +43,4 @@ export const GlobalStyles = createGlobalStyle`
       }
     }
   `}
-`
+`;

@@ -1,0 +1,10 @@
+{
+  "animal": {
+    "id": "1",
+    "type": "Cachorro",
+    "gender": "macho",
+    "race": "Vira-lata",
+    "description": "Amigável",
+    "images": [{ "id": "1", "base64": "data:image/png;base64,iVBORw0KGgoAAA" }]
+  }
+}

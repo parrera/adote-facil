@@ -1,18 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ArrowFatLinesRight, ArrowLeft } from '@phosphor-icons/react'
-import * as S from './Chat.styles'
-import { UserData } from '@/@types/user-data'
-import { Chat } from '@/@types/chat'
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { getCookie } from 'cookies-next'
-import { getUserChat } from '@/api/get-user-chat'
-import { format } from 'date-fns'
-import { sendChatMessage } from '@/api/send-chat-message'
+import { ArrowFatLinesRight, ArrowLeft } from '@phosphor-icons/react';
+import * as S from './Chat.styles';
+import { UserData } from '@/@types/user-data';
+import { Chat } from '@/@types/chat';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { getCookie } from 'cookies-next';
+import { getUserChat } from '@/api/get-user-chat';
+import { format } from 'date-fns';
+import { sendChatMessage } from '@/api/send-chat-message';
 
 interface ChatProps {
-  chatId: string
-  userData: UserData | null
-  handleReturnToChatsListClick(): void
+  chatId: string;
+  userData: UserData | null;
+  handleReturnToChatsListClick(): void;
 }
 
 export function ChatComponent({
@@ -20,64 +20,63 @@ export function ChatComponent({
   userData,
   handleReturnToChatsListClick,
 }: ChatProps) {
-  const [chat, setChat] = useState<Chat | null>(null)
-  const messageListRef = useRef<HTMLDivElement | null>(null)
+  const [chat, setChat] = useState<Chat | null>(null);
+  const messageListRef = useRef<HTMLDivElement | null>(null);
 
   const fetchUserChat = useCallback(async () => {
-    const token = getCookie('token')
+    const token = getCookie('token');
 
-    const response = await getUserChat(token || '', chatId)
+    const response = await getUserChat(token || '', chatId);
 
     if (response.status === 200) {
-      setChat(response.data)
+      setChat(response.data);
     }
-  }, [chatId])
+  }, [chatId]);
 
   useEffect(() => {
-    fetchUserChat()
-  }, [fetchUserChat])
+    fetchUserChat();
+  }, [fetchUserChat]);
 
   useEffect(() => {
     if (messageListRef.current) {
-      messageListRef.current.scrollTop = messageListRef.current.scrollHeight
+      messageListRef.current.scrollTop = messageListRef.current.scrollHeight;
     }
-  }, [chat])
+  }, [chat]);
 
   const handleSendMessage = async (e: any) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const messageToSend = e.target[0].value
+    const messageToSend = e.target[0].value;
 
     if (!messageToSend) {
-      return
+      return;
     }
 
-    const token = getCookie('token')
+    const token = getCookie('token');
 
     const receiverId =
-      chat?.user1.id === userData?.id ? chat?.user2.id : chat?.user1.id
+      chat?.user1.id === userData?.id ? chat?.user2.id : chat?.user1.id;
 
     try {
       const response = await sendChatMessage(token || '', {
         receiverId: receiverId || '',
         content: messageToSend,
-      })
+      });
 
       if (response.status === 201) {
-        fetchUserChat()
-        e.target[0].value = ''
+        fetchUserChat();
+        e.target[0].value = '';
       } else {
         alert(
-          response.data.message ||
-            'Erro ao enviar a mensagem. Tente novamente.',
-        )
+          response.data.message || 'Erro ao enviar a mensagem. Tente novamente.'
+        );
       }
     } catch (err) {
-      const error = err as Error
-      console.error('Erro ao enviar a mensagem:', error)
-      alert(error.message || 'Erro ao enviar a mensagem. Tente novamente.')
+      const error = err as Error;
+      console.error('Erro ao enviar a mensagem:', error);
+      alert(error.message || 'Erro ao enviar a mensagem. Tente novamente.');
     }
-  }
+  };
 
   return (
     <S.Wrapper>
@@ -94,7 +93,7 @@ export function ChatComponent({
       </S.ChatHeader>
 
       <S.ChatMessageList ref={messageListRef}>
-        {chat?.messages.map((message) => (
+        {chat?.messages.map(message => (
           <S.ChatMessageWrapper
             key={message.id}
             $isUserMessage={message.senderId === userData?.id}
@@ -120,5 +119,5 @@ export function ChatComponent({
         </S.ChatSendMessageButton>
       </S.ChatSendMessageForm>
     </S.Wrapper>
-  )
+  );
 }

@@ -1,1 +1,1 @@
-export * from './DefaultLoggedPageLayout'
+export * from './DefaultLoggedPageLayout';

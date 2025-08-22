@@ -75,6 +75,7 @@ O arquivo .env.example do backend já contém as variáveis usadas pelo Docker C
 As portas de execução do backend e frontend estão hardcoded no arquivo `docker-compose.yml`. O backend executa na porta 8080 e o frontend na porta 3000. É possível alterar estes valores, só tomando cuidado para refletir as alterações nas variáveis de ambiente das APIs.
 
 Para subir os containers, entre na pasta /backend e execute o comando:
+
 ```shell
 docker compose up
 ```

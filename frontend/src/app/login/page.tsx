@@ -1,19 +1,19 @@
-'use client'
+'use client';
 
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
-import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
-import { Button } from '@/components/Button'
-import { PasswordInput } from '@/components/PasswordInput'
+import { Button } from '@/components/Button';
+import { PasswordInput } from '@/components/PasswordInput';
 
-import * as S from './styles'
-import logo from '../../assets/logo-big.png'
-import { userLogin } from '@/api/user-login'
+import * as S from './styles';
+import logo from '../../assets/logo-big.png';
+import { userLogin } from '@/api/user-login';
 
-import { setCookie } from 'cookies-next'
+import { setCookie } from 'cookies-next';
 
 const userLoginFormSchema = z.object({
   email: z
@@ -24,12 +24,12 @@ const userLoginFormSchema = z.object({
     .string()
     .min(1, { message: 'A senha é obrigatória' })
     .min(8, { message: 'A senha deve conter no mínimo 8 caracteres' }),
-})
+});
 
-export type UserLoginFormData = z.infer<typeof userLoginFormSchema>
+export type UserLoginFormData = z.infer<typeof userLoginFormSchema>;
 
 export default function Page() {
-  const router = useRouter()
+  const router = useRouter();
 
   const {
     register,
@@ -37,18 +37,18 @@ export default function Page() {
     formState: { errors },
   } = useForm<UserLoginFormData>({
     resolver: zodResolver(userLoginFormSchema),
-  })
+  });
 
   const handleSubmitForm = async (data: UserLoginFormData) => {
-    const response = await userLogin(data)
+    const response = await userLogin(data);
 
     if (response.status !== 201) {
       const message =
         response.data.message ||
-        'Erro ao logar, por favor tente novamente mais tarde!'
-      alert(message)
-      router.push('/login')
-      return
+        'Erro ao logar, por favor tente novamente mais tarde!';
+      alert(message);
+      router.push('/login');
+      return;
     }
 
     setCookie('token', response.data.token, {
@@ -56,12 +56,12 @@ export default function Page() {
       // TODO em um ambiente de produção isso deve ser true
       secure: false,
       path: '/',
-    })
+    });
 
-    localStorage.setItem('user', JSON.stringify(response.data.user))
+    localStorage.setItem('user', JSON.stringify(response.data.user));
 
-    router.push('/area_logada/animais_disponiveis')
-  }
+    router.push('/area_logada/animais_disponiveis');
+  };
 
   return (
     <S.Wrapper>
@@ -98,5 +98,5 @@ export default function Page() {
         </S.LoginFormFooter>
       </S.Content>
     </S.Wrapper>
-  )
+  );
 }

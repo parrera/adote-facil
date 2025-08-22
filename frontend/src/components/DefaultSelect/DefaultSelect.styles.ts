@@ -1,6 +1,6 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components';
 
-import * as Select from '@radix-ui/react-select'
+import * as Select from '@radix-ui/react-select';
 
 export const SelectTrigger = styled(Select.Trigger)`
   ${({ theme }) => css`
@@ -15,12 +15,12 @@ export const SelectTrigger = styled(Select.Trigger)`
 
     padding-left: 0.5rem;
   `}
-`
+`;
 
 export const SelectValue = styled(Select.Value)`
   display: flex;
   align-items: center;
-`
+`;
 
 export const SelectIcon = styled(Select.Icon)`
   ${({ theme }) => css`
@@ -31,12 +31,12 @@ export const SelectIcon = styled(Select.Icon)`
     padding: 0.25rem;
     margin-left: 0.5rem;
   `}
-`
+`;
 
 export const SelectContent = styled(Select.Content)`
   overflow: hidden;
   border-radius: 6px;
-`
+`;
 
 export const SelectScrollUpButton = styled(Select.ScrollUpButton)`
   display: flex;
@@ -46,14 +46,14 @@ export const SelectScrollUpButton = styled(Select.ScrollUpButton)`
   background-color: white;
   color: var(--violet-11);
   cursor: default;
-`
+`;
 
 export const SelectViewport = styled(Select.Viewport)`
   ${({ theme }) => css`
     padding: 0.5rem;
     background-color: ${theme.colors.gray[200]};
   `}
-`
+`;
 
 export const SelectItem = styled(Select.Item)`
   display: flex;
@@ -68,7 +68,7 @@ export const SelectItem = styled(Select.Item)`
   line-height: 1;
   border-radius: 3px;
   padding-left: 1.25rem;
-`
+`;
 
 export const SelectItemIndicator = styled(Select.ItemIndicator)`
   position: absolute;
@@ -76,4 +76,4 @@ export const SelectItemIndicator = styled(Select.ItemIndicator)`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-`
+`;

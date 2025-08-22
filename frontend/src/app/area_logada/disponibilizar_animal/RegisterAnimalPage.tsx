@@ -1,7 +1,7 @@
-'use client'
+'use client';
 
-import * as S from './RegisterAnimalPage.styles'
-import { AnimalRegisterForm } from '@/components/AnimalRegisterForm'
+import * as S from './RegisterAnimalPage.styles';
+import { AnimalRegisterForm } from '@/components/AnimalRegisterForm';
 
 export function RegisterAnimalPage() {
   return (
@@ -12,5 +12,5 @@ export function RegisterAnimalPage() {
 
       <AnimalRegisterForm />
     </S.Wrapper>
-  )
+  );
 }

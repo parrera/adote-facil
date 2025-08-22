@@ -1,10 +1,10 @@
-import { AnimalImage } from '@prisma/client'
+import { AnimalImage } from '@prisma/client';
 
 export namespace CreateAnimalImageRepositoryDTO {
   export type Params = {
-    imageData: Buffer
-    animalId: string
-  }
+    imageData: Buffer;
+    animalId: string;
+  };
 
-  export type Result = AnimalImage
+  export type Result = AnimalImage;
 }

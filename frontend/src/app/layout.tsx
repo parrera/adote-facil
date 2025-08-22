@@ -1,16 +1,16 @@
-import StyledComponentsRegistry from '@/lib/registry'
-import { GlobalStyles } from '@/styles/global'
-import { ThemeClient } from '@/providers/ThemeClientProvider'
+import StyledComponentsRegistry from '@/lib/registry';
+import { GlobalStyles } from '@/styles/global';
+import { ThemeClient } from '@/providers/ThemeClientProvider';
 
-import { Nunito } from 'next/font/google'
-import { AnimalsContextClientProvider } from '@/providers/AnimalsContextClientProvider'
+import { Nunito } from 'next/font/google';
+import { AnimalsContextClientProvider } from '@/providers/AnimalsContextClientProvider';
 
-const nunitoFont = Nunito({ subsets: ['latin'] })
+const nunitoFont = Nunito({ subsets: ['latin'] });
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html className={nunitoFont.className}>
@@ -25,5 +25,5 @@ export default function RootLayout({
         </StyledComponentsRegistry>
       </body>
     </html>
-  )
+  );
 }

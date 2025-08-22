@@ -1,27 +1,27 @@
-import { Chat } from '@prisma/client'
+import { Chat } from '@prisma/client';
 
 import {
   ChatRepository,
   chatRepositoryInstance,
-} from '../../repositories/chat.js'
+} from '../../repositories/chat.js';
 
 namespace GetUserChatsDTO {
-  export type Params = { userId: string }
+  export type Params = { userId: string };
 
-  export type Result = Chat[]
+  export type Result = Chat[];
 }
 export class GetUserChatsService {
   constructor(private readonly chatRepository: ChatRepository) {}
 
   async execute(
-    params: GetUserChatsDTO.Params,
+    params: GetUserChatsDTO.Params
   ): Promise<GetUserChatsDTO.Result> {
-    const { userId } = params
+    const { userId } = params;
 
-    return this.chatRepository.getChatsAndLastMessageByUserId(userId)
+    return this.chatRepository.getChatsAndLastMessageByUserId(userId);
   }
 }
 
 export const getUserChatsServiceInstance = new GetUserChatsService(
-  chatRepositoryInstance,
-)
+  chatRepositoryInstance
+);

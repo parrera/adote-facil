@@ -1,6 +1,6 @@
-import * as Dialog from '@radix-ui/react-dialog'
-import * as S from './DefaultDialog.styles'
-import { X } from '@phosphor-icons/react'
+import * as Dialog from '@radix-ui/react-dialog';
+import * as S from './DefaultDialog.styles';
+import { X } from '@phosphor-icons/react';
 
 export function DefaultDialog({ children }: { children: React.ReactNode }) {
   return (
@@ -15,5 +15,5 @@ export function DefaultDialog({ children }: { children: React.ReactNode }) {
         {children}
       </S.DialogContent>
     </Dialog.Portal>
-  )
+  );
 }

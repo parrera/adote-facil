@@ -1,1 +1,1 @@
-export * from './DefaultDialog'
+export * from './DefaultDialog';

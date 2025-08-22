@@ -1,1 +1,1 @@
-export * from './EmptyAnimals'
+export * from './EmptyAnimals';

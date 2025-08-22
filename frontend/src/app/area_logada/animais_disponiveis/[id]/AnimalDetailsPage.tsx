@@ -1,52 +1,52 @@
-'use client'
+'use client';
 
-import { useContext, useEffect, useState } from 'react'
-import { Pagination } from 'swiper/modules'
-import Image from 'next/image'
+import { useContext, useEffect, useState } from 'react';
+import { Pagination } from 'swiper/modules';
+import Image from 'next/image';
 
-import 'swiper/css'
-import 'swiper/css/pagination'
+import 'swiper/css';
+import 'swiper/css/pagination';
 
-import * as S from './AnimalDetailsPage.styles'
-import { Button } from '@/components/Button'
-import { AnimalsContext } from '@/contexts/animals'
-import { Animal } from '@/@types/animal'
-import { useParams } from 'next/navigation'
-import { ArrowLeft } from '@phosphor-icons/react'
-import Link from 'next/link'
-import { getCookie } from 'cookies-next'
-import { insertUserChat } from '@/api/insert-user-chat'
+import * as S from './AnimalDetailsPage.styles';
+import { Button } from '@/components/Button';
+import { AnimalsContext } from '@/contexts/animals';
+import { Animal } from '@/@types/animal';
+import { useParams } from 'next/navigation';
+import { ArrowLeft } from '@phosphor-icons/react';
+import Link from 'next/link';
+import { getCookie } from 'cookies-next';
+import { insertUserChat } from '@/api/insert-user-chat';
 
 export function AnimalDetailsPage() {
-  const [animal, setAnimal] = useState<Animal | null>(null)
+  const [animal, setAnimal] = useState<Animal | null>(null);
 
-  const params = useParams<{ id: string }>()
+  const params = useParams<{ id: string }>();
 
-  const { getAnimalById } = useContext(AnimalsContext)
+  const { getAnimalById } = useContext(AnimalsContext);
 
   useEffect(() => {
-    const getAnimalResponse = getAnimalById(params.id)
-    console.log({ getAnimalResponse })
-    setAnimal(getAnimalResponse)
-  }, [getAnimalById, params.id])
+    const getAnimalResponse = getAnimalById(params.id);
+    console.log({ getAnimalResponse });
+    setAnimal(getAnimalResponse);
+  }, [getAnimalById, params.id]);
 
   const handleContactAnimalOwner = async () => {
     try {
-      const token = getCookie('token') || ''
+      const token = getCookie('token') || '';
 
-      const response = await insertUserChat(animal?.userId || '', token)
+      const response = await insertUserChat(animal?.userId || '', token);
 
       if (response.status !== 201) {
-        alert('Ocorreu um erro ao contatar o dono, por favor tente novamente')
+        alert('Ocorreu um erro ao contatar o dono, por favor tente novamente');
       }
 
-      const chatId = response.data.chat.id
+      const chatId = response.data.chat.id;
 
-      window.location.href = `/area_logada/conversas/${chatId}`
+      window.location.href = `/area_logada/conversas/${chatId}`;
     } catch (err) {}
-  }
+  };
 
-  if (!animal) return <span>Carregando...</span>
+  if (!animal) return <span>Carregando...</span>;
 
   return (
     <S.Wrapper>
@@ -90,5 +90,5 @@ export function AnimalDetailsPage() {
         </Button>
       </S.ContentWrapper>
     </S.Wrapper>
-  )
+  );
 }

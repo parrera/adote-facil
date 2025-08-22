@@ -1,14 +1,14 @@
-import { PrismaClient } from '@prisma/client'
-import { prisma } from '../database.js'
-import { CreateChatRepositoryDTO } from './chat.dto.js'
+import { PrismaClient } from '@prisma/client';
+import { prisma } from '../database.js';
+import { CreateChatRepositoryDTO } from './chat.dto.js';
 
 export class ChatRepository {
   constructor(private readonly repository: PrismaClient) {}
 
   async create(
-    params: CreateChatRepositoryDTO.Params,
+    params: CreateChatRepositoryDTO.Params
   ): Promise<CreateChatRepositoryDTO.Result> {
-    return this.repository.chat.create({ data: params })
+    return this.repository.chat.create({ data: params });
   }
 
   async findOneByUsersId(user1Id: string, user2Id: string) {
@@ -19,7 +19,7 @@ export class ChatRepository {
           { user1Id: user2Id, user2Id: user1Id },
         ],
       },
-    })
+    });
   }
 
   async getChatsAndLastMessageByUserId(userId: string) {
@@ -37,7 +37,7 @@ export class ChatRepository {
         user1: { select: { id: true, name: true } },
         user2: { select: { id: true, name: true } },
       },
-    })
+    });
   }
 
   async getChatWithMessagesByUserAndChatId(userId: string, chatId: string) {
@@ -53,8 +53,8 @@ export class ChatRepository {
         user1: { select: { id: true, name: true } },
         user2: { select: { id: true, name: true } },
       },
-    })
+    });
   }
 }
 
-export const chatRepositoryInstance = new ChatRepository(prisma)
+export const chatRepositoryInstance = new ChatRepository(prisma);

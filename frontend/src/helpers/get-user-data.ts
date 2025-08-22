@@ -1,13 +1,13 @@
-import { UserData } from '@/@types/user-data'
+import { UserData } from '@/@types/user-data';
 
 export function getUserData(): UserData | null {
   if (typeof window === 'undefined') {
-    return null
+    return null;
   }
 
-  const user = localStorage.getItem('user')
+  const user = localStorage.getItem('user');
 
-  if (!user) return null
+  if (!user) return null;
 
-  return JSON.parse(user)
+  return JSON.parse(user);
 }

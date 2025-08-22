@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.div`
   ${({ theme }) => css`
@@ -15,7 +15,7 @@ export const Wrapper = styled.div`
 
     background-color: ${theme.colors.gray[200]};
   `}
-`
+`;
 
 export const ImageWrapper = styled.div`
   overflow: hidden;
@@ -28,7 +28,7 @@ export const ImageWrapper = styled.div`
   img {
     object-fit: cover;
   }
-`
+`;
 
 export const Content = styled.div`
   display: flex;
@@ -42,7 +42,7 @@ export const Content = styled.div`
     height: 2rem;
     font-size: 0.75rem;
   }
-`
+`;
 
 export const AnimalInfo = styled.div`
   display: flex;
@@ -51,17 +51,17 @@ export const AnimalInfo = styled.div`
   gap: 0.5rem;
 
   margin-top: 1rem;
-`
+`;
 
 export const MyAnimalsButtonsWrapper = styled.div`
   display: flex;
   flex-direction: row;
 
   gap: 0.5rem;
-`
+`;
 
 interface MyAnimalsButtonProps {
-  $buttonType: 'edit' | 'delete'
+  $buttonType: 'edit' | 'delete';
 }
 
 export const MyAnimalsButton = styled.button<MyAnimalsButtonProps>`
@@ -94,4 +94,4 @@ export const MyAnimalsButton = styled.button<MyAnimalsButtonProps>`
       color: ${theme.colors.white};
     }
   `}
-`
+`;

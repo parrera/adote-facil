@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
   @media (min-width: 770px) {
     flex-direction: row;
   }
-`
+`;
 
 export const MobileHeader = styled.div`
   ${({ theme }) => css`
@@ -29,10 +29,10 @@ export const MobileHeader = styled.div`
       display: none;
     }
   `}
-`
+`;
 
 interface MobileMenuProps {
-  $isOpen: boolean
+  $isOpen: boolean;
 }
 
 export const MobileMenu = styled.aside<MobileMenuProps>`
@@ -54,7 +54,7 @@ export const MobileMenu = styled.aside<MobileMenuProps>`
       display: none;
     }
   `}
-`
+`;
 
 export const MobileHeaderIconWrapper = styled.div`
   ${({ theme }) => css`
@@ -68,7 +68,7 @@ export const MobileHeaderIconWrapper = styled.div`
       color: ${theme.colors.green[300]};
     }
   `}
-`
+`;
 
 export const MobileMenuIconWrapper = styled.div`
   ${({ theme }) => css`
@@ -84,7 +84,7 @@ export const MobileMenuIconWrapper = styled.div`
       color: ${theme.colors.green[300]};
     }
   `}
-`
+`;
 
 export const AsideMenu = styled.aside`
   display: none;
@@ -103,7 +103,7 @@ export const AsideMenu = styled.aside`
   @media (min-width: 1300px) {
     width: 400px;
   }
-`
+`;
 
 export const UserInfo = styled.div`
   ${({ theme }) => css`
@@ -127,10 +127,10 @@ export const UserInfo = styled.div`
       }
     }
   `}
-`
+`;
 
 interface MenuItemProps {
-  $isActive?: boolean
+  $isActive?: boolean;
 }
 
 export const MenuItem = styled.div<MenuItemProps>`
@@ -150,7 +150,7 @@ export const MenuItem = styled.div<MenuItemProps>`
       background-color: ${theme.colors.gray[100]};
     }
   `}
-`
+`;
 
 export const PageContent = styled.div`
   max-width: 100vw;
@@ -165,4 +165,4 @@ export const PageContent = styled.div`
     width: calc(100vw - 400px);
     margin-left: 400px;
   }
-`
+`;

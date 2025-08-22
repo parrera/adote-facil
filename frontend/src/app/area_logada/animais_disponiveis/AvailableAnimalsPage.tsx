@@ -1,37 +1,37 @@
-'use client'
+'use client';
 
-import * as Dialog from '@radix-ui/react-dialog'
+import * as Dialog from '@radix-ui/react-dialog';
 
-import { Button } from '@/components/Button'
-import { AnimalCard } from '@/components/AnimalCard'
-import { EmptyAnimals } from '@/components/EmptyAnimals'
-import { DefaultDialog } from '@/components/DefaultDialog'
+import { Button } from '@/components/Button';
+import { AnimalCard } from '@/components/AnimalCard';
+import { EmptyAnimals } from '@/components/EmptyAnimals';
+import { DefaultDialog } from '@/components/DefaultDialog';
 
-import * as S from './AvailableAnimalsPage.styles'
-import { useContext, useEffect } from 'react'
-import { getCookie } from 'cookies-next'
-import { getAvailableAnimals } from '@/api/get-available-animals'
-import { AnimalsContext } from '@/contexts/animals'
+import * as S from './AvailableAnimalsPage.styles';
+import { useContext, useEffect } from 'react';
+import { getCookie } from 'cookies-next';
+import { getAvailableAnimals } from '@/api/get-available-animals';
+import { AnimalsContext } from '@/contexts/animals';
 
 // TODO add loader to display while fetching animals
 export function AvailableAnimalsPage() {
-  const { availableAnimals, setAvailableAnimals } = useContext(AnimalsContext)
+  const { availableAnimals, setAvailableAnimals } = useContext(AnimalsContext);
 
   useEffect(() => {
     const fetchAvailableAnimals = async () => {
-      const token = getCookie('token')
+      const token = getCookie('token');
 
-      const response = await getAvailableAnimals(token || '')
+      const response = await getAvailableAnimals(token || '');
 
-      console.log(response)
+      console.log(response);
 
       if (response.status === 200) {
-        setAvailableAnimals(response.data.animals)
+        setAvailableAnimals(response.data.animals);
       }
-    }
+    };
 
-    fetchAvailableAnimals()
-  }, [setAvailableAnimals])
+    fetchAvailableAnimals();
+  }, [setAvailableAnimals]);
 
   return (
     <S.Wrapper>
@@ -55,7 +55,7 @@ export function AvailableAnimalsPage() {
       </S.TitleWrapper>
       {availableAnimals.length ? (
         <S.AnimalsListWrapper>
-          {availableAnimals.map((animal) => (
+          {availableAnimals.map(animal => (
             <AnimalCard
               key={animal.id}
               animal={animal}
@@ -67,5 +67,5 @@ export function AvailableAnimalsPage() {
         <EmptyAnimals page="animals-available-to-adopt" />
       )}
     </S.Wrapper>
-  )
+  );
 }

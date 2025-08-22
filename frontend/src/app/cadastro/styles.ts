@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
   @media (min-width: 770px) {
     flex-direction: row;
   }
-`
+`;
 
 export const Header = styled.div`
   display: flex;
@@ -23,7 +23,7 @@ export const Header = styled.div`
   @media (min-width: 770px) {
     display: none;
   }
-`
+`;
 
 export const Aside = styled.aside`
   display: none;
@@ -42,7 +42,7 @@ export const Aside = styled.aside`
   @media (min-width: 1080px) {
     width: 480px;
   }
-`
+`;
 
 export const Content = styled.div`
   display: flex;
@@ -60,7 +60,7 @@ export const Content = styled.div`
   @media (min-width: 1080px) {
     max-width: calc(100vw - 480px - 4rem);
   }
-`
+`;
 
 export const RegisterForm = styled.form`
   display: flex;
@@ -88,7 +88,7 @@ export const RegisterForm = styled.form`
       font-size: 2rem;
     }
   }
-`
+`;
 
 export const RegisterFormInputsWrapper = styled.div`
   ${({ theme }) => css`
@@ -118,7 +118,7 @@ export const RegisterFormInputsWrapper = styled.div`
       height: 2rem;
     }
   `}
-`
+`;
 
 export const RegisterFormButtonWrapper = styled.div`
   display: flex;
@@ -130,7 +130,7 @@ export const RegisterFormButtonWrapper = styled.div`
   button {
     max-width: 400px;
   }
-`
+`;
 
 export const RegisterFormFooter = styled.footer`
   display: flex;
@@ -140,4 +140,4 @@ export const RegisterFormFooter = styled.footer`
   @media (min-width: 770px) {
     margin-bottom: 2rem;
   }
-`
+`;

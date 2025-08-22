@@ -1,7 +1,7 @@
-import * as S from './Button.styles'
+import * as S from './Button.styles';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  buttonStyle?: S.ButtonStyleTypes
+  buttonStyle?: S.ButtonStyleTypes;
 }
 
 export function Button({
@@ -14,5 +14,5 @@ export function Button({
     <S.Button onClick={onClick} $buttonStyle={buttonStyle} {...props}>
       {children}
     </S.Button>
-  )
+  );
 }

@@ -1,17 +1,17 @@
-'use client'
+'use client';
 
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
-import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
-import { Button } from '@/components/Button'
-import { PasswordInput } from '@/components/PasswordInput'
+import { Button } from '@/components/Button';
+import { PasswordInput } from '@/components/PasswordInput';
 
-import * as S from './styles'
-import logo from '../../assets/logo-big.png'
-import { registerUser } from '@/api/register-user'
+import * as S from './styles';
+import logo from '../../assets/logo-big.png';
+import { registerUser } from '@/api/register-user';
 
 const createUserFormSchema = z
   .object({
@@ -34,12 +34,12 @@ const createUserFormSchema = z
   .refine(({ password, confirmPassword }) => password === confirmPassword, {
     message: 'As senhas não coincidem',
     path: ['confirmPassword'],
-  })
+  });
 
-export type CreateUserFormData = z.infer<typeof createUserFormSchema>
+export type CreateUserFormData = z.infer<typeof createUserFormSchema>;
 
 export default function Page() {
-  const router = useRouter()
+  const router = useRouter();
 
   const {
     register,
@@ -47,25 +47,25 @@ export default function Page() {
     formState: { errors },
   } = useForm<CreateUserFormData>({
     resolver: zodResolver(createUserFormSchema),
-  })
+  });
 
   const handleSubmitForm = async (data: CreateUserFormData) => {
-    const response = await registerUser(data)
+    const response = await registerUser(data);
 
     if (response.status !== 201) {
       const message =
         response.data.message ||
-        'Falha ao cadastrar! Por favor tente novamente!'
-      alert(message)
-      router.push('/cadastro')
-      return
+        'Falha ao cadastrar! Por favor tente novamente!';
+      alert(message);
+      router.push('/cadastro');
+      return;
     }
 
     alert(
-      'Cadastro efetuado com sucesso! Faça login para acessar nossa plataforma!',
-    )
-    router.push('/login')
-  }
+      'Cadastro efetuado com sucesso! Faça login para acessar nossa plataforma!'
+    );
+    router.push('/login');
+  };
 
   return (
     <S.Wrapper>
@@ -117,5 +117,5 @@ export default function Page() {
         </S.RegisterFormFooter>
       </S.Content>
     </S.Wrapper>
-  )
+  );
 }
