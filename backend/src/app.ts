@@ -10,6 +10,11 @@ app.use(express.json())
 
 app.use(router)
 
+// Health endpoint para checks de container/orquestrador
+app.get('/health', (req, res) => {
+  return res.status(200).json({ status: 'ok' })
+})
+
 app.use(
   (err: Error, request: Request, response: Response, next: NextFunction) => {
     console.error(err)
