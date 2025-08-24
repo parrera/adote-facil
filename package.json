@@ -1,0 +1,23 @@
+{
+  "name": "adote-facil",
+  "version": "1.0.0",
+  "description": "O \"Adote Fácil\" é um sistema voltado para facilitar a adoção de animais. A API provê serviços para gerenciamento de usuários, autenticação, cadastro de animais e gerenciamento de chats entre os usuários. O backend é construído com Node.js e Express, utilizando middlewares para autenticação e tratamento de upload de imagens. O frontend é desenvolvido com Next.js e React, proporcionando uma interface dinâmica e responsiva.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/faelaraujo3/adote-facil.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/faelaraujo3/adote-facil/issues"
+  },
+  "homepage": "https://github.com/faelaraujo3/adote-facil#readme",
+  "devDependencies": {
+    "cypress": "^15.0.0"
+  }
+}
