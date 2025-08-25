@@ -2,6 +2,8 @@
 
 Este documento descreve as principais histórias de usuário do sistema Adote Fácil que conseguimos identificar durante nosso uso, bem como os cenários de teste para cada uma delas!
 
+Além disso, formatamos o documento com títulos, subtítulos e destaques em negrito para melhor visualização do md.
+
 ---
 
 ## Gestão de Usuários
