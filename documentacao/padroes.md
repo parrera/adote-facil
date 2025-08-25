@@ -151,8 +151,9 @@ TypeScript
 // Exemplo (sugestão):
 class ServiceFactory {
   static createCreateUserService(): CreateUserService {
-    // ...lógica de instanciação com suas dependências
+
     return createUserServiceInstance;
   }
 }
+
 ```
