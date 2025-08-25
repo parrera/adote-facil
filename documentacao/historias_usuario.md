@@ -25,6 +25,13 @@ Este documento detalha as principais histórias de usuário da plataforma "Adote
     * Então o sistema não deve criar a conta.
     * E deve exibir uma mensagem de erro, como "Email já cadastrado.".
 
+* **4.1: Tentativa de cadastro com senha fraca**
+    * Dado que o usuário está na página de cadastro.
+    * Quando ele preenche o campo "Senha" com menos de 8 caracteres.
+    * E clica em "Cadastrar".
+    * Então o sistema não deve criar a conta.
+    * E uma mensagem de erro "A senha deve conter no mínimo 8 caracteres" deve ser exibida abaixo do campo de senha.
+
 * **5.1: Tentativa de cadastro com senhas que não coincidem**
     * Dado que o usuário está na página de cadastro.
     * Quando ele preenche o campo "Senha" com `Senha@123`.
@@ -39,13 +46,6 @@ Este documento detalha as principais histórias de usuário da plataforma "Adote
     * E clica em "Cadastrar".
     * Então o sistema não deve criar a conta.
     * E uma mensagem de erro como "O nome é obrigatório" ou "O email é obrigatório" deve ser exibida abaixo do respectivo campo.
-
-* **4.1: Tentativa de cadastro com senha fraca**
-    * Dado que o usuário está na página de cadastro.
-    * Quando ele preenche o campo "Senha" com menos de 8 caracteres.
-    * E clica em "Cadastrar".
-    * Então o sistema não deve criar a conta.
-    * E uma mensagem de erro "A senha deve conter no mínimo 8 caracteres" deve ser exibida abaixo do campo de senha.
 
 ---
 
@@ -66,13 +66,6 @@ Este documento detalha as principais histórias de usuário da plataforma "Adote
 * **11.** E uma mensagem de sucesso "Animal cadastrado com sucesso!" deve ser exibida.
 
 #### Cenários Alternativos
-* **8.1: Tentativa de criar anúncio sem campos obrigatórios**
-    * Dado que o doador está na página de criação de anúncio.
-    * Quando ele deixa o campo "Nome", "Tipo" ou "Gênero" em branco.
-    * E clica em "Cadastrar".
-    * Então o sistema não deve criar o anúncio.
-    * E uma mensagem de erro como "O nome é obrigatório" deve ser exibida abaixo do campo correspondente.
-
 * **7.1: Tentativa de criar anúncio sem fotos**
     * Dado que o doador está na página de criação de anúncio.
     * Quando ele preenche todos os campos de texto mas não faz upload de nenhuma foto.
@@ -90,6 +83,13 @@ Este documento detalha as principais histórias de usuário da plataforma "Adote
     * Dado que o doador está na página de criação de anúncio.
     * Quando ele tenta fazer upload de uma foto com mais de 5MB.
     * Então o sistema deve rejeitar o arquivo (o comportamento exato depende da implementação do backend, mas geralmente resulta em um erro 4xx).
+    
+* **8.1: Tentativa de criar anúncio sem campos obrigatórios**
+    * Dado que o doador está na página de criação de anúncio.
+    * Quando ele deixa o campo "Nome", "Tipo" ou "Gênero" em branco.
+    * E clica em "Cadastrar".
+    * Então o sistema não deve criar o anúncio.
+    * E uma mensagem de erro como "O nome é obrigatório" deve ser exibida abaixo do campo correspondente.
 
 ---
 
