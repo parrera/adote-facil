@@ -45,7 +45,7 @@ O sistema é construído em torno de quatro experiências centrais:
 
   - **Buscar animais disponíveis:**
     > Como um usuário interessado em adotar, quero buscar animais filtrando por
-    espécie, sexo e idade, para filtrar facilmente um que se encaixe com o meu
+    espécie, nome e raça, para filtrar facilmente um que se encaixe com o meu
     perfil.
 
   - **Visualizar detalhes de um animal:**
@@ -112,7 +112,7 @@ Abaixo estão os principais cenários de teste que guiam o desenvolvimento e gar
   - **Fluxo Alternativo:** Se o usuário deixar de preencher algum dos campos obrigatórios (nome, tipo ou gênero), o sistema não permite o cadastro do animal e exibe uma mensagem solicitando o preenchimento dos campos.
 
   #### História: Busca de animais para adoção
-  - **Fluxo Principal:** Um usuário que aplica filtros válidos (como espécie e localização) deve visualizar uma lista de animais que correspondem aos critérios escolhidos.
+  - **Fluxo Principal:** Um usuário que aplica filtros válidos (como espécie e raça) deve visualizar uma lista de animais que correspondem aos critérios escolhidos.
   - **Fluxo Alternativo:** O sistema deve exibir uma mensagem informando que não há animais disponíveis para os filtros selecionados ou que a busca foi inválida.
   
   #### História: Visualização de detalhes de um animal
