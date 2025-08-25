@@ -141,30 +141,6 @@ if (!animal) {
 
 ---
 
-## 3. Lógica Condicional Duplicada: Prevenção de Chat Consigo Mesmo
-
-**Smell Identificado:** Lógica Condicional Duplicada.  
-A verificação `id1 === id2` para impedir que um usuário crie chat ou mensagem consigo mesmo aparece em vários serviços.
-
-### Trecho do Código Original
-
-```typescript
-// backend/src/services/chat/create-user-chat-message.ts
-if (senderId === receiverId) {
-  // Lógica duplicada
-  return Failure.create({ message: "Sender id is equal to receiver id" });
-}
-```
-
-```typescript
-// backend/src/services/chat/create-user-chat.ts
-if (user1Id === user2Id) {
-  // Lógica duplicada
-  return Failure.create({
-    message: "User cannot create a chat with himself",
-  });
-}
-```
 
 ### 4. Analisando a função makeRequest abaixo
 
