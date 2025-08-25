@@ -1,0 +1,1 @@
+Você pode iniciar a interface gráfica do Cypress, que detecta e gerencia os testes do seu projeto, executando o comando npx cypress open no terminal. Após a inicialização, o Cypress exibirá uma lista de arquivos de teste, permitindo que você selecione e execute os cenários desejados.
