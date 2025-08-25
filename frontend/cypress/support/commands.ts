@@ -1,37 +1,15 @@
 /// <reference types="cypress" />
-// ***********************************************
-// This example commands.ts shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-//
-// declare global {
-//   namespace Cypress {
-//     interface Chainable {
-//       login(email: string, password: string): Chainable<void>
-//       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
-//   }
-// }
+
+Cypress.Commands.add('login', () => {
+  const mockUser = { id: '123', name: 'Muzzeti', email: 'muzzeti@email.com' };
+  const mockToken = 'fake-jwt-token';
+
+  // Cria o cookie de autenticação no caminho raiz '/'
+  // Isso garante que ele será enviado para QUALQUER página do site.
+  cy.setCookie('token', mockToken, { path: '/' });
+
+  // Cria o item no localStorage que a UI espera para mostrar o nome
+  cy.window().then((win) => {
+    win.localStorage.setItem('user', JSON.stringify(mockUser));
+  });
+});

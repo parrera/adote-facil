@@ -9,8 +9,8 @@ describe('Cadastro de Usuário', () => {
     cy.visit('/cadastro');
 
     //Preenche o formulário de cadastro
-    cy.get('input[name="name"]').type('NovoUsuario');
-    cy.get('input[name="email"]').type('novousuario@teste.com');
+    cy.get('input[name="name"]').type('Muzzeti');
+    cy.get('input[name="email"]').type('muzzeti@email.com');
     cy.get('input[name="password"]').type('senha123');
     cy.get('input[name="confirmPassword"]').type('senha123');
 
