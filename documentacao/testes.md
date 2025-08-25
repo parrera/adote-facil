@@ -2,23 +2,6 @@
 
 Este guia rápido mostra como executar os testes do projeto.
 
-## Testes do Backend (Unitários)
-
-Os testes do backend usam Jest. Para executá-los:
-
-1.  Acesse a pasta `backend`:
-    ```bash
-    cd backend
-    ```
-2.  Instale as dependências:
-    ```bash
-    npm install
-    ```
-3.  Rode o comando de teste:
-    ```bash
-    npm test
-    ```
-
 ## Testes do Frontend (Aceitação com Cypress)
 
 Os testes de ponta a ponta usam Cypress. Siga os passos:
