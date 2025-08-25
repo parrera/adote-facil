@@ -5,14 +5,14 @@
 
 História de Usuário
 
-Como visitante, quero criar uma conta no sistema para poder acessar as funcionalidades exclusivas.
+Eu como visitante, quero criar uma conta no sistema para poder acessar as funcionalidades exclusivas.
 
 ---
 2. Login no Sistema
 
 História de Usuário:
 
-Como usuário cadastrado, quero acessar o sistema informando meu login e senha para utilizar as funcionalidades.
+Eu como usuário cadastrado, quero acessar o sistema informando meu login e senha para utilizar as funcionalidades.
 
 ---
 
@@ -20,7 +20,7 @@ Como usuário cadastrado, quero acessar o sistema informando meu login e senha p
 
 História de Usuário:
 
-Como usuário, quero cadastrar um novo pet com informações completas para que ele fique disponível no sistema.
+Eu como usuário, quero visualizar os animas que estao disponiveis para eu realizar a adoção.
 
 ---
 
@@ -28,4 +28,4 @@ Como usuário, quero cadastrar um novo pet com informações completas para que 
 
 História de Usuário:
 
-Como usuário, quero pesquisar Pet cadastrados para encontrar rapidamente o que procuro.
+Eu como usuário, quero alterar meu nome e meu e-mail para manter meu dados sempre atualizados.
