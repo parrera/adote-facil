@@ -4,7 +4,7 @@ Este documento descreve as principais histórias de usuário do sistema Adote F�
 
 Além disso, formatamos o documento com títulos, subtítulos e destaques em negrito para melhor visualização do md.
 
----
+
 
 ## Gestão de Usuários
 
@@ -15,23 +15,23 @@ Além disso, formatamos o documento com títulos, subtítulos e destaques em neg
 #### Cenários de Teste
 
 * **Cenário Principal: Cadastro com sucesso**
-    1.  Dado que o usuário está na página de cadastro.
-    2.  Quando ele preenche todos os campos obrigatórios com dados válidos.
-    3.  E clica no botão "Cadastrar".
-    4.  Então a conta do usuário é criada com sucesso.
-    5.  E o usuário é redirecionado para a página de login.
+    1.  Dado que o usuário está na página de cadastro.
+    2.  Quando ele preenche todos os campos obrigatórios com dados válidos.
+    3.  E clica no botão "Cadastrar".
+    4.  Então a conta do usuário é criada com sucesso.
+    5.  E o usuário é redirecionado para a página de login.
 
 * **Cenário Alternativo: Tentativa de cadastro com e-mail já existente**
-    1.  Dado que o usuário está na página de cadastro.
-    2.  Quando ele preenche o campo de e-mail com um endereço que já está em uso.
-    3.  E clica no botão "Cadastrar".
-    4.  Então o sistema exibe uma mensagem de erro informando que o e-mail já está cadastrado.
+    1.  Dado que o usuário está na página de cadastro.
+    2.  Quando ele preenche o campo de e-mail com um endereço que já está em uso.
+    3.  E clica no botão "Cadastrar".
+    4.  Então o sistema exibe uma mensagem de erro informando que o e-mail já está cadastrado.
 
 * **Cenário Alternativo: Tentativa de cadastro com senhas que não conferem**
-    1.  Dado que o usuário está na página de cadastro.
-    2.  Quando ele preenche os campos de senha e confirmação de senha com valores diferentes.
-    3.  E clica no botão "Cadastrar".
-    4.  Então o sistema exibe uma mensagem de erro informando que as senhas não conferem.
+    1.  Dado que o usuário está na página de cadastro.
+    2.  Quando ele preenche os campos de senha e confirmação de senha com valores diferentes.
+    3.  E clica no botão "Cadastrar".
+    4.  Então o sistema exibe uma mensagem de erro informando que as senhas não conferem.
 
 ### História de Usuário: Login
 
@@ -40,17 +40,17 @@ Além disso, formatamos o documento com títulos, subtítulos e destaques em neg
 #### Cenários de Teste
 
 * **Cenário Principal: Login com sucesso**
-    1.  Dado que o usuário está na página de login.
-    2.  Quando ele preenche os campos de e-mail e senha com credenciais válidas.
-    3.  E clica no botão "Entrar".
-    4.  Então o usuário é autenticado com sucesso.
-    5.  E é redirecionado para a página de animais disponíveis.
+    1.  Dado que o usuário está na página de login.
+    2.  Quando ele preenche os campos de e-mail e senha com credenciais válidas.
+    3.  E clica no botão "Entrar".
+    4.  Então o usuário é autenticado com sucesso.
+    5.  E é redirecionado para a página de animais disponíveis.
 
 * **Cenário Alternativo: Tentativa de login com credenciais inválidas**
-    1.  Dado que o usuário está na página de login.
-    2.  Quando ele preenche os campos de e-mail e/ou senha com informações incorretas.
-    3.  E clica no botão "Entrar".
-    4.  Então o sistema exibe uma mensagem de erro informando que as credenciais são inválidas.
+    1.  Dado que o usuário está na página de login.
+    2.  Quando ele preenche os campos de e-mail e/ou senha com informações incorretas.
+    3.  E clica no botão "Entrar".
+    4.  Então o sistema exibe uma mensagem de erro informando que as credenciais são inválidas.
 
 ### História de Usuário: Atualizar Perfil
 **Como um usuário cadastrado, eu quero atualizar as informações do meu perfil para que outros usuários tenham informações atualizadas sobre mim.**
@@ -83,21 +83,21 @@ Além disso, formatamos o documento com títulos, subtítulos e destaques em neg
 #### Cenários de Teste
 
 * **Cenário Principal: Cadastro de animal com sucesso**
-    1.  Dado que o usuário está logado em sua conta.
-    2.  E está na página de "Disponibilizar Animal".
-    3.  Quando ele preenche todos os campos do formulário com informações válidas sobre o animal.
-    4.  E adiciona pelo menos uma foto.
-    5.  E clica no botão "Cadastrar".
-    6.  Então o animal é cadastrado com sucesso.
-    7.  E o usuário é redirecionado para a página "Meus Animais".
+    1.  Dado que o usuário está logado em sua conta.
+    2.  E está na página de "Disponibilizar Animal".
+    3.  Quando ele preenche todos os campos do formulário com informações válidas sobre o animal.
+    4.  E adiciona pelo menos uma foto.
+    5.  E clica no botão "Cadastrar".
+    6.  Então o animal é cadastrado com sucesso.
+    7.  E o usuário é redirecionado para a página "Meus Animais".
 
 * **Cenário Alternativo: Tentativa de cadastro de animal sem foto**
-    1.  Dado que o usuário está logado em sua conta.
-    2.  E está na página de "Disponibilizar Animal".
-    3.  Quando ele preenche todos os campos de texto do formulário.
-    4.  Mas não adiciona nenhuma foto do animal.
-    5.  E clica no botão "Cadastrar".
-    6.  Então o sistema exibe uma mensagem de erro solicitando o envio de pelo menos uma foto.
+    1.  Dado que o usuário está logado em sua conta.
+    2.  E está na página de "Disponibilizar Animal".
+    3.  Quando ele preenche todos os campos de texto do formulário.
+    4.  Mas não adiciona nenhuma foto do animal.
+    5.  E clica no botão "Cadastrar".
+    6.  Então o sistema exibe uma mensagem de erro solicitando o envio de pelo menos uma foto.
 
 ### História de Usuário: Visualizar Animais Disponíveis
 
@@ -106,15 +106,15 @@ Além disso, formatamos o documento com títulos, subtítulos e destaques em neg
 #### Cenários de Teste
 
 * **Cenário Principal: Visualização da lista de animais**
-    1.  Dado que o usuário está logado no sistema.
-    2.  Quando ele acessa a página "Animais Disponíveis".
-    3.  Então uma lista de animais para adoção é exibida.
+    1.  Dado que o usuário está logado no sistema.
+    2.  Quando ele acessa a página "Animais Disponíveis".
+    3.  Então uma lista de animais para adoção é exibida.
 
 * **Cenário Alternativo: Nenhum animal disponível para adoção**
-    1.  Dado que o usuário está logado no sistema.
-    2.  E não há animais cadastrados para adoção.
-    3.  Quando ele acessa a página "Animais Disponíveis".
-    4.  Então uma mensagem é exibida informando que não há animais disponíveis no momento.
+    1.  Dado que o usuário está logado no sistema.
+    2.  E não há animais cadastrados para adoção.
+    3.  Quando ele acessa a página "Animais Disponíveis".
+    4.  Então uma mensagem é exibida informando que não há animais disponíveis no momento.
 
 ### História de Usuário: Filtrar Animais
 
@@ -123,10 +123,10 @@ Além disso, formatamos o documento com títulos, subtítulos e destaques em neg
 #### Cenários de Teste
 
 * **Cenário Principal: Filtrar animais com sucesso**
-    1.  Dado que o usuário está na página "Animais Disponíveis".
-    2.  Quando ele seleciona um tipo de animal no filtro (ex: "Cachorro").
-    3.  E clica em "Filtrar".
-    4.  Então a lista é atualizada para mostrar apenas os animais que correspondem ao critério do filtro.
+    1.  Dado que o usuário está na página "Animais Disponíveis".
+    2.  Quando ele seleciona um tipo de animal no filtro (ex: "Cachorro").
+    3.  E clica em "Filtrar".
+    4.  Então a lista é atualizada para mostrar apenas os animais que correspondem ao critério do filtro.
 
 ### História de Usuário: Ver Detalhes do Animal
 **Como um usuário interessado em um animal, eu quero ver o perfil detalhado do animal, incluindo fotos e descrição, para que eu possa saber mais sobre ele.**
@@ -170,10 +170,10 @@ Além disso, formatamos o documento com títulos, subtítulos e destaques em neg
 #### Cenários de Teste
 
 * **Cenário Principal: Iniciar um chat com sucesso**
-    1.  Dado que o usuário está logado e visualizando os detalhes de um animal.
-    2.  Quando ele clica no botão para iniciar uma conversa.
-    3.  Então ele é redirecionado para a página de chat.
-    4.  E uma nova conversa com o dono do animal é iniciada.
+    1.  Dado que o usuário está logado e visualizando os detalhes de um animal.
+    2.  Quando ele clica no botão para iniciar uma conversa.
+    3.  Então ele é redirecionado para a página de chat.
+    4.  E uma nova conversa com o dono do animal é iniciada.
 
 ### História de Usuário: Enviar Mensagem
 
@@ -182,10 +182,10 @@ Além disso, formatamos o documento com títulos, subtítulos e destaques em neg
 #### Cenários de Teste
 
 * **Cenário Principal: Enviar uma mensagem com sucesso**
-    1.  Dado que o usuário está em uma conversa ativa no chat.
-    2.  Quando ele digita uma mensagem no campo de texto.
-    3.  E clica no botão de enviar.
-    4.  Então a mensagem é enviada e exibida na janela do chat.
+    1.  Dado que o usuário está em uma conversa ativa no chat.
+    2.  Quando ele digita uma mensagem no campo de texto.
+    3.  E clica no botão de enviar.
+    4.  Então a mensagem é enviada e exibida na janela do chat.
 
 ### História de Usuário: Visualizar Lista de Conversas
 **Como um usuário, eu quero ver uma lista de todos os meus chats em andamento para que eu possa acessar facilmente minhas conversas.**
