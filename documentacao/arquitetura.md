@@ -48,7 +48,6 @@ O frontend utiliza uma **arquitetura baseada em componentes**, uma prática padr
 
 O diagrama abaixo ilustra a interação entre os principais componentes do sistema.
 
-```mermaid
 graph TD
     subgraph Frontend (Next.js)
         direction LR
@@ -68,7 +67,6 @@ graph TD
 
     style Frontend fill:#f9f,stroke:#333,stroke-width:2px
     style Backend fill:#ccf,stroke:#333,stroke-width:2px
-```
 
 ## 4. Fluxo de Dados
 
