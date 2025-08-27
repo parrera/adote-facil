@@ -1,26 +1,14 @@
-describe('Cadastro de Usuário', () => {
-  it('deve permitir que um novo usuário se cadastre com sucesso', () => {
-    cy.intercept('POST', '**/users', {
-      statusCode: 201,
-      body: { message: 'Cadastro efetuado com sucesso!' },
-    }).as('registerRequest');
-
-    //entra na página de cadastro
-    cy.visit('/cadastro');
-
-    //preenche o formulário de cadastro
-    cy.get('input[name="name"]').type('Muzzeti');
-    cy.get('input[name="email"]').type('muzzeti@email.com');
+describe('Cadastro de usuario', () => {
+  it('teste de efetuar cadastro de um novo usuario', () => {
+    cy.visit('http://localhost:3000/cadastro');
+    cy.get('input[name="name"]').type('novoUSER');
+    cy.get('input[name="email"]').type('novousuario@email.com');
     cy.get('input[name="password"]').type('senha123');
     cy.get('input[name="confirmPassword"]').type('senha123');
-
-    //clica no botão de cadastrar
-    cy.contains('button', 'Cadastrar').click();
-
-    //espera o processo ser completado
-    cy.wait('@registerRequest');
-
-    //pagina de login
+    cy.get('button[type="submit"]').click();
+    cy.on('window:alert', (str) => {
+      expect(str).to.equal('Cadastro efetuado com sucesso. Faça login para acessar');
+    });
     cy.url().should('include', '/login');
   });
 });
