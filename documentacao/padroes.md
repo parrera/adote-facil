@@ -8,24 +8,42 @@ No backend do Adote Fácil, dá pra perceber uma separação natural entre:
 
 - **Controllers**: recebem a requisição HTTP e retornam a resposta  
 - **Services**: ficam com as regras de negócio (o “coração” da aplicação)  
-- **Repositories**: lidam com o acesso aos dados (ex.: Prisma/banco)  
+- **Repositories**: lidam com o acesso aos dados (Prisma/banco)  
 
 Isso ajuda muito na manutenção, porque se eu mudar uma regra de negócio, geralmente eu mexo no service e não preciso alterar os controllers.
 
 ### Exemplo no código
 
 ```ts
-import { Request, Response } from "express";
-import { SeuService } from "../services/SeuService";
+import { Request, Response } from 'express'
+import {
+  CreateAnimalService,
+  createAnimalServiceInstance,
+} from '../../services/animal/create-animal.js'
 
-export class SeuController {
-  private service = new SeuService();
+class CreateAnimalController {
+  constructor(private readonly createAnimal: CreateAnimalService) {}
 
-  async listar(req: Request, res: Response) {
-    const resultado = await this.service.listar();
-    return res.json(resultado);
+  async handle(request: Request, response: Response): Promise<Response> {
+    const { name, type, gender, race, description } = request.body
+    const { user } = request
+
+    const result = await this.createAnimal.execute({
+      name,
+      type,
+      gender,
+      race,
+      description,
+      userId: user.id,
+    })
+
+    const statusCode = result.isFailure() ? 400 : 201
+    return response.status(statusCode).json(result.value)
   }
 }
+Por que isso é SRP?
+
+Esse controller apenas cuida da parte HTTP (receber dados da requisição e devolver a resposta). Ele não sabe como os dados são salvos no banco nem como a regra de criação do animal funciona. Essa responsabilidade fica toda no service.
 
 1.2 Open/Closed Principle (OCP)
 
@@ -35,15 +53,30 @@ No projeto, isso aparece principalmente nos services, que concentram as regras. 
 
 ### Exemplo no código
 
-import { SeuRepository } from "../repositories/SeuRepository";
+import {
+  AnimalRepository,
+  animalRepositoryInstance,
+} from '../../repositories/animal.js'
+import {
+  AnimalImageRepository,
+  animalImageRepositoryInstance,
+} from '../../repositories/animal-image.js'
 
-export class SeuService {
-  private repository = new SeuRepository();
+export class CreateAnimalService {
+  constructor(
+    private readonly animalRepository: AnimalRepository,
+    private readonly animalImageRepository: AnimalImageRepository,
+  ) {}
 
-  async listar() {
-    return this.repository.findAll();
+  async execute(data) {
+    const animal = await this.animalRepository.create(data)
+
+    return animal
   }
 }
+Por que isso é OCP?
+
+Se no futuro eu quiser adicionar uma nova regra (por exemplo, validar tipo do animal ou impedir cadastro duplicado), posso estender esse método execute sem precisar mexer no controller que chama o service.
 
 1.3 Liskov Substitution Principle (LSP)
 
@@ -53,15 +86,22 @@ Mesmo sem herança explícita no projeto, isso pode ser observado na forma como 
 
 ### Exemplo no código
 
-import { PrismaClient } from "@prisma/client";
+import { prisma } from '../database.js'
 
-export class SeuRepository {
-  private prisma = new PrismaClient();
+export class AnimalRepository {
+  constructor(private readonly repository = prisma) {}
 
-  async findAll() {
-    return this.prisma.seuModel.findMany();
+  async findAllByUserId(userId: string) {
+    return this.repository.animal.findMany({
+      where: { userId },
+      include: { images: true },
+    })
   }
 }
+
+Por que isso se relaciona com LSP?
+
+Se futuramente esse repositório for substituído por outro (por exemplo, um repositório que busque dados de uma API externa ou um mock para testes), o service pode continuar chamando os mesmos métodos sem precisar ser alterado.
 
 1.4 Interface Segregation Principle (ISP)
 
@@ -71,10 +111,16 @@ No backend, isso aparece quando os repositórios e services oferecem métodos pe
 
 ## Exemplo no código
 
-async findById(id: string) {
-  return this.prisma.seuModel.findUnique({
-    where: { id }
-  });
+async findAllAvailableNotFromUser(params) {
+  const { userId, gender } = params
+
+  return this.repository.animal.findMany({
+    where: {
+      userId: { not: userId },
+      gender,
+    },
+    include: { images: true },
+  })
 }
 
 1.5 Dependency Inversion Principle (DIP)
@@ -89,16 +135,26 @@ No projeto, o fluxo geralmente é:
 
 ## Exemplo no código
 
-import { SeuService } from "../services/SeuService";
+import {
+  CreateAnimalService,
+  createAnimalServiceInstance,
+} from '../../services/animal/create-animal.js'
 
-export class SeuController {
-  private service = new SeuService();
+class CreateAnimalController {
+  constructor(private readonly createAnimal: CreateAnimalService) {}
 
-  async listar(req, res) {
-    const dados = await this.service.listar();
-    return res.json(dados);
+  async handle(request, response) {
+    const result = await this.createAnimal.execute(request.body)
+    return response.json(result)
   }
 }
+
+export const createAnimalControllerInstance = new CreateAnimalController(
+  createAnimalServiceInstance,
+)
+Por que isso é DIP?
+
+O controller não acessa o banco de dados diretamente. Ele depende do service, que depende do repositório. Isso reduz o acoplamento e facilita a criação de testes, já que dá para trocar o repositório por um mock.
 
 2. Padrões de Projeto Identificados 
 
@@ -110,17 +166,20 @@ No projeto, o acesso ao Prisma fica concentrado nos repositórios, enquanto os s
 
 ## Exemplo no código
 
-import { PrismaClient } from "@prisma/client";
+import { prisma } from '../database.js'
 
-export class SeuRepository {
-  private prisma = new PrismaClient();
-
-  async findAll() {
-    return this.prisma.seuModel.findMany();
-  }
+export class AnimalRepository {
+  constructor(private readonly repository = prisma) {}
 
   async create(data) {
-    return this.prisma.seuModel.create({ data });
+    return this.repository.animal.create({ data })
+  }
+
+  async findAllByUserId(userId: string) {
+    return this.repository.animal.findMany({
+      where: { userId },
+      include: { images: true },
+    })
   }
 }
 
@@ -141,17 +200,22 @@ Mesmo sendo uma aplicação moderna, dá pra identificar um padrão MVC adaptado
 ## Exemplo no código
 
 Controller:
-export class SeuController {
-  async listar(req, res) {
-    const dados = await this.service.listar();
-    return res.json(dados);
+class CreateAnimalController {
+  async handle(request, response) {
+    const result = await this.createAnimal.execute(request.body)
+    return response.json(result)
   }
 }
 
 Model (Prisma Schema):
-model SeuModel {
-  id   String @id @default(uuid())
-  nome String
+model Animal {
+  id          String   @id @default(uuid())
+  name        String
+  type        String
+  gender      String
+  race        String
+  description String
+  userId      String
 }
 
 Por que isso é MVC?
