@@ -1,70 +1,170 @@
-1. Análise dos Princípios SOLID
-1.1 Single Responsibility Principle (SRP)
+# 1. Análise dos Princípios SOLID
 
-O princípio da responsabilidade única afirma que uma classe ou módulo deve ter apenas um motivo para mudar.
+## 1.1 Single Responsibility Principle (SRP)
 
-No backend do sistema, é possível observar a separação entre:
+O princípio da responsabilidade única diz que uma classe ou módulo deve ter apenas um motivo para mudar. Em termos práticos, eu entendo como: cada parte do sistema deve fazer uma coisa principal e fazer bem.
 
-- Camadas de controladores (controllers), responsáveis por lidar com requisições HTTP
-- Camadas de serviços (services), responsáveis pela lógica de negócio
-- Camadas de repositórios (repositories), responsáveis pelo acesso ao banco de dados
+No backend do Adote Fácil, dá pra perceber uma separação natural entre:
 
-Esse tipo de separação demonstra a aplicação do SRP, pois cada componente possui uma responsabilidade bem definida.
+- **Controllers**: recebem a requisição HTTP e retornam a resposta  
+- **Services**: ficam com as regras de negócio (o “coração” da aplicação)  
+- **Repositories**: lidam com o acesso aos dados (ex.: Prisma/banco)  
+
+Isso ajuda muito na manutenção, porque se eu mudar uma regra de negócio, geralmente eu mexo no service e não preciso alterar os controllers.
+
+### Exemplo no código
+
+```ts
+import { Request, Response } from "express";
+import { SeuService } from "../services/SeuService";
+
+export class SeuController {
+  private service = new SeuService();
+
+  async listar(req: Request, res: Response) {
+    const resultado = await this.service.listar();
+    return res.json(resultado);
+  }
+}
 
 1.2 Open/Closed Principle (OCP)
 
-O princípio aberto/fechado estabelece que as entidades de software devem estar abertas para extensão, mas fechadas para modificação.
+O princípio aberto/fechado diz que o código deve estar aberto para extensão, mas fechado para modificação. Na prática, isso significa que eu consigo adicionar novos comportamentos sem precisar sair alterando código que já funciona.
 
-No projeto, esse princípio pode ser observado em pontos onde serviços recebem dependências ou utilizam abstrações para lidar com diferentes comportamentos, como validações ou estratégias de persistência, permitindo a adição de novos comportamentos sem alterar diretamente o código existente.
+No projeto, isso aparece principalmente nos services, que concentram as regras. Assim, novas validações ou filtros podem ser adicionados ali sem mexer nos controllers.
+
+### Exemplo no código
+
+import { SeuRepository } from "../repositories/SeuRepository";
+
+export class SeuService {
+  private repository = new SeuRepository();
+
+  async listar() {
+    return this.repository.findAll();
+  }
+}
 
 1.3 Liskov Substitution Principle (LSP)
 
-O princípio da substituição de Liskov afirma que subclasses devem poder substituir suas classes base sem afetar o funcionamento do sistema.
+O princípio da substituição de Liskov afirma que uma implementação pode ser substituída por outra sem quebrar o funcionamento do sistema, desde que mantenha o mesmo comportamento esperado.
 
-Embora o projeto não utilize herança de forma extensiva, o uso de interfaces e contratos implícitos nos serviços e repositórios permite que implementações alternativas possam ser substituídas sem impactar o restante da aplicação.
+Mesmo sem herança explícita no projeto, isso pode ser observado na forma como os services usam os repositories.
+
+### Exemplo no código
+
+import { PrismaClient } from "@prisma/client";
+
+export class SeuRepository {
+  private prisma = new PrismaClient();
+
+  async findAll() {
+    return this.prisma.seuModel.findMany();
+  }
+}
 
 1.4 Interface Segregation Principle (ISP)
 
-O princípio da segregação de interfaces sugere que os módulos não devem ser forçados a depender de interfaces que não utilizam.
+O princípio da segregação de interfaces diz que um módulo não deve ser obrigado a depender de métodos que não utiliza.
 
-No contexto do backend, esse princípio é respeitado ao se manter funções e serviços com métodos específicos e bem definidos, evitando a criação de interfaces genéricas ou excessivamente amplas.
+No backend, isso aparece quando os repositórios e services oferecem métodos pequenos e específicos, em vez de uma única classe com muitos métodos genéricos.
+
+## Exemplo no código
+
+async findById(id: string) {
+  return this.prisma.seuModel.findUnique({
+    where: { id }
+  });
+}
 
 1.5 Dependency Inversion Principle (DIP)
 
-O princípio da inversão de dependência propõe que módulos de alto nível não dependam de módulos de baixo nível, mas sim de abstrações.
+O princípio da inversão de dependência diz que módulos de alto nível não devem depender diretamente de módulos de baixo nível.
 
-No projeto, esse princípio é observado quando controladores dependem de serviços, e não diretamente de implementações de acesso a dados, promovendo menor acoplamento e maior facilidade de manutenção e testes.
+No projeto, o fluxo geralmente é:
 
-2. Padrões de Projeto Identificados
+- Controller → Service
+- Service → Repository
+- Repository → Banco (Prisma)
+
+## Exemplo no código
+
+import { SeuService } from "../services/SeuService";
+
+export class SeuController {
+  private service = new SeuService();
+
+  async listar(req, res) {
+    const dados = await this.service.listar();
+    return res.json(dados);
+  }
+}
+
+2. Padrões de Projeto Identificados 
+
 2.1 Repository Pattern
 
-O Repository Pattern é utilizado para abstrair o acesso aos dados e separar a lógica de persistência da lógica de negócio.
+O Repository Pattern é usado para separar a lógica de acesso aos dados da lógica de negócio.
 
-No projeto, a presença de módulos responsáveis exclusivamente por interagir com o banco de dados (por exemplo, camadas que utilizam o Prisma para realizar operações CRUD) caracteriza esse padrão, permitindo que os serviços consumam dados sem conhecer os detalhes da implementação do banco.
+No projeto, o acesso ao Prisma fica concentrado nos repositórios, enquanto os services apenas chamam esses métodos
 
-Benefícios:
+## Exemplo no código
 
-- Redução do acoplamento entre lógica de negócio e persistência
-- Facilita testes unitários por meio de mocks
-- Melhora a organização do código
+import { PrismaClient } from "@prisma/client";
+
+export class SeuRepository {
+  private prisma = new PrismaClient();
+
+  async findAll() {
+    return this.prisma.seuModel.findMany();
+  }
+
+  async create(data) {
+    return this.prisma.seuModel.create({ data });
+  }
+}
+
+Benefícios percebidos:
+
+- Services ficam mais limpos e focados em regra de negócio
+- Facilita a criação de testes usando mocks
+- Organização melhor do acesso ao banco
 
 2.2 Model-View-Controller (MVC)
 
-O padrão MVC pode ser identificado na separação entre:
+Mesmo sendo uma aplicação moderna, dá pra identificar um padrão MVC adaptado:
 
-- Controllers: responsáveis por receber requisições HTTP e retornar respostas
-- Models: representações das entidades e dados persistidos no banco
-- Views: representadas pelo frontend, que consome a API e exibe os dados ao usuário
+- Model: schema do Prisma e dados persistidos
+- View: frontend (camada que o usuário vê)
+- Controller: backend, recebendo requisições HTTP e chamando services
 
-Essa separação melhora a manutenibilidade e a organização do sistema, tornando mais claro o papel de cada camada.
+## Exemplo no código
 
-3. Justificativa da Aplicação dos Padrões
+Controller:
+export class SeuController {
+  async listar(req, res) {
+    const dados = await this.service.listar();
+    return res.json(dados);
+  }
+}
 
-A utilização dos princípios SOLID e dos padrões de projeto identificados contribui para:
+Model (Prisma Schema):
+model SeuModel {
+  id   String @id @default(uuid())
+  nome String
+}
 
-- Maior legibilidade do código
-- Facilidade de manutenção e evolução do sistema
-- Melhor testabilidade
-- Redução de acoplamento entre componentes
+Por que isso é MVC?
 
-Essas características são importantes para garantir a qualidade do software e a escalabilidade da aplicação ao longo do tempo.
+O controller faz a ponte entre a interface (frontend) e os dados (model), enquanto a view apenas consome a API e exibe as informações para o usuário.
+
+3. Conclusão 
+
+Na minha análise, o uso dos princípios SOLID e dos padrões de projeto como Repository e MVC ajuda principalmente a:
+
+- Manter o código mais organizado
+- Facilitar a manutenção quando novas regras surgem
+- Tornar os testes mais simples (mockando repositórios e services)
+- Reduzir o acoplamento entre as camadas
+
+Isso é importante porque, conforme o sistema cresce, o código fica mais previsível e menos propenso a erros quando mudanças são necessárias.
