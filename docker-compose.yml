@@ -1,51 +1,72 @@
+# =============================================================================
+# Docker Compose - Ambiente de Desenvolvimento e Produção
+# =============================================================================
+
 services:
+  # Banco de dados PostgreSQL
   adote-facil-postgres:
     image: postgres:14-alpine
-    container_name: 'adote-facil-postgres'
+    container_name: adote-facil-postgres
+    restart: unless-stopped
     env_file:
       - ./backend/.env
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
       POSTGRES_DB: ${POSTGRES_DB:-adote_facil}
-      POSTGRES_CONTAINER_PORT: ${POSTGRES_CONTAINER_PORT:-6500}
     ports:
-      - ${POSTGRES_CONTAINER_PORT:-6500}:5432
+      - "${POSTGRES_CONTAINER_PORT:-6500}:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
     networks:
       - adote-facil-network
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-adote_facil}"]
-      interval: 3s
-      timeout: 3s
+      interval: 5s
+      timeout: 5s
       retries: 5
+      start_period: 10s
 
+  # Backend API (Node.js + Express + Prisma)
   adote-facil-backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: 'adote-facil-backend'
+      target: runner
+    container_name: adote-facil-backend
+    restart: unless-stopped
     ports:
       - "8080:8080"
+    env_file:
+      - ./backend/.env
     environment:
-      - NODE_ENV=production
+      NODE_ENV: production
+      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@adote-facil-postgres:5432/${POSTGRES_DB:-adote_facil}?schema=public
     depends_on:
       adote-facil-postgres:
         condition: service_healthy
-    command: sh -c "until nc -z adote-facil-postgres 5432; do echo 'Waiting for postgres...'; sleep 1; done; npm start"
     networks:
       - adote-facil-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
 
+  # Frontend (Next.js)
   adote-facil-frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    container_name: 'adote-facil-frontend'
+      target: runner
+    container_name: adote-facil-frontend
+    restart: unless-stopped
     ports:
       - "3000:3000"
     environment:
-      - NODE_ENV=production
+      NODE_ENV: production
+      NEXT_PUBLIC_API_URL: http://adote-facil-backend:8080
     depends_on:
       - adote-facil-backend
     networks:
@@ -53,6 +74,7 @@ services:
 
 volumes:
   db_data:
+    driver: local
 
 networks:
   adote-facil-network:
