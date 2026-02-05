@@ -1,0 +1,12 @@
+{
+  "user": {
+    "name": "Usuário Teste",
+    "email": "teste@teste.com",
+    "password": "12345678"
+  },
+  "animal": {
+    "name": "Rex",
+    "type": "DOG",
+    "gender": "MALE"
+  }
+}
