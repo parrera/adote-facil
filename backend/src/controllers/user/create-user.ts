@@ -3,6 +3,7 @@ import {
   CreateUserService,
   createUserServiceInstance,
 } from '../../services/user/create-user.js'
+import { StatusCodes } from 'http-status-codes'
 
 class CreateUserController {
   constructor(private readonly createUser: CreateUserService) {}
@@ -13,13 +14,17 @@ class CreateUserController {
     try {
       const result = await this.createUser.execute({ name, email, password })
 
-      const statusCode = result.isFailure() ? 400 : 201
+      const statusCode = result.isFailure()
+        ? StatusCodes.BAD_REQUEST
+        : StatusCodes.CREATED
 
       return response.status(statusCode).json(result.value)
     } catch (err) {
       const error = err as Error
       console.log({ error })
-      return response.status(500).json({ error: error.message })
+      return response
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json({ error: error.message })
     }
   }
 }

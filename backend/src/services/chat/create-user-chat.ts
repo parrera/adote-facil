@@ -1,10 +1,10 @@
 import { Chat } from '@prisma/client'
 
-import {
-  ChatRepository,
-  chatRepositoryInstance,
-} from '../../repositories/chat.js'
 import { Either, Failure, Success } from '../../utils/either.js'
+import {
+  ChatDomainService,
+  chatDomainServiceInstance,
+} from './chat-domain-service.js'
 
 export namespace CreateUserChatDTO {
   export type Params = {
@@ -20,7 +20,7 @@ export namespace CreateUserChatDTO {
 }
 
 export class CreateUserChatService {
-  constructor(private readonly chatRepository: ChatRepository) {}
+  constructor(private readonly chatDomainService: ChatDomainService) {}
 
   async execute(
     params: CreateUserChatDTO.Params,
@@ -33,21 +33,11 @@ export class CreateUserChatService {
       })
     }
 
-    const chatAlreadyExists = await this.chatRepository.findOneByUsersId(
-      user1Id,
-      user2Id,
-    )
-
-    if (chatAlreadyExists) {
-      return Success.create({ chat: chatAlreadyExists })
-    }
-
-    const chat = await this.chatRepository.create({ user1Id, user2Id })
-
+    const chat = await this.chatDomainService.findOrCreateChat(user1Id, user2Id)
     return Success.create({ chat })
   }
 }
 
 export const createUserChatServiceInstance = new CreateUserChatService(
-  chatRepositoryInstance,
+  chatDomainServiceInstance,
 )

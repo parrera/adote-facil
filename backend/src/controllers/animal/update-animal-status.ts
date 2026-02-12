@@ -3,6 +3,7 @@ import {
   UpdateAnimalStatusService,
   updateAnimalStatusServiceInstance,
 } from '../../services/animal/update-animal-status.js'
+import { StatusCodes } from 'http-status-codes'
 
 class UpdateAnimalStatusController {
   constructor(private readonly updateAnimalStatus: UpdateAnimalStatusService) {}
@@ -19,13 +20,17 @@ class UpdateAnimalStatusController {
         userId: user?.id || '',
       })
 
-      const statusCode = result.isFailure() ? 400 : 200
+      const statusCode = result.isFailure()
+        ? StatusCodes.BAD_REQUEST
+        : StatusCodes.OK
 
       return response.status(statusCode).json(result.value)
     } catch (err) {
       const error = err as Error
       console.error('Error updating animal:', error)
-      return response.status(500).json({ error: error.message })
+      return response
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json({ error: error.message })
     }
   }
 }

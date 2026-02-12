@@ -3,6 +3,7 @@ import {
   Authenticator,
   authenticatorInstance,
 } from '../providers/authenticator.js'
+import { StatusCodes } from 'http-status-codes'
 
 class UserAuthMiddleware {
   constructor(private readonly authenticator: Authenticator) {}
@@ -11,7 +12,9 @@ class UserAuthMiddleware {
     const authHeader = req.headers.authorization
 
     if (!authHeader) {
-      return res.status(401).json({ message: 'Token não fornecido.' })
+      return res
+        .status(StatusCodes.UNAUTHORIZED)
+        .json({ message: 'Token não fornecido.' })
     }
 
     const [, token] = authHeader.split(' ')
@@ -23,7 +26,9 @@ class UserAuthMiddleware {
     }>(token)
 
     if (!decoded) {
-      return res.status(401).json({ message: 'Token inválido ou expirado.' })
+      return res
+        .status(StatusCodes.UNAUTHORIZED)
+        .json({ message: 'Token inválido ou expirado.' })
     }
 
     // Adiciona o payload decodificado ao objeto `req.user`

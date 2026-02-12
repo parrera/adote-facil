@@ -3,6 +3,7 @@ import {
   CreateAnimalService,
   createAnimalServiceInstance,
 } from '../../services/animal/create-animal.js'
+import { StatusCodes } from 'http-status-codes'
 
 class CreateAnimalController {
   constructor(private readonly createAnimal: CreateAnimalService) {}
@@ -25,13 +26,17 @@ class CreateAnimalController {
         pictures: pictureBuffers,
       })
 
-      const statusCode = result.isFailure() ? 400 : 201
+      const statusCode = result.isFailure()
+        ? StatusCodes.BAD_REQUEST
+        : StatusCodes.CREATED
 
       return response.status(statusCode).json(result.value)
     } catch (err) {
       const error = err as Error
       console.error('Error creating animal:', error)
-      return response.status(500).json({ error: error.message })
+      return response
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json({ error: error.message })
     }
   }
 }

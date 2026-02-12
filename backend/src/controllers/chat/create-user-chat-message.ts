@@ -3,6 +3,7 @@ import {
   CreateUserChatMessageService,
   createUserChatMessageServiceInstance,
 } from '../../services/chat/create-user-chat-message.js'
+import { StatusCodes } from 'http-status-codes'
 
 class CreateUserChatMessageController {
   constructor(
@@ -20,11 +21,13 @@ class CreateUserChatMessageController {
         content,
       })
 
-      return response.status(201).json(result)
+      return response.status(StatusCodes.CREATED).json(result)
     } catch (err) {
       const error = err as Error
       console.log({ error })
-      return response.status(500).json({ error: error.message })
+      return response
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json({ error: error.message })
     }
   }
 }

@@ -3,6 +3,7 @@ import {
   GetUserChatService,
   getUserChatServiceInstance,
 } from '../../services/chat/get-user-chat.js'
+import { StatusCodes } from 'http-status-codes'
 
 class GetUserChatController {
   constructor(private readonly getUserChat: GetUserChatService) {}
@@ -18,11 +19,13 @@ class GetUserChatController {
         chatId,
       })
 
-      return response.status(200).json(result)
+      return response.status(StatusCodes.OK).json(result)
     } catch (err) {
       const error = err as Error
       console.log({ error })
-      return response.status(500).json({ error: error.message })
+      return response
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json({ error: error.message })
     }
   }
 }

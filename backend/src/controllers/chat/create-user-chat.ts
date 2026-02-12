@@ -3,6 +3,7 @@ import {
   CreateUserChatService,
   createUserChatServiceInstance,
 } from '../../services/chat/create-user-chat.js'
+import { StatusCodes } from 'http-status-codes'
 
 class CreateUserChatController {
   constructor(private readonly createUserChat: CreateUserChatService) {}
@@ -17,13 +18,17 @@ class CreateUserChatController {
         user2Id: userId,
       })
 
-      const status = result.isFailure() ? 400 : 201
+      const status = result.isFailure()
+        ? StatusCodes.BAD_REQUEST
+        : StatusCodes.CREATED
 
       return response.status(status).json(result.value)
     } catch (err) {
       const error = err as Error
       console.log({ error })
-      return response.status(500).json({ error: error.message })
+      return response
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json({ error: error.message })
     }
   }
 }
