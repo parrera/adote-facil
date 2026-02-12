@@ -18,14 +18,27 @@ Nos arquivos `create-user-chat.ts` e `create-user-chat-message.ts`, localizados 
 Em ambos os métodos `execute(...)`, há a mesma regra: verificar se já existe um chat entre dois usuários e, caso não exista, criar um novo chat. Essa repetição caracteriza violação do princípio **DRY (Don't Repeat Yourself)**, pois a mesma regra está implementada em mais de um ponto do sistema.
 
 CreateUserChatMessageService:
+
 ![CreateUserChatMessageService](logica-duplicada-chat1.png)
 
 CreateUserChatService:
+
 ![CreateUserChatService](logica-duplicada-chat2.png)
 
 Como proposta de refatoração, foi criada uma classe de serviço chamada ChatDomainService, responsável por centralizar essa regra em um único método (findOrCreate). Dessa forma, ambos os serviços passam a reutilizar a mesma implementação, eliminando a duplicação.
 
-Com essa abordagem, qualquer alteração futura na lógica de verificação ou criação de chats precisará ser realizada em apenas um local, melhorando a manutenção do sistema.
+Com essa abordagem, qualquer alteração futura na lógica de verificação ou criação de chats precisará ser realizada em apenas um local, melhorando a manutenção do sistema. Após a refatoração:
+
+Criação da classe `ChatDomainService`:
+![Criação da classe ChatDomainService](refac2.png)
+
+Refatoração das classes `CreateUserChatMessageService` e `CreateUserChatService`:
+
+CreateUserChatMessageService:
+![CreateUserChatMessageService](refac2.1.png)
+
+CreateUserChatService:
+![CreateUserChatService](refac2.2.png)
 
 
 ### 3. Duplicação de código
@@ -36,4 +49,6 @@ Essa duplicação viola o princípio DRY (Don't Repeat Yourself) e pode gerar in
 
 ![Código duplicado](codigo-duplicado.png)
 
-Como proposta de refatoração, foi retirada a obtenção da variável dentro do método, passando a utilizar o atributo privado definido na classe.
+Como proposta de refatoração, foi retirada a obtenção da variável dentro do método, passando a utilizar o atributo privado definido na classe. Após a refatoração:
+
+![Código duplicado aṕos refatoração](refac3.png)
