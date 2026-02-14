@@ -26,5 +26,6 @@ Essa abordagem combina a simplicidade de implantação de um monólito com a fle
 
 O diagrama a seguir foi desenvolvido utilizando o Mermaid Live Editor e ilustra a visão macro da arquitetura, mostrando o Cliente, o Servidor Monolítico e o Banco de Dados, bem como o fluxo de interação entre eles.
 
-![Diagrama de Componentes](img/diagramaComponentesAltonivel.png)
-
+<p align="center">
+  <img src="img/diagramaComponentesAltonivel.png" alt="Diagrama de Componentes" width="300">
+</p>
