@@ -103,13 +103,17 @@ export function UserChatsPage() {
               </S.ChatContentHeader>
 
               <S.ChatLastMessage>
-                {chat.messages.length ? (
-                  chat.messages[0].senderId === loggedUser?.id ? (
-                    <ArrowUp size={16} />
-                  ) : (
-                    <ArrowDown size={16} />
-                  )
-                ) : null}
+                const renderMessageArrow = () => {
+                  if (!chat.messages.length) return null
+
+                  const firstMessage = chat.messages[0]
+
+                  if (firstMessage.senderId === loggedUser?.id) {
+                    return <ArrowUp size={16} />
+                  }
+
+                  return <ArrowDown size={16} />
+                }
                 <span>
                   {chat.messages.length ? chat.messages[0].content : ' '}
                 </span>

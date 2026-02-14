@@ -76,21 +76,27 @@ export function AvailableAnimalsPage() {
           </S.FilterButtonsWrapper>
         )}
       </S.TitleWrapper>
-      {loading ? (
-        <p>Carregando...</p>
-      ) : availableAnimals.length ? (
-        <S.AnimalsListWrapper>
-          {availableAnimals.map((animal) => (
-            <AnimalCard
-              key={animal.id}
-              animal={animal}
-              listType="animals-available-to-adopt"
-            />
-          ))}
-        </S.AnimalsListWrapper>
-      ) : (
-        <EmptyAnimals page="animals-available-to-adopt" />
-      )}
+      const renderAnimals = () => {
+        if (loading) {
+          return <p>Carregando...</p>
+        }
+
+        if (availableAnimals.length > 0) {
+          return (
+            <S.AnimalsListWrapper>
+              {availableAnimals.map((animal) => (
+                <AnimalCard
+                  key={animal.id}
+                  animal={animal}
+                  listType="animals-available-to-adopt"
+                />
+              ))}
+            </S.AnimalsListWrapper>
+          )
+        }
+
+        return <EmptyAnimals page="animals-available-to-adopt" />
+      }
     </S.Wrapper>
   )
 }
