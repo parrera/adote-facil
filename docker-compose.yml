@@ -4,38 +4,48 @@ services:
     container_name: 'adote-facil-postgres'
     env_file:
       - ./backend/.env
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_CONTAINER_PORT: ${POSTGRES_CONTAINER_PORT}
+    # Melhora: Centralização de variáveis sensíveis no env_file para evitar exposição no arquivo principal
     ports:
-      - ${POSTGRES_CONTAINER_PORT}:5432
+      - "${POSTGRES_CONTAINER_PORT}:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
     networks:
-      - adote-facil-network
+      - backend-network # Isolamento: Apenas o backend consegue "enxergar" o banco de dados
+    restart: unless-stopped # Resiliência: Reinicia o container automaticamente em caso de falha do serviço
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
-      interval: 3s
-      timeout: 3s
+      # Melhora: Validação real de prontidão. O banco só é considerado saudável quando aceita conexões
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
       retries: 5
+    deploy:
+      resources:
+        limits:
+          # Melhora: Controle de custos e performance, impedindo que o DB consuma toda a CPU/RAM do host
+          cpus: '0.5'
+          memory: 256M
 
   adote-facil-backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
+      # Melhora: Segmentação via Multi-stage build para gerar uma imagem final mais leve e segura
+      target: runner 
     container_name: 'adote-facil-backend'
     ports:
       - "8080:8080"
+    env_file:
+      - ./backend/.env
     environment:
       - NODE_ENV=production
     depends_on:
       adote-facil-postgres:
+        # Melhora: O backend aguarda o sucesso do healthcheck do DB, evitando erros de conexão na subida
         condition: service_healthy
-    command: sh -c "until nc -z adote-facil-postgres 5432; do echo 'Waiting for postgres...'; sleep 1; done; npm start"
+    restart: always 
     networks:
-      - adote-facil-network
+      - backend-network
+      - frontend-network # Ponte: O backend é o único serviço que transita entre as duas redes
 
   adote-facil-frontend:
     build:
@@ -48,12 +58,16 @@ services:
       - NODE_ENV=production
     depends_on:
       - adote-facil-backend
+    restart: unless-stopped
     networks:
-      - adote-facil-network
+      - frontend-network # Segurança: O frontend não tem rota física para o banco de dados
 
 volumes:
-  db_data:
+  db_data: # Persistência: Garante que os dados do banco não sejam perdidos ao reiniciar os containers
 
 networks:
-  adote-facil-network:
+  # Melhora: Arquitetura de rede em camadas (Tiered Networking) para maior segurança e isolamento
+  frontend-network:
+    driver: bridge
+  backend-network:
     driver: bridge

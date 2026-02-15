@@ -98,3 +98,30 @@ jobs:
         with:
           name: adote-facil-projeto  # Nome do artefato que aparecerá na aba de artefatos da execução
           path: adote-facil-projeto.zip  # Caminho do arquivo que será enviado
+
+    # Melhoria Quinto job: Release Automática com Tag Semântica
+    release:
+      needs: delivery
+      runs-on: ubuntu-latest
+      permissions:
+        contents: write
+      steps:
+        - name: Checkout do código
+          uses: actions/checkout@v4
+          with:
+            fetch-depth: 0
+
+        - name: Baixar artefato
+          uses: actions/download-artifact@v4
+          with:
+            name: adote-facil-projeto
+            path: .
+
+        - name: Gerenciar Versionamento e Release
+          uses: ncipollo/release-action@v1.12.0
+          with:
+            artifacts: "adote-facil-projeto.zip"
+            generateReleaseNotes: true
+            # O uso de 'tag' dinâmica garante que a release seja única por PR aprovado
+            tag: v1.0.${{ github.run_number }}
+            name: "Release v1.0.${{ github.run_number }} (Automated)"
