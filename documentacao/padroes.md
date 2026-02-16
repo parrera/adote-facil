@@ -223,7 +223,7 @@ export async function insertUserChat(userId: string, token: string) {
 ### Refatoração Sugerida:
 
 ```ts
-export async function insertUserChat(input: { animalId: string }): Promise<{ chatId: string }> {
+export async function insertUserChat(input: { userId: string }): Promise<{ chatId: string }> {
   const response = await api.post('/chat', input)
   return { chatId: response.data.chat.id }
 }
@@ -233,7 +233,7 @@ export async function insertUserChat(input: { animalId: string }): Promise<{ cha
 <br>
 
 ```tsx
-const { chatId } = await insertUserChat({ animalId })
+const { chatId } = await insertUserChat({ animal.userId })
 router.push(`/area_logada/conversas/${chatId}`)
 ```
 
