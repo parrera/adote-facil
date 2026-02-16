@@ -13,5 +13,10 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
-// Import commands.js using ES2015 syntax:
 import './commands'
+
+beforeEach(() => {
+    cy.on('uncaught:exception', (err) => {
+        if (err.message.includes('#418')) return false;
+    });
+});

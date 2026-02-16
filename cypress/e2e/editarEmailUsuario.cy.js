@@ -1,15 +1,6 @@
 describe('Editar email do usuario', () => {
-    beforeEach(() => {
-        cy.on('uncaught:exception', (err) => {
-            if (err.message.includes('#418')) return false;
-        });
-    });
-
     it('Cenário Principal - Editar dados', () => {
-        cy.visit('http://localhost:3000/login')
-        cy.get('[name="email"]').type('adotante@adotante.com')
-        cy.get('[name="password"]').type('adotanteaf')
-        cy.get('button[type="submit"]').click()
+        cy.loginAdotante()
         cy.get('.sc-26506e6-5 > .sc-c7cdb42d-0 > [href="/area_logada/editar_dados"] > .sc-c7cdb42d-1').click()
         cy.get('[name="email"]').clear()
         cy.get('[name="email"]').type('adotante@adotanteemail.com')
@@ -27,10 +18,7 @@ describe('Editar email do usuario', () => {
     })
 
     it('Cenário alternativo - Editar dados e deixar email vazio', () =>{
-        cy.visit('http://localhost:3000/login')
-        cy.get('[name="email"]').type('adotante@adotante.com')
-        cy.get('[name="password"]').type('adotanteaf')
-        cy.get('button[type="submit"]').click()
+        cy.loginAdotante()
         cy.get('.sc-26506e6-5 > .sc-c7cdb42d-0 > [href="/area_logada/editar_dados"] > .sc-c7cdb42d-1').click()
         cy.get('[name="email"]').clear()
         cy.get('.sc-4bc09f58-3 > .sc-ea747762-0').click()
@@ -38,10 +26,7 @@ describe('Editar email do usuario', () => {
     })
 
     it('Cenário alternativo - Editar dados com email inválido', () =>{
-        cy.visit('http://localhost:3000/login')
-        cy.get('[name="email"]').type('adotante@adotante.com')
-        cy.get('[name="password"]').type('adotanteaf')
-        cy.get('button[type="submit"]').click()
+        cy.loginAdotante()
         cy.get('.sc-26506e6-5 > .sc-c7cdb42d-0 > [href="/area_logada/editar_dados"] > .sc-c7cdb42d-1').click()
         cy.get('[name="email"]').clear()
         cy.get('[name="email"]').type(' ')

@@ -23,3 +23,17 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('loginAdotante', (email = 'adotante@adotante.com', password = 'adotanteaf') => {
+  cy.visit('http://localhost:3000/login')
+  cy.get('[name="email"]').type(email)
+  cy.get('[name="password"]').type(password)
+  cy.get('button[type="submit"]').click()
+})
+
+Cypress.Commands.add('loginDoador', (email = 'doador@doador.com', password = 'doadoraf') => {
+  cy.visit('http://localhost:3000/login')
+  cy.get('[name="email"]').type(email)
+  cy.get('[name="password"]').type(password)
+  cy.get('button[type="submit"]').click()
+})

@@ -1,15 +1,6 @@
 describe('Cadastro de animal', () => {
-    beforeEach(() => {
-        cy.on('uncaught:exception', (err) => {
-            if (err.message.includes('#418')) return false;
-        });
-    });
-
     it('Cenario principal - Cadastrar animal', () => {
-        cy.visit('http://localhost:3000/login')
-        cy.get('[name="email"]').type('doador@doador.com')
-        cy.get('[name="password"]').type('doadoraf')
-        cy.get('button[type="submit"]').click()
+        cy.loginDoador()
         cy.get('.sc-26506e6-5 > .sc-c7cdb42d-0 > [href="/area_logada/disponibilizar_animal"] > .sc-c7cdb42d-1 > span').click()
         cy.get('[name="name"]').type('Chico')
         cy.get('.sc-b77a2f6d-8 > .sc-43ec2adf-0 > .sc-43ec2adf-2').click()
@@ -24,10 +15,7 @@ describe('Cadastro de animal', () => {
     })
 
     it('Cenario alternativo - Cadastrar animal sem nome', () =>{
-        cy.visit('http://localhost:3000/login')
-        cy.get('[name="email"]').type('doador@doador.com')
-        cy.get('[name="password"]').type('doadoraf')
-        cy.get('button[type="submit"]').click()
+        cy.loginDoador()
         cy.get('.sc-26506e6-5 > .sc-c7cdb42d-0 > [href="/area_logada/disponibilizar_animal"] > .sc-c7cdb42d-1 > span').click()
         cy.get('.sc-b77a2f6d-8 > .sc-43ec2adf-0 > .sc-43ec2adf-2').click()
         cy.get('[aria-labelledby="radix-:rg:"]').click()
@@ -42,10 +30,7 @@ describe('Cadastro de animal', () => {
     })
 
     it('Cenário alternativo - Cadastrar animal sem foto de perfil', () =>{
-        cy.visit('http://localhost:3000/login')
-        cy.get('[name="email"]').type('doador@doador.com')
-        cy.get('[name="password"]').type('doadoraf')
-        cy.get('button[type="submit"]').click()
+        cy.loginDoador()
         cy.get('.sc-26506e6-5 > .sc-c7cdb42d-0 > [href="/area_logada/disponibilizar_animal"] > .sc-c7cdb42d-1 > span').click()
         cy.get('[name="name"]').type('Fenrir')
         cy.get('.sc-b77a2f6d-8 > .sc-43ec2adf-0 > .sc-43ec2adf-2').click()
