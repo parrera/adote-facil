@@ -7,7 +7,7 @@ describe('Editar email do usuario', () => {
 
     it('Cenário Principal - Editar dados', () => {
         cy.visit('http://localhost:3000/login')
-        cy.get('[name="emrail"]').type('adotante@adotante.com')
+        cy.get('[name="email"]').type('adotante@adotante.com')
         cy.get('[name="password"]').type('adotanteaf')
         cy.get('button[type="submit"]').click()
         cy.get('.sc-26506e6-5 > .sc-c7cdb42d-0 > [href="/area_logada/editar_dados"] > .sc-c7cdb42d-1').click()
