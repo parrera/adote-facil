@@ -13,13 +13,22 @@ class GetAvailableAnimalsController {
     const { user } = request
     const { gender, type, name } = request.query
 
-    try {
-      const result = await this.getAvailableAnimals.execute({
-        userId: user?.id || '',
-        gender: gender ? String(gender) : undefined,
-        type: type ? String(type) : undefined,
-        name: name ? String(name) : undefined,
-      })
+try {
+  const genderParam =
+    typeof gender === 'string' ? gender : undefined
+
+  const typeParam =
+    typeof type === 'string' ? type : undefined
+
+  const nameParam =
+    typeof name === 'string' ? name : undefined
+
+  const result = await this.getAvailableAnimals.execute({
+    userId: user?.id || '',
+    gender: genderParam,
+    type: typeParam,
+    name: nameParam,
+  })
 
       const statusCode = result.isFailure() ? 400 : 200
 

@@ -9,20 +9,21 @@ import { updateAnimalStatus } from '@/api/update-animal-status'
 import { getCookie } from 'cookies-next'
 
 interface AnimalCardProps {
-  animal: {
-    id: string
-    name: string
-    type: string
-    gender: 'macho' | 'fêmea'
-    race: string
-    description: string
-    images: Array<{
-      id: string
-      base64: string
+  readonly animal: {
+    readonly id: string
+    readonly name: string
+    readonly type: string
+    readonly gender: 'macho' | 'fêmea'
+    readonly race: string
+    readonly description: string
+    readonly images: ReadonlyArray<{
+      readonly id: string
+      readonly base64: string
     }>
   }
-  listType: 'my-animals' | 'animals-available-to-adopt'
+  readonly listType: 'my-animals' | 'animals-available-to-adopt'
 }
+
 
 export function AnimalCard({ animal, listType }: AnimalCardProps) {
   const { id, name, type, gender, images } = animal

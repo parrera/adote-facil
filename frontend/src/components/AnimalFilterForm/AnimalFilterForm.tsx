@@ -51,70 +51,65 @@ export function AnimalFilterForm({
   }
 
   return (
-    <>
-      <S.Form onSubmit={handleSubmit(onSubmit)}>
-        <S.FormContent>
-          <S.FormRow>
-            <S.AnimalNameInputWrapper>
-              <label>
-                <S.InputLabel $hasError={!!errors.name}>
-                  <span>Nome</span>
-                  {errors.name && <span>{errors.name.message}</span>}
-                </S.InputLabel>
+    <S.Form onSubmit={handleSubmit(onSubmit)}>
+  <S.FormContent>
+    <S.FormRow>
+      <S.AnimalNameInputWrapper>
+        <label>
+          <S.InputLabel $hasError={!!errors.name}>
+            <span>Nome</span>
+            {errors.name && <span>{errors.name.message}</span>}
+          </S.InputLabel>
 
-                <input type="text" {...register('name')} />
-              </label>
-            </S.AnimalNameInputWrapper>
-          </S.FormRow>
+          <input type="text" {...register('name')} />
+        </label>
+      </S.AnimalNameInputWrapper>
+    </S.FormRow>
 
-          <S.FormRow>
-            <S.AnimalTypeInputWrapper>
-              <S.InputLabel $hasError={!!errors.type}>
-                <span>Tipo</span>
-                {errors.type && <span>{errors.type.message}</span>}
-              </S.InputLabel>
+    <S.FormRow>
+      <S.AnimalTypeInputWrapper>
+        <S.InputLabel $hasError={!!errors.type}>
+          <span>Tipo</span>
+          {errors.type && <span>{errors.type.message}</span>}
+        </S.InputLabel>
 
-              <DefaultSelect
-                placeholder="Selecione um tipo"
-                items={animalTypesForSelect}
-                {...register('type')}
-                onValueChange={(value) =>
-                  setValue('type', value as AnimalTypeEnum)
-                }
-              />
-            </S.AnimalTypeInputWrapper>
-          </S.FormRow>
+        <DefaultSelect
+          placeholder="Selecione um tipo"
+          items={animalTypesForSelect}
+          {...register('type')}
+          onValueChange={(value) => setValue('type', value as AnimalTypeEnum)}
+        />
+      </S.AnimalTypeInputWrapper>
+    </S.FormRow>
 
-          <S.FormRow>
-            <S.AnimalGenderInputWrapper>
-              <S.InputLabel $hasError={!!errors.gender}>
-                <span>Gênero</span>
-                {errors.gender && <span>{errors.gender.message}</span>}
-              </S.InputLabel>
+    <S.FormRow>
+      <S.AnimalGenderInputWrapper>
+        <S.InputLabel $hasError={!!errors.gender}>
+          <span>Gênero</span>
+          {errors.gender && <span>{errors.gender.message}</span>}
+        </S.InputLabel>
 
-              <DefaultSelect
-                placeholder="Selecione um gênero"
-                items={animalGenderForSelect}
-                {...register('gender')}
-                onValueChange={(value) =>
-                  setValue('gender', value as AnimalGenderEnum)
-                }
-              />
-            </S.AnimalGenderInputWrapper>
+        <DefaultSelect
+          placeholder="Selecione um gênero"
+          items={animalGenderForSelect}
+          {...register('gender')}
+          onValueChange={(value) => setValue('gender', value as AnimalGenderEnum)}
+        />
+      </S.AnimalGenderInputWrapper>
 
-            <S.AnimalRaceInputWrapper>
-              <label>
-                Raça
-                <input type="text" {...register('race')} />
-              </label>
-            </S.AnimalRaceInputWrapper>
-          </S.FormRow>
-        </S.FormContent>
+      <S.AnimalRaceInputWrapper>
+        <label>
+          Raça
+          <input type="text" {...register('race')} />
+        </label>
+      </S.AnimalRaceInputWrapper>
+    </S.FormRow>
+  </S.FormContent>
 
-        <S.FormButton>
-          <Button type="submit">Filtrar</Button>
-        </S.FormButton>
-      </S.Form>
-    </>
+  <S.FormButton>
+    <Button type="submit">Filtrar</Button>
+  </S.FormButton>
+</S.Form>
+
   )
 }
