@@ -12,7 +12,7 @@ describe('template spec', () => {
     cy.get('[aria-labelledby="radix-:rt:"]').click()
     cy.get('[name="race"]').type('Flying wyvern')
     cy.get('[name="description"]').type('Weird Ice Squirrel')
-    //imagem tem que estar na pasta de "usuarios", alterar busca da imagem para pasta enviavel
+    //imagem tem que estar na pasta de "usuarios"
     const imageName = 'Barioth.png';
     cy.get('.sc-b77a2f6d-16').selectFile(imageName)
     cy.get('.sc-ea747762-0').click()
