@@ -1,5 +1,6 @@
-FROM node:20-alpine
+FROM node:20-alpine AS builder
 
+WORKDIR /app
 RUN apk add --no-cache openssl
 
 # Copia arquivos de dependência primeiro para aproveitar cache de camadas do Docker
@@ -18,7 +19,7 @@ RUN npm run generate
 RUN npm run build
 
 # Remove dependências de desenvolvimento para limpar o node_modules
-RUN npm prune --production
+RUN npm prune --omit=dev
 
 
 # Imagem Final de Produção:
