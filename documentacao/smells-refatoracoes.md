@@ -1,32 +1,31 @@
 # Análise de Code Smells e Refatorações
 
-Este documento apresenta a identificação de Code Smells encontrados no backend do sistema **Adote Fácil**, bem como as refatorações aplicadas para melhoria da qualidade do código.
+Este documento apresenta a identificação de Code Smells encontrados no backend e frontend do sistema Adote Fácil, bem como as refatorações aplicadas para melhoria da qualidade do código.
 
 A análise foi realizada com apoio da ferramenta SonarLint no VS Code.
 
 ---
 
-## 1. Unsafe Object Stringification
+1. Unsafe Object Stringification
 
-**Arquivo:** `backend/src/controllers/animal/get-available.ts`
+Arquivo: backend/src/controllers/animal/get-available.ts
 
-### Problema
+Problema:
+O SonarLint identificou risco de stringificação inadequada de objetos ao converter parâmetros da query utilizando String() diretamente.
 
-O SonarLint identificou risco de stringificação inadequada de objetos ao converter parâmetros da query utilizando `String()` diretamente.
+Caso os valores fossem objetos, poderiam resultar em "[object Object]", comprometendo logs, validações e respostas da API.
 
-Caso os valores fossem objetos, poderiam resultar em `"[object Object]"`, comprometendo logs, validações e respostas da API.
+Código original:
 
----
+```typescript
+gender: gender ? String(gender) : undefined
+type: type ? String(type) : undefined
+name: name ? String(name) : undefined
+```
 
-### Código original
+Refatoração aplicada:
 
-```ts
-gender: gender ? String(gender) : undefined,
-type: type ? String(type) : undefined,
-name: name ? String(name) : undefined,
-
-### Refatoração Aplicada
-
+```typescript
 try {
   const genderParam =
     typeof gender === 'string' ? gender : undefined
@@ -44,30 +43,29 @@ try {
     name: nameParam,
   })
 }
+```
 
-### Benefícios 
+Benefícios:
 
 - Garantia de tipagem primitiva
 - Evita stringificação incorreta
 - Melhora confiabilidade da API
 - Facilita manutenção futura
 
-
 ---
 
-## 2. Mutable Props in React Component
+2. Mutable Props in React Component
 
-**Arquivo:** `frontend/src/components/AnimalCard.tsx`
+Arquivo: frontend/src/components/AnimalCard/AnimalCard.tsx
 
-### Problema
-
+Problema:
 O SonarLint identificou que as props do componente não estavam definidas como somente leitura (readonly).
 
 Isso permite que valores recebidos do componente pai sejam modificados internamente, violando o princípio de imutabilidade do React e podendo gerar efeitos colaterais inesperados.
 
-### Código original
+Código original:
 
-```ts
+```typescript
 interface AnimalCardProps {
   animal: {
     id: string
@@ -83,10 +81,11 @@ interface AnimalCardProps {
   }
   listType: 'my-animals' | 'animals-available-to-adopt'
 }
+```
 
+Refatoração aplicada:
 
-### Refatoração Aplicada
-
+```typescript
 interface AnimalCardProps {
   readonly animal: {
     readonly id: string
@@ -102,11 +101,46 @@ interface AnimalCardProps {
   }
   readonly listType: 'my-animals' | 'animals-available-to-adopt'
 }
+```
 
-### Benefícios
+Benefícios:
 
 - Garante imutabilidade das props
-- Evita efeitos colaterais
-- Mantém fluxo unidirecional do React
-- Melhora a previsibilidade do componente
-- Facilita manutenção futur
+- Evita efeitos colaterais no componente
+- Melhora previsibilidade do fluxo de dados
+- Facilita manutenção e testes
+
+---
+
+3. Redundant React Fragment
+
+Arquivo: frontend/src/components/AnimalFilterForm/AnimalFilterForm.tsx
+
+Problema:
+O SonarLint identificou que havia um Fragment (<></>) envolvendo apenas um único elemento filho.
+
+Nesse caso, o Fragment é redundante e não traz benefício estrutural, apenas aumenta a verbosidade do JSX.
+
+Código original:
+
+```typescript
+<>
+  <S.Form onSubmit={handleSubmit(onSubmit)}>
+    ...
+  </S.Form>
+</>
+```
+
+Refatoração aplicada:
+
+```typescript
+<S.Form onSubmit={handleSubmit(onSubmit)}>
+  ...
+</S.Form>
+```
+
+Benefícios:
+
+- JSX mais limpo e direto
+- Redução de código desnecessário
+- Melhora legibilidade do componente
