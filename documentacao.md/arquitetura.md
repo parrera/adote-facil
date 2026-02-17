@@ -57,24 +57,23 @@ O frontend, localizado na pasta `/frontend`, é construído com **Next.js**.
 
 ## 4. Diagrama de Componentes
 
-```mermaid
 graph LR
     %% -- Elementos Externos --
-    Front[Frontend Next.js]
-    DB[(PostgreSQL)]
+    Front["Frontend (Next.js)"]
+    DB[("PostgreSQL")]
 
-    subgraph Backend [Backend Application Node.js]
+    subgraph Backend["Backend Application (Node.js)"]
         direction TB
-        Router[Express Router]
-        Auth[Auth Middleware]
+        Router["Express Router"]
+        Auth["Auth Middleware"]
         
-        subgraph Camadas [Camadas Lógicas]
-            Controller[Controllers]
-            Service[Services]
-            Repo[Repositories]
+        subgraph Camadas["Camadas Lógicas"]
+            Controller["Controllers"]
+            Service["Services"]
+            Repo["Repositories"]
         end
         
-        Prisma[Prisma ORM]
+        Prisma["Prisma ORM"]
     end
 
     %% -- Fluxo de Dados --
@@ -85,4 +84,3 @@ graph LR
     Service --> Repo
     Repo --> Prisma
     Prisma --> DB
-```
