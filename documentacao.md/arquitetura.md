@@ -58,59 +58,31 @@ O frontend, localizado na pasta `/frontend`, é construído com **Next.js**.
 ## 4. Diagrama de Componentes
 
 ```mermaid
-graph TD
+graph LR
+    %% -- Elementos Externos --
+    Front[Frontend Next.js]
+    DB[(PostgreSQL)]
 
-%% ===== Elementos Externos =====
-Front[Frontend (Next.js)]
-API[HTTP API]
-DB[(PostgreSQL)]
-
-%% ===== Backend =====
-subgraph Backend Application (Node.js)
-
-    Router[Router (Express)]
-    Auth[Auth Middleware]
-
-    %% Presentation Layer
-    subgraph Presentation Layer
-        UserController[User Controller]
-        AnimalController[Animal Controller]
+    subgraph Backend [Backend Application Node.js]
+        direction TB
+        Router[Express Router]
+        Auth[Auth Middleware]
+        
+        subgraph Camadas [Camadas Lógicas]
+            Controller[Controllers]
+            Service[Services]
+            Repo[Repositories]
+        end
+        
+        Prisma[Prisma ORM]
     end
 
-    %% Business Layer
-    subgraph Business Logic Layer
-        UserService[User Service]
-        AnimalService[Animal Service]
-        AuthService[Auth Service]
-    end
-
-    %% Data Layer
-    subgraph Data Access Layer
-        UserRepo[User Repository]
-        AnimalRepo[Animal Repository]
-    end
-
-    Prisma[Prisma ORM]
-
-end
-
-%% ===== Relacionamentos =====
-Front -->|Usa| API
-API --> Router
-
-Router -->|Protege Rotas| Auth
-Router -->|Encaminha Requisição| UserController
-Router -->|Encaminha Requisição| AnimalController
-
-UserController -->|Regra de Negócio| UserService
-UserController -->|Login/Cadastro| AuthService
-AnimalController -->|Regra de Negócio| AnimalService
-
-UserService -->|Persistência| UserRepo
-AnimalService -->|Persistência| AnimalRepo
-
-UserRepo -->|Query| Prisma
-AnimalRepo -->|Query| Prisma
-
-Prisma -->|TCP/IP (SQL)| DB
+    %% -- Fluxo de Dados --
+    Front --> Router
+    Router --> Auth
+    Auth --> Controller
+    Controller --> Service
+    Service --> Repo
+    Repo --> Prisma
+    Prisma --> DB
 ```
