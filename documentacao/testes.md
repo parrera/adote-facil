@@ -56,8 +56,8 @@ Ademais, há uma dependência direta do banco de dados por meio do *Prisma*, faz
 ### 2 - Cenário: Editar o email de um usuário com dados válidos
 **Dado que** o usuário está autenticado \
 **E** está na página 'Editar dados pessoais' \
-**Quando** ele preencher o campo 'Email' com um email válido (algumacoisa + @ + outracoisa + .com)
-**E** clicar no botão de salvar alterações
+**Quando** ele preencher o campo 'Email' com um email válido (algumacoisa + @ + outracoisa + .com) \
+**E** clicar no botão de salvar alterações \
 **Então** o sistema deve atualizar o perfil do usuário com seu novo email
 
 ### 2.1 - Cenário: Editar o email de um usuário e deixar o campo vazio
