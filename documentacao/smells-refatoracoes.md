@@ -10,7 +10,7 @@ Neste documento, apresentamos 3 casos de *Code Smells* identificados no projeto 
 
 **Onde:** Backend - `src/controllers/user/create-user.ts`
 
-### 🔍 Smell:
+### Smell:
 
 O controlador possui um bloco `try/catch` manual que captura o erro e devolve o status `500`.
 Isto é um *Code Smell* chamado Tratamento Redundante, pois o projeto já possui a biblioteca `express-async-errors` configurada no `app.ts` com um *middleware* global de erros.
@@ -19,7 +19,7 @@ O `try/catch` torna o código verboso e ignora o tratamento centralizado da apli
 
 ---
 
-### 💻 Código original
+### Código original
 
 ```typescript
 async handle(request: Request, response: Response): Promise<Response> {
@@ -39,7 +39,7 @@ async handle(request: Request, response: Response): Promise<Response> {
 
 ---
 
-### ✅ Refatoração aplicada
+### Refatoração aplicada
 
 Remoção completa do bloco `try/catch`.
 
@@ -66,7 +66,7 @@ async handle(request: Request, response: Response): Promise<Response> {
 
 **Onde:** Backend - `src/services/user/create-user.ts`
 
-### 🔍 Smell:
+### Smell:
 
 A classe `CreateUserService` depende diretamente da implementação concreta `UserRepository`.
 Isso caracteriza um *Code Smell* chamado Acoplamento Forte, além de violar o Princípio da Inversão de Dependência (DIP).
@@ -75,7 +75,7 @@ Caso a implementação do repositório seja alterada no futuro (ex: troca de ORM
 
 ---
 
-### 💻 Código original
+### Código original
 
 ```typescript
 import { UserRepository } from '../../repositories/user.js'
@@ -90,7 +90,7 @@ export class CreateUserService {
 
 ---
 
-### ✅ Refatoração aplicada
+### Refatoração aplicada
 
 Substituição da dependência concreta por uma abstração (interface).
 
@@ -119,7 +119,7 @@ export class CreateUserService {
 
 **Onde:** Frontend - `src/api/index.ts`
 
-### 🔍 Smell:
+### Smell:
 
 A função `makeRequest` captura erros e retorna um objeto `{ status, data }`, fazendo com que a Promise seja resolvida mesmo em caso de falha.
 
@@ -127,7 +127,7 @@ Isso caracteriza um *Code Smell* chamado Ocultação de Erro, pois o erro deixa 
 
 ---
 
-### 💻 Código original
+### Código original
 
 ```typescript
 try {
@@ -145,7 +145,7 @@ try {
 
 ---
 
-### ✅ Refatoração aplicada
+### Refatoração aplicada
 
 Passamos a rejeitar explicitamente a Promise para que o erro seja tratado corretamente na camada superior.
 
