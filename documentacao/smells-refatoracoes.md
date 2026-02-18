@@ -30,14 +30,17 @@ Como proposta de refatoração, foi criada uma classe de serviço chamada ChatDo
 Com essa abordagem, qualquer alteração futura na lógica de verificação ou criação de chats precisará ser realizada em apenas um local, melhorando a manutenção do sistema. Após a refatoração:
 
 Criação da classe `ChatDomainService`:
+
 ![Criação da classe ChatDomainService](refac2.png)
 
 Refatoração das classes `CreateUserChatMessageService` e `CreateUserChatService`:
 
 CreateUserChatMessageService:
+
 ![CreateUserChatMessageService](refac2.1.png)
 
 CreateUserChatService:
+
 ![CreateUserChatService](refac2.2.png)
 
 
