@@ -30,9 +30,6 @@ ENV NEXT_TELEMETRY_DISABLED=1
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Copia apenas o necessário para rodar
-COPY --from=builder /app/public ./public
-
 # Configuração do nome do grupo e usuário definidos anteriormente
 RUN mkdir .next
 RUN chown nextjs:nodejs .next
