@@ -80,6 +80,8 @@ Separação de camadas e responsabilidades claras no back-end, em que cada class
     ```
     *Local: adote-facil/backend/src/repositories/user.ts*
 
+---
+
 <br>
 
 ## SOLID — I (Interface Segregation Principle/Segregação de Interfaces)
@@ -168,9 +170,9 @@ O frontend usa composição de layout e providers ao invés de hierarquias de cl
 
 Composição facilita reutilização e extensão sem acoplamento por herança, podendo alterar o provedores apenas removendo a tag HTML correspondente, ao invés da herança em que poderia ter uma complexa cadeia hereditária, frágil e propensa a erros.
 
-<br>
-
 ---
+
+<br>
 
 ## Princípio de Demeter/Lei do Menor Conhecimento (Ausente)
 
@@ -370,6 +372,8 @@ export const authenticatorInstance = new Authenticator()
 <br>
 
 A classe de autenticação exporta uma única instância que será acessada globalmente, mantendo um acesso controlado a ela.
+
+---
 
 <br>
 
