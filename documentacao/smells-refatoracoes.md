@@ -1,58 +1,52 @@
 # Detecção de Code Smells e Refatorações (Adote-Fácil)
 
-Neste documento, apresentamos 3 casos de *Code Smells* identificados no projeto através de análise estática e revisão de código, juntamente com as suas respetivas refatorações aplicadas para melhorar a qualidade, manutenibilidade e segurança do software.
-
+Neste documento, apresentamos 3 casos de *Code Smells* identificados no projeto através do SonarLint, juntamente com as suas respetivas refatorações aplicadas para melhorar a qualidade, manutenibilidade e segurança do software.
 
 <details>
-<summary><strong>Caso 1: Tratamento Redundante de Exceções</strong></summary>
+<summary><strong>Caso 1: Campo Mutável Desnecessário (Falta de Somente Leitura)</strong></summary>
 
-<br>
-
-**Onde:** Backend - `src/controllers/user/create-user.ts`
+**Onde:** Backend - `src/providers/authenticator.ts`
 
 ### Smell:
 
-O controlador possui um bloco `try/catch` manual que captura o erro e devolve o status `500`.
-Isto é um *Code Smell* chamado Tratamento Redundante, pois o projeto já possui a biblioteca `express-async-errors` configurada no `app.ts` com um *middleware* global de erros.
+O membro `secret` da classe `Authenticator` é atribuído apenas na sua declaração, mas não está marcado como `readonly`.
 
-O `try/catch` torna o código verboso e ignora o tratamento centralizado da aplicação.
+Isto é um *Code Smell* que afeta a clareza e a intencionalidade do código (regra `typescript:S2933`). A ausência do modificador `readonly` pode causar confusão sobre o uso pretendido do campo, permitindo que futuros responsáveis pela manutenção modifiquem o seu valor inadvertidamente, o que prejudica a manutenibilidade.
 
 ---
 
 ### Código original
 
 ```typescript
-async handle(request: Request, response: Response): Promise<Response> {
-  const { name, email, password } = request.body
+import jwt from 'jsonwebtoken'
 
-  try {
-    const result = await this.createUser.execute({ name, email, password })
-    const statusCode = result.isFailure() ? 400 : 201
-    return response.status(statusCode).json(result.value)
-  } catch (err) {
-    const error = err as Error
-    console.log({ error })
-    return response.status(500).json({ error: error.message })
+export class Authenticator {
+  private secret = process.env.JWT_SECRET || 'secret'
+
+  generateToken(payload: object): string {
+    return jwt.sign(payload, this.secret, { expiresIn: '1h' })
   }
 }
+
 ```
 
 ---
 
 ### Refatoração aplicada
 
-Remoção completa do bloco `try/catch`.
+Adição do modificador `readonly` para explicitar que o campo é imutável após a inicialização.
 
 ```typescript
-async handle(request: Request, response: Response): Promise<Response> {
-  const { name, email, password } = request.body
+import jwt from 'jsonwebtoken'
 
-  const result = await this.createUser.execute({ name, email, password })
+export class Authenticator {
+  private readonly secret = process.env.JWT_SECRET || 'secret'
 
-  const statusCode = result.isFailure() ? 400 : 201
-
-  return response.status(statusCode).json(result.value)
+  generateToken(payload: object): string {
+    return jwt.sign(payload, this.secret, { expiresIn: '1h' })
+  }
 }
+
 ```
 
 </details>
@@ -60,52 +54,42 @@ async handle(request: Request, response: Response): Promise<Response> {
 ---
 
 <details>
-<summary><strong>Caso 2: Acoplamento Forte</strong></summary>
+<summary><strong>Caso 2: Condição Negada Inesperada</strong></summary>
 
-<br>
-
-**Onde:** Backend - `src/services/user/create-user.ts`
+**Onde:** Frontend - `src/api/update-user.ts`
 
 ### Smell:
 
-A classe `CreateUserService` depende diretamente da implementação concreta `UserRepository`.
-Isso caracteriza um *Code Smell* chamado Acoplamento Forte, além de violar o Princípio da Inversão de Dependência (DIP).
+A montagem do objeto de dados utiliza condições negadas (`!==`) em operadores ternários (que funcionam como blocos `if-else`).
 
-Caso a implementação do repositório seja alterada no futuro (ex: troca de ORM), a regra de negócio também precisará ser modificada, reduzindo a flexibilidade e manutenibilidade do código.
+Este *Code Smell* prejudica a legibilidade e aumenta a carga cognitiva, pois o cérebro precisa processar a negação em vez de uma afirmação direta. Condições positivas descrevem o que é verdadeiro, tornando a lógica mais direta e reduzindo a probabilidade de erros durante a manutenção.
 
 ---
 
 ### Código original
 
 ```typescript
-import { UserRepository } from '../../repositories/user.js'
-
-export class CreateUserService {
-  constructor(
-    private readonly encrypter: Encrypter,
-    private readonly userRepository: UserRepository,
-  ) {}
+data: {
+  name: data.name !== '' ? data.name : undefined,
+  email: data.email !== '' ? data.email : undefined,
+  password: data.password !== '' ? data.password : undefined,
 }
+
 ```
 
 ---
 
 ### Refatoração aplicada
 
-Substituição da dependência concreta por uma abstração (interface).
+Inversão da condição booleana para testar a igualdade (`===`) e troca da ordem dos retornos do ternário.
 
 ```typescript
-export interface IUserRepository {
-  findByEmail(email: string): Promise<any>
-  create(data: any): Promise<any>
+data: {
+  name: data.name === '' ? undefined : data.name,
+  email: data.email === '' ? undefined : data.email,
+  password: data.password === '' ? undefined : data.password,
 }
 
-export class CreateUserService {
-  constructor(
-    private readonly encrypter: Encrypter,
-    private readonly userRepository: IUserRepository,
-  ) {}
-}
 ```
 
 </details>
@@ -113,61 +97,46 @@ export class CreateUserService {
 ---
 
 <details>
-<summary><strong>Caso 3: Ocultação de Erro</strong></summary>
+<summary><strong>Caso 3: Múltiplas Instruções RUN Consecutivas</strong></summary>
 
-<br>
-
-**Onde:** Frontend - `src/api/index.ts`
+**Onde:** Backend - `Dockerfile`
 
 ### Smell:
 
-A função `makeRequest` captura erros e retorna um objeto `{ status, data }`, fazendo com que a Promise seja resolvida mesmo em caso de falha.
+O Dockerfile apresenta várias instruções `RUN` declaradas de forma consecutiva (regra `docker:S7031`).
 
-Isso caracteriza um *Code Smell* chamado Ocultação de Erro, pois o erro deixa de ser propagado corretamente e obriga os componentes a verificarem manualmente o status da resposta, em vez de utilizarem `try/catch`.
+Isto é um *Code Smell* de infraestrutura, pois cada vez que uma instrução `RUN` é adicionada, uma nova camada é criada na imagem final do Docker. Isso impacta negativamente o tempo de build e aumenta desnecessariamente o tamanho da imagem gerada.
 
 ---
 
 ### Código original
 
-```typescript
-try {
-  const response = await api.request({ url, method, params, headers, data })
-  return response
-} catch (err) {
-  const error = err as AxiosError
+```dockerfile
+COPY . .
 
-  if (error.response) {
-    return { status: error.response.status, data: error.response.data }
-  }
-  return { status: 500, data: { message: error.message } }
-}
+RUN npm run generate
+RUN npm run test
+RUN npm run build
+
+EXPOSE 8080
+
 ```
 
 ---
 
 ### Refatoração aplicada
 
-Passamos a rejeitar explicitamente a Promise para que o erro seja tratado corretamente na camada superior.
+Mesclagem das instruções `RUN` consecutivas em uma única camada utilizando o operador lógico `&&`.
 
-```typescript
-try {
-  const response = await api.request({ url, method, params, headers, data })
-  return response
-} catch (err) {
-  const error = err as AxiosError
+```dockerfile
+COPY . .
 
-  if (error.response) {
-    return Promise.reject({
-      status: error.response.status,
-      data: error.response.data
-    })
-  }
+RUN npm run generate \
+ && npm run test \
+ && npm run build
 
-  return Promise.reject({
-    status: 500,
-    data: { message: error.message }
-  })
-}
+EXPOSE 8080
+
 ```
 
 </details>
