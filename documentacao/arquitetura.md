@@ -1,52 +1,54 @@
-1. Visão geral do sistema
 
-O sistema Adote Fácil é uma plataforma web cujo objetivo é facilitar o processo de adoção de animais, conectando pessoas interessadas em adotar a organizações responsáveis pelo cuidado e divulgação dos animais. A aplicação permite a visualização de informações sobre os animais disponíveis, além de funcionalidades relacionadas ao gerenciamento da plataforma.
+  # 🏛️ Análise da Arquitetura - Adote Fácil (CSI410)
 
-A solução é composta por um frontend web, um backend responsável pela lógica de negócio e uma base de dados para persistência das informações.
+  ## 1. Visão Geral do Sistema
+  O sistema **Adote Fácil** é uma plataforma web desenvolvida para facilitar a conexão entre adotantes e organizações de proteção animal. A solução permite a gestão de animais disponíveis e a visualização detalhada de informações para os usuários.
 
-2. Tipo de arquitetura
+  A aplicação é composta por três pilares fundamentais:
+  * **Frontend Web**: Interface de interação com o usuário.
+  * **Backend**: Motor de regras de negócio e lógica da API.
+  * **Banco de Dados**: Persistência de dados do ecossistema.
 
-A aplicação utiliza uma arquitetura monolítica em camadas, seguindo o modelo cliente-servidor.
+  ---
 
-- O frontend atua como cliente, sendo responsável pela interface com o usuário.
-- O backend concentra a lógica de negócio, regras da aplicação e comunicação com o banco de dados.
-- O banco de dados é acessado exclusivamente pelo backend.
+  ## 2. Tipo de Arquitetura
+  A aplicação adota uma **Arquitetura Monolítica em Camadas**, estruturada sob o modelo **Cliente-Servidor**:
 
-Essa arquitetura foi escolhida por simplificar o desenvolvimento, implantação e manutenção do sistema, sendo adequada ao porte da aplicação e ao contexto acadêmico do projeto.
+  * **Cliente (Frontend)**: Responsável pela apresentação e experiência do usuário.
+  * **Servidor (Backend)**: Concentra as regras de negócio e comunica-se com a persistência.
+  * **Persistência**: Camada de dados acessada exclusivamente pelo backend para garantir integridade.
 
-3. Componentes principais
+  > **Justificativa**: Esta escolha foi feita para simplificar o desenvolvimento e a implantação.
 
-Os principais componentes do sistema são:
+  ---
 
-- Frontend
-Aplicação web responsável pela interface gráfica e interação com o usuário. Comunica-se com o backend via requisições HTTP.
+  ## 3. Componentes Principais
 
-- Backend
-API responsável por processar as requisições do frontend, aplicar as regras de negócio e acessar o banco de dados.
+  ### 🖥️ Frontend
+  Aplicação web responsável pela interface gráfica, que se comunica com o backend através de requisições **HTTP/JSON**.
 
-- Banco de dados
-Responsável por armazenar dados persistentes, como informações de usuários, animais e organizações.
+  ### ⚙️ Backend
+  API encarregada de processar requisições e aplicar regras de negócio. Sua estrutura é dividida em camadas para garantir alta coesão:
+  * **Controllers**: Gerenciam os endpoints e validam dados de entrada.
+  * **Services**: Onde reside a lógica de negócio principal.
+  * **Repositories**: Isolam a lógica de persistência utilizando o **Prisma ORM**.
+  * **Providers/Middlewares**: Camada de segurança para autenticação **JWT** e criptografia.
 
-- Docker / Docker Compose
-Utilizado para orquestrar os serviços da aplicação, facilitando a implantação e padronizando o ambiente de execução.
+  ### 🗄️ Banco de Dados
+  Repositório central para armazenamento de dados de usuários, animais e organizações.
 
-4. Fluxo básico de funcionamento
+  ---
 
-1. O usuário acessa a aplicação pelo navegador.
-2. O frontend envia uma requisição HTTP para o backend.
-3. O backend processa a requisição, aplicando regras de negócio.
-4. Caso necessário, o backend consulta ou altera dados no banco.
-5. O backend retorna a resposta ao frontend.
-6. O frontend atualiza a interface com base na resposta recebida.
+  ## 4. Fluxo Básico de Funcionamento
+  1. O usuário acessa a plataforma via navegador.
+  2. O **Frontend** dispara uma requisição HTTP para o **Backend**.
+  3. O **Backend** processa a solicitação e executa as regras de negócio.
+  4. O sistema interage com o **Banco de Dados** (leitura ou escrita) conforme necessário.
+  5. O **Backend** devolve a resposta processada ao cliente.
+  6. O **Frontend** reflete os novos dados na interface.
 
-5. Diagrama da arquitetura
+  ---
 
-graph TD
-    Usuario[Usuário]
-    Frontend[Frontend Web]
-    Backend[Backend API]
-    Banco[(Banco de Dados)]
-
-    Usuario --> Frontend
-    Frontend --> Backend
-    Backend --> Banco
+  ## 5. Diagrama da Arquitetura
+  O detalhamento visual desta estrutura pode ser consultado no arquivo:
+  `(./diagrama.png)`
