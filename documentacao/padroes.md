@@ -40,7 +40,6 @@ Os módulos Services não dependem de módulos de baixo nível, ambos dependem d
 
 ## 2. Padrões de Projeto (Design Patterns)
 
-Foram identificados diversos padrões GoF (Gang of Four) e padrões de arquitetura corporativa (P of EAA).
 
 ### 2.1. Chain of Responsibility (Cadeia de Responsabilidade)
 
@@ -103,7 +102,7 @@ Permite que classes com interfaces incompatíveis trabalhem juntas, envolvendo u
   ```// A classe Encrypter adapta a biblioteca externa 'bcrypt'
     export class Encrypter {
     encrypt(value: string): string {
-        return bcrypt.hashSync(value, 10) // <--- O Service não sabe que é bcrypt, só chama .encrypt()
+        return bcrypt.hashSync(value, 10) 
          }
     }
     ```
