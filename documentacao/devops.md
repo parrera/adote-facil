@@ -23,3 +23,10 @@ o Dockerfile do frontend foi otimizado para produção:
 * **Instalação Determinística:** Substituição de `npm install` por `npm ci` para garantir reprodutibilidade das builds.
 
 Adição do comando `RUN npm prune --production` logo após o passo de build. Removê-las da imagem final reduz drasticamente o peso do contêiner e melhora a segurança e o tempo de deploy.
+
+
+## 4. Melhorias no Pipeline de CI/CD (`.github/workflows/experimento-ci-cd.yml`)
+
+* **Controle de Versão do Ambiente:** Inclusão do passo `actions/setup-node@v4` para fixar a versão do Node.js (v20), evitando incompatibilidades entre o ambiente do runner e o contêiner de produção.
+* **Correção de Contexto de Execução:** O diretório de trabalho (working directory) dos jobs de integração foi ajustado para a raiz do repositório, refletindo a nova localização do `docker-compose.yml`. A injeção de variáveis `.env` também foi corrigida para abastecer ambos os serviços (backend e frontend).
+* **Espera Inteligente de Contêineres:** Remoção do anti-padrão de temporização manual `sleep 10` no job de testes de integração. Foi implementada a flag `--wait` no `docker compose up`, que aproveita os `healthchecks` nativos dos serviços para sincronizar o pipeline e evitar flaky tests.
