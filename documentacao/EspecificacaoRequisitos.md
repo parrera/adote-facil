@@ -205,7 +205,7 @@ RNF01 – O sistema deve utilizar autenticação baseada em token.
 
 RNF02 – O sistema deve armazenar os dados em banco PostgreSQL.  
 
-RNF03 – O backend deve seguir arquitetura em camadas (Controller, Service e Repository).  
+RNF03 – O backend deve seguir arquitetura em camadas (Apresentação (UI/Web/API), Aplicação / Serviço, Domínio / Negócio, Infraestrutura / Acesso a dados).  
 
 RNF04 – O sistema deve poder ser executado via Docker.  
 
