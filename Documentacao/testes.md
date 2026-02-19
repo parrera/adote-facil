@@ -10,7 +10,6 @@ Os testes unitários atuais concentram-se na camada de Serviços (via Jest). As 
 1. **Cobertura de Controladores:** Adicionar testes para validar o retorno correto de status HTTP utilizando simulações de Request/Response.
 2. **Integração de Repositórios:** Implementar testes com banco de dados em memória ou ambiente de teste isolado para validar operações do Prisma (ex: deleção em cascata).
 3. **Padrão Factory:** Criar geradores de dados falsos para reduzir a repetição na montagem dos objetos de teste nos arquivos `.spec.ts`.
-
 ---
 
 ## 2. Testes de Aceitação (Cypress)
