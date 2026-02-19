@@ -15,3 +15,11 @@ O Dockerfile original do backend apresentava alguns anti-padrões de CI/CD e emp
 * **Remoção da execução de testes na build:** A instrução `RUN npm run test` foi removida. A responsabilidade de executar testes e barrar código quebrado pertence à esteira de Integração Contínua (CI), e não ao artefato de build. Isso reduz o tempo de empacotamento e separa as responsabilidades.
 * **Uso de Instalação Determinística:** Substituição do `npm install` por `npm ci`. Isso garante que o Docker instale exatamente as versões das dependências "lockadas" no `package-lock.json`, evitando quebra de builds por atualizações inesperadas de pacotes.
 * **Limpeza de dependências de desenvolvimento:** Adição do comando `RUN npm prune --production` após a etapa de compilação. Isso remove da imagem final bibliotecas usadas apenas em tempo de desenvolvimento, reduzindo o tamanho do contêiner.
+
+## 3. Otimização do Dockerfile do Frontend (`frontend/Dockerfile`)
+
+o Dockerfile do frontend foi otimizado para produção:
+
+* **Instalação Determinística:** Substituição de `npm install` por `npm ci` para garantir reprodutibilidade das builds.
+
+Adição do comando `RUN npm prune --production` logo após o passo de build. Removê-las da imagem final reduz drasticamente o peso do contêiner e melhora a segurança e o tempo de deploy.
