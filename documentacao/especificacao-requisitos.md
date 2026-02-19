@@ -5,159 +5,162 @@
 Este documento descreve as principais histórias de usuário do sistema **Adote Fácil**, bem como seus cenários de teste principais e alternativos, com base nas funcionalidades atualmente implementadas.
 
 
-# 2. Histórias de Usuário
+## 2. Histórias de Usuário
 
 
 ## 2.1 Cadastro de Usuário
 
-**História**
+### História
 
-Como usuário, eu quero criar uma conta para utilizar a plataforma de adoção.
+Como uma pessoa interessada na plataforma  
+Eu gostaria de cadastrar no sistema  
+Para acessar suas funcionalidades  
 
-**Cenário Principal**
+### Cenário Principal – Cadastro com dados válidos
 
-Dado que o usuário está na tela de cadastro, quando ele informar nome, email válido, senha e confirmar o cadastro, o sistema deve criar a conta e permitir o login.  
+Dado que uma pessoa deseja se cadastrar  
+Quando ela preencher corretamente nome, email e senha e clicar em “Cadastrar”  
+Então o sistema deve salvar os dados no banco  
+E redirecionar para a tela de login  
 
-**Cenários Alternativos**
+### Cenários Alternativos
 
-- Email já cadastrado: sistema exibe mensagem de erro.
-- Campos obrigatórios vazios: sistema bloqueia envio.
-- Email em formato inválido: sistema exibe alerta.
+- Email inválido: sistema informa erro de formato e impede envio  
+- Senhas diferentes: sistema informa que as senhas divergem  
+- Email já cadastrado: sistema exibe mensagem “Email já cadastrado no sistema”  
 
 
 ## 2.2 Login
 
-**História**
+### História
 
-Como usuário cadastrado, eu quero fazer login para acessar as funcionalidades.
+Como um usuário cadastrado  
+Eu gostaria de fazer login  
+Para acessar a área autenticada  
 
-**Cenário Principal**
+### Cenário Principal – Login válido
 
-Dado que o usuário possui cadastro válido, quando ele informar email e senha corretos e clicar em “Login”, então o sistema deve autenticar o usuário e redirecioná-lo para a área interna.
+Dado que o usuário possui cadastro válido  
+Quando ele inserir email e senha corretos e clicar em “Login”  
+Então o sistema deve redirecioná-lo para a tela principal  
 
-**Cenários Alternativos**
+### Cenários Alternativos
 
-- Senha incorreta: sistema exibe mensagem.
-- Email inexistente: sistema exibe erro.
-- Campos vazios: login não permitido.
+- Email inválido: impedir envio  
+- Email não cadastrado: mensagem “Email ou senha inválidos.”  
+- Senha incorreta: mensagem “Email ou senha inválidos.”  
 
 
-## 2.3 Visualizar Animais Disponíveis
+## 2.3 Atualização de Dados do Usuário
 
-**História**
+### História
 
-Como usuário, eu quero visualizar os animais disponíveis para adoção para escolher um animal de interesse.
+Como um usuário autenticado  
+Eu gostaria de atualizar meus dados  
+Para manter minhas informações atualizadas  
 
-**Cenário Principal**
+### Cenário Principal
 
-Dado que existem animais cadastrados como disponíveis, quando o usuário acessar a tela “Animais disponíveis”, então o sistema deve exibir a lista de animais.
+Dado que o usuário está autenticado  
+Quando ele alterar nome, email ou senha e clicar em “Salvar alterações”  
+Então o sistema deve salvar os dados atualizados  
+E exibir confirmação visual de sucesso  
 
-**Cenários Alternativos**
+### Cenários Alternativos
 
-- Nenhum animal disponível: sistema exibe mensagem informativa.
+- Email inválido: impedir atualização  
+- Senhas divergentes: exibir aviso   
+- Email já existente: exibir mensagem de erro  
 
 
-## 2.4 Cadastrar Animal para Adoção
+## 2.4 Disponibilizar Animal para Adoção
 
-**História**
+### História
 
-Como usuário, eu quero cadastrar um animal para disponibilizá-lo para adoção.
+Como um usuário autenticado  
+Eu gostaria de disponibilizar um animal com informações e fotos  
+Para que outra pessoa possa adotá-lo  
 
-**Cenário Principal**
+### Cenário Principal
 
-Quando o usuário clicar em "Disponibilizar animal para adoção", o sistema deve retornar o formulário a ser preenchido. Dado que os campos obrigatórios estão preenchidos e tem pelo menos uma foto anexada, ao clicar em "Cadastrar", o sistema deve registrar o animal.
+Dado que o usuário acessou a página de cadastro de animal  
+Quando ele preencher corretamente nome, tipo, gênero, raça, descrição e adicionar fotos e clicar em “Cadastrar”  
+Então o sistema deve salvar os dados no banco e redirecionar para a tela de “Meus animais cadastrados”  
 
-**Cenários Alternativos**
+### Cenários Alternativos
 
-- Campos obrigatórios não preenchidos: sistema retorna mensagem.
+- Campos obrigatórios não preenchidos: impedir cadastro  
+- Nenhuma foto anexada: bloquear envio  
+- Erro interno: exibir mensagem de falha  
 
 
-## 2.5 Gerenciar Meus Animais
+## 2.5 Listagem de Animais Disponíveis
 
-**História**
+### História
 
-Como usuário, eu quero visualizar os animais que eu disponibilizei.
+Como um usuário da plataforma  
+Eu gostaria de visualizar e filtrar animais disponíveis  
+Para encontrar o animal ideal  
 
-**Cenário Principal**
+### Cenário Principal
 
-Dado que o usuário possui animais cadastrados, quando ele acessa “Meus animais disponíveis”, o sistema deve exibir seus animais cadastrados.
+Dado que existem animais disponíveis  
+Quando o usuário acessar “Animais disponíveis para adoção”  
+Então o sistema deve exibir os animais com filtros por nome, tipo, gênero e raça  
 
-**Cenários Alternativos**
+### Cenário Alternativo – Aplicação de Filtros
 
-- Nenhum animal cadastrado: mensagem informativa.
+Dado que o usuário deseja aplicar filtros  
+Quando ele selecionar critérios de exibição  
+Então o sistema deve atualizar a listagem conforme os filtros selecionados  
 
 
-## 2.6 Confirmar Adoção
+## 2.6 Confirmação de Adoção
 
-**História**
+### História
 
-Como usuário anunciante, eu quero confirmar a adoção para remover o animal da lista de disponíveis.
+Como um usuário que possui um animal disponível  
+Eu gostaria de confirmar a adoção  
+Para impedir que ele continue sendo exibido como disponível  
 
-**Cenário Principal**
+### Cenário Principal
 
-Quando o usuário clicar em “Confirmar adoção”, então o sistema deve alterar o status do animal e removê-lo da lista de disponíveis.
+Dado que o usuário realizou a adoção  
+Quando ele clicar em “Confirmar adoção”  
+Então o sistema deve atualizar o status do animal no banco e removê-lo da listagem pública  
 
-**Cenários Alternativos**
 
-- Erro na atualização: sistema exibe mensagem erro.
+## 2.7 Chat entre Adotante e Doador
 
+### História
 
-## 2.7 Excluir animais disponíveis
+Como um usuário interessado em um animal  
+Eu gostaria de entrar em contato com o dono  
+Para combinar os termos da adoção  
 
-**História**
+### Cenário Principal
 
-Como usuário anunciante, eu quero excluir um animal da lista de disponíveis.
+Dado que o usuário encontrou um animal  
+Quando ele clicar em “Entrar em contato com o dono”  
+Então o sistema deve abrir a página de chat entre adotante e dono  
 
-**Cenário principal**
+### Cenários Alternativos
 
-Quando o usuário clicar no ícone "Excluir", o sistema deve remover o animal da lista de disponíveis.
+- Usuário não autenticado: redirecionar para login  
+- Mensagem vazia: impedir envio  
 
-**Cenários Alternativos**
 
-- Erro ao excluir: sistema exibe mensagem de erro.
+## 2.8 Logout
 
+### História
 
-## 2.8 Conversas
+Como um usuário autenticado  
+Eu gostaria de sair do sistema  
+Para encerrar minha sessão com segurança  
 
-**História**
+### Cenário Principal
 
-Como usuário, eu quero conversar com outro usuário sobre um animal.
+Dado que o usuário está autenticado  
+Quando ele clicar em “Sair”  
+Então o sistema deve encerrar a sessão e redirecionar para a tela de login  
 
-**Cenário Principal**
-
-Dado que o usuário possui uma conversa, quando ele acessa “Minhas conversas”, então o sistema deve exibir os chats disponíveis.
-
-**Cenários Alternativos**
-
-- Nenhuma conversa existente: mensagem informativa
-
-
-## 2.9 Editar Dados Pessoais
-
-**História**
-
-Como usuário, eu quero editar meus dados pessoais.
-
-**Cenário Principal**
-
-Dado que o usuário está autenticado, quando ele alterar seus dados e clicar em “Salvar alterações”, o sistema deve atualizar suas informações.
-
-**Cenários Alternativos**
-
-- Email já utilizado por outro usuário: sistema exibe erro.
-- Dados inválidos: sistema bloqueia a atualização.
-
-
-## 2.9 Logout
-
-**História**
-
-Como usuário autenticado, eu quero sair do sistema para encerrar minha sessão.
-
-**Cenário Principal**
-
-Quando o usuário clica em “Sair”, então o sistema deve encerrar a sessão e redirecionar para a tela de login.
-
-**Cenários alternativos**
-
-- Falha ao encerrar sessão: sistema exibe mensagem de erro.
