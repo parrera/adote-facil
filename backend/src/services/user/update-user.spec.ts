@@ -112,7 +112,7 @@ describe('UpdateUserService', () => {
     expect(encrypter.encrypt).not.toHaveBeenCalled()
   })
 
-  test('calls repository update with id and data password hashed when sent' async () => {
+  test('calls repository update with id and data password hashed when sent', async () => {
     await sut.execute(defaultParams)
     expect(userRepository.update).toHaveBeenCalledWith({
       id: defaultParams.id,
@@ -121,10 +121,10 @@ describe('UpdateUserService', () => {
         password: 'encrypted-password',
       },
     })
-  })
 
   test('should return updated user on success', async () => {
     const result = await sut.execute(defaultParams)
     expect(result).toEqual(Success.create(updatedUser))
   })
+})
 })
