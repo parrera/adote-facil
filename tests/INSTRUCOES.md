@@ -1,0 +1,1 @@
+Em Cypress, para executar os testes precisa primeiro rodar os de cadastrarUser, também remova os pets adicionados por testes anteriores pois pode dar erro na hora de buscar o pet, a imagem tem que ser movida para a aba que o cypress estiver procurando por ela, adotarPet tem de ser executado antes de chatting, mas depois de cadastrarPet
