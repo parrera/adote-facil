@@ -9,9 +9,9 @@ export async function updateUser(data: UpdateUserInfoFormData, token?: string) {
       Authorization: `Bearer ${token}`,
     },
     data: {
-      name: data.name !== '' ? data.name : undefined,
-      email: data.email !== '' ? data.email : undefined,
-      password: data.password !== '' ? data.password : undefined,
+      name: data.name ? data.name : undefined,
+      email: data.email ? data.email : undefined,
+      password: data.password ? data.password : undefined,
     },
   })
 }

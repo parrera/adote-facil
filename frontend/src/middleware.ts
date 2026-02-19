@@ -7,9 +7,11 @@ const isValidToken = (token: string | undefined): boolean => {
   try {
     const decoded: { exp: number } = jwtDecode(token)
     return decoded.exp > Date.now() / 1000
-  } catch (e) {
-    return false
-  }
+  } catch (error) {
+  console.error('Erro ao validar token JWT:', error)
+  return false
+}
+
 }
 
 export async function middleware(req: NextRequest) {
