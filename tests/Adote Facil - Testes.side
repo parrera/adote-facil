@@ -1,0 +1,434 @@
+{
+  "id": "3c27a35c-cfd3-4ca7-b346-4b86123b3b3e",
+  "version": "2.0",
+  "name": "Adote Facil - Testes",
+  "url": "http://localhost:3000/area_logada/meus_animais",
+  "tests": [{
+    "id": "f3e93b49-f817-498c-8af0-3bf637fbc661",
+    "name": "Cadastrar animal",
+    "commands": [{
+      "id": "7b97cb18-decf-4554-88d8-4fef9da3bf64",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000/area_logada/disponibilizar_animal",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ac0d04f9-c7f0-4ed9-9fea-8568b548d521",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "838x582",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2432e44b-67c2-4fb9-8aa1-86f617eb4e67",
+      "comment": "",
+      "command": "click",
+      "target": "name=name",
+      "targets": [
+        ["name=name", "name"],
+        ["css=label > input:nth-child(2)", "css:finder"],
+        ["xpath=//input[@name='name']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "74e7adf3-30c4-4c0c-9604-db286eddc5b1",
+      "comment": "",
+      "command": "executeScript",
+      "target": "document.querySelector('input[name=\"name\"]').value = 'Plínio';",
+      "targets": [],
+      "value": "Plínio"
+    }, {
+      "id": "14637ab9-afd8-461e-ba89-328d9de5b697",
+      "comment": "",
+      "command": "click",
+      "target": "css=body",
+      "targets": [
+        ["css=body", "css:finder"],
+        ["xpath=//body", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "fed0255f-c126-42b7-8829-e3584e0f944a",
+      "comment": "",
+      "command": "select",
+      "target": "css=.sc-e38821d5-8 > select",
+      "targets": [],
+      "value": "label=Cachorro"
+    }, {
+      "id": "ac3005ba-4117-4382-97a6-70b253095abe",
+      "comment": "",
+      "command": "select",
+      "target": "css=.sc-e38821d5-9 > select",
+      "targets": [
+        ["css=.sc-e38821d5-9 svg", "css:finder"]
+      ],
+      "value": "label=Macho"
+    }, {
+      "id": "32182556-6427-4fa4-9ee8-0e2a50437487",
+      "comment": "",
+      "command": "executeScript",
+      "target": "document.getElementById(\"animalPictures\").style.display = \"block\";",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "271f347d-9ffc-48f3-a3f1-7ac103e33fb3",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-a06d05ba-0",
+      "targets": [
+        ["css=.sc-a06d05ba-0", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form/div[2]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Cadastrar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "5ff4d341-2b6a-4345-9e04-a659c35d987a",
+    "name": "Editar dados pessoais",
+    "commands": [{
+      "id": "e44a3198-639d-4ef4-9f87-d7ac4925cd50",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000/area_logada/editar_dados",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "559a1a87-324e-4746-a912-be63b781ec3e",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1198x832",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "88dc4980-abaa-4ab7-b54a-2d3d9953b9a9",
+      "comment": "",
+      "command": "click",
+      "target": "name=name",
+      "targets": [
+        ["name=name", "name"],
+        ["css=.sc-b8d6d357-2:nth-child(1) input", "css:finder"],
+        ["xpath=//input[@name='name']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "02d53836-97d9-40f9-92cb-bb9cccb99fda",
+      "comment": "",
+      "command": "executeScript",
+      "target": "document.querySelector('input[name=\"name\"]').value = 'ClarissaC';",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0acfebb8-acc9-4f5c-8f44-eeaa2b2aea1e",
+      "comment": "",
+      "command": "click",
+      "target": "name=email",
+      "targets": [
+        ["name=email", "name"],
+        ["css=.sc-b8d6d357-2:nth-child(2) input", "css:finder"],
+        ["xpath=//input[@name='email']", "xpath:attributes"],
+        ["xpath=//div[2]/div/label/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8e9b3b3d-857f-4914-9faa-17afdef6af61",
+      "comment": "",
+      "command": "executeScript",
+      "target": "document.querySelector('input[name=\"email\"]').value = 'teste2@gmail.com';",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7509b345-1114-4da3-8f3e-41819d2de715",
+      "comment": "",
+      "command": "click",
+      "target": "css=.coimDX",
+      "targets": [
+        ["css=.coimDX", "css:finder"],
+        ["xpath=//button[@type='button']", "xpath:attributes"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Alterar senha')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "feeab7f3-ba4b-4cc0-b5a1-30450b081f6c",
+      "comment": "",
+      "command": "click",
+      "target": "name=password",
+      "targets": [
+        ["name=password", "name"],
+        ["css=.sc-b8d6d357-2:nth-child(4) input", "css:finder"],
+        ["xpath=//input[@name='password']", "xpath:attributes"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "56fdd10e-4ea1-47cc-a5e8-80919ebadcbc",
+      "comment": "",
+      "command": "executeScript",
+      "target": "document.querySelector('input[name=\"password\"]').value = '123456789';",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "260c1ab3-a56a-457e-b356-eeaf833ecdf2",
+      "comment": "",
+      "command": "click",
+      "target": "name=confirmPassword",
+      "targets": [
+        ["name=confirmPassword", "name"],
+        ["css=.sc-b8d6d357-2:nth-child(5) input", "css:finder"],
+        ["xpath=//input[@name='confirmPassword']", "xpath:attributes"],
+        ["xpath=//div[5]/div/label/div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "353b9a29-3573-4da2-afd0-fc15a444c547",
+      "comment": "",
+      "command": "executeScript",
+      "target": "document.querySelector('input[name=\"confirmPassword\"]').value = '123456789';",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6a410776-95ee-4f36-a3ab-decee32e8cff",
+      "comment": "",
+      "command": "click",
+      "target": "css=.fMxEeM",
+      "targets": [
+        ["css=.fMxEeM", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form/div[2]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Salvar alterações')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "d70fd5b1-d492-4b16-ae86-bf57d2cbb33f",
+    "name": "Login com cadastro",
+    "commands": [{
+      "id": "22217813-f74d-437b-ba64-33a5b163d257",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000/login",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3042af1a-8540-4527-ab82-3f3374cea3e9",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1198x832",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "af55fa89-e4a1-4f69-bb82-dd29c10f7471",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Cadastre-se",
+      "targets": [
+        ["linkText=Cadastre-se", "linkText"],
+        ["css=a", "css:finder"],
+        ["xpath=//a[contains(text(),'Cadastre-se')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/cadastro')]", "xpath:href"],
+        ["xpath=//a", "xpath:position"],
+        ["xpath=//a[contains(.,'Cadastre-se')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "45b53573-d446-4225-bdae-2eb2a8faf427",
+      "comment": "",
+      "command": "click",
+      "target": "name=name",
+      "targets": [
+        ["name=name", "name"],
+        ["css=label:nth-child(1) > input", "css:finder"],
+        ["xpath=//input[@name='name']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "70b9ea48-518f-4770-a067-a1efd9c8969f",
+      "comment": "",
+      "command": "executeScript",
+      "target": "document.querySelector('input[name=\"name\"]').value = 'Clarissa';",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9437d55c-3c0e-400a-8d85-3bc5a37c8877",
+      "comment": "",
+      "command": "click",
+      "target": "name=email",
+      "targets": [
+        ["name=email", "name"],
+        ["css=label:nth-child(2) > input", "css:finder"],
+        ["xpath=//input[@name='email']", "xpath:attributes"],
+        ["xpath=//label[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ff1829e2-4af4-49f2-8c97-c0b0dd445237",
+      "comment": "",
+      "command": "executeScript",
+      "target": "document.querySelector('input[name=\"email\"]').value = 'teste@gmail.com';",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "fbb92a24-9a41-457a-a3f7-3eeb5245a04b",
+      "comment": "",
+      "command": "click",
+      "target": "name=password",
+      "targets": [
+        ["name=password", "name"],
+        ["css=label:nth-child(3) input", "css:finder"],
+        ["xpath=//input[@name='password']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "28aeab45-b2b3-4521-99c6-3d2e93e7f2a0",
+      "comment": "",
+      "command": "executeScript",
+      "target": "document.querySelector('input[name=\"password\"]').value = '12345678';",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0afd63b9-321d-4917-95f9-3ab21ecdab5f",
+      "comment": "",
+      "command": "click",
+      "target": "name=confirmPassword",
+      "targets": [
+        ["name=confirmPassword", "name"],
+        ["css=label:nth-child(4) input", "css:finder"],
+        ["xpath=//input[@name='confirmPassword']", "xpath:attributes"],
+        ["xpath=//label[4]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6f20e71a-739d-4fe4-be91-ae87e139ae0a",
+      "comment": "",
+      "command": "executeScript",
+      "target": "document.querySelector('input[name=\"confirmPassword\"]').value = '12345678';",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d251b1ea-8070-42c6-b459-5bcba675c26f",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-a06d05ba-0",
+      "targets": [
+        ["css=.sc-a06d05ba-0", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div[2]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Cadastrar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "6701cb6f-450e-4436-9b5a-79a9b996592d",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000/login",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e57dfbed-4cc9-4439-823d-768146ea162c",
+      "comment": "",
+      "command": "click",
+      "target": "name=email",
+      "targets": [
+        ["name=email", "name"],
+        ["css=label > input", "css:finder"],
+        ["xpath=//input[@name='email']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "0f1c68be-b3cf-4565-9a50-7db2d6fb00af",
+      "comment": "",
+      "command": "executeScript",
+      "target": "document.querySelector('input[name=\"email\"]').value = 'teste@gmail.com';",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "cbfe500c-257f-4a5a-9d39-f89d8d48a214",
+      "comment": "",
+      "command": "click",
+      "target": "name=password",
+      "targets": [
+        ["name=password", "name"],
+        ["css=.sc-9b13d2ce-0 > input", "css:finder"],
+        ["xpath=//input[@name='password']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "75b03f44-f6fc-4eea-af14-de5b2a30ea4a",
+      "comment": "",
+      "command": "executeScript",
+      "target": "document.querySelector('input[name=\"password\"]').value = '12345678';",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b6f89f3e-6794-4a64-b7d4-c6781f44a76f",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-a06d05ba-0",
+      "targets": [
+        ["css=.sc-a06d05ba-0", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div[2]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Login')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "d00624d4-cb30-46b1-a0f8-d17249164f1d",
+    "name": "Confirmar adoção",
+    "commands": [{
+      "id": "e119c89b-1ae3-4b85-b479-4daf3a18507e",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000/area_logada/meus_animais",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3ed0d90a-0f71-4c03-8eb0-5e597486dc3c",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1198x832",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e90e68e8-5ea1-4b17-b1fb-f6379b8068d0",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-a06d05ba-0",
+      "targets": [
+        ["css=.sc-a06d05ba-0", "css:finder"],
+        ["xpath=//button[@type='button']", "xpath:attributes"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Confirmar adoção')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "df185513-80b0-42e6-9004-2db97d8fb903",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-368028a3-5 .ikXsHh > span",
+      "targets": [
+        ["css=.sc-368028a3-5 .ikXsHh > span", "css:finder"],
+        ["xpath=//body/div/aside/div[2]/a[3]/div/span", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "d588d28d-2a0f-4fda-8869-cc2257231b1b",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": []
+  }],
+  "urls": ["http://localhost:3000/login", "http://localhost:3000/area_logada/disponibilizar_animal", "http://localhost:3000/area_logada/editar_dados", "http://localhost:3000/area_logada/conversas", "http://localhost:3000/area_logada/animais_disponiveis", "http://localhost:3000/area_logada/meus_animais"],
+  "plugins": []
+}
