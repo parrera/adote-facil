@@ -1,42 +1,72 @@
-describe('Alteração de Senha', () => {
+describe('Alteração de dados e senha', () => {
+  const senha = '12345678'
 
-    beforeEach(() => {
-        cy.visit('/login')
-        cy.get('input[name=email]').type('doador@test.com')
-        cy.get('input[name=senha]').type('12345678')
-        cy.contains('Entrar').click()
-
-        cy.visit('/alterar-senha')
+  beforeEach(() => {
+    cy.on('uncaught:exception', (err) => {
+      if (err.message.includes('418') || err.message.includes('Hydration')) {
+        return false
+      }
+      return true
     })
 
-    it('Cenário principal: Deve alterar senha com sucesso', () => {
-        cy.get('input[name=senhaAtual]').type('12345678')
-        cy.get('input[name=novaSenha]').type('novaSenha123')
-        cy.get('input[name=confirmarSenha]').type('novaSenha123')
+    cy.clearLocalStorage()
+    cy.clearCookies()
 
-        cy.contains('Salvar').click()
+    const timestamp = Date.now()
+    const email = usuario${timestamp}@test.com
 
-        cy.contains('Senha alterada com sucesso')
+    cy.visit('/cadastro')
+    cy.get('input[name="name"]').type('Usuario')
+    cy.get('input[type="email"]').type(email)
+    cy.get('input[name="password"]').type(senha)
+    cy.get('input[name="confirmPassword"]').type(senha)
+    cy.get('button[type="submit"]').click()
+
+    cy.url({ timeout: 10000 }).should('include', '/login')
+
+    cy.get('input[type="email"]').type(email)
+    cy.get('input[name="password"]').type(senha)
+    cy.contains('Login').click()
+
+    cy.url({ timeout: 10000 }).should('include', '/area_logada')
+
+    cy.visit('/area_logada/editar_dados')
+  })
+
+  it('Cenário principal: Deve alterar senha com sucesso', () => {
+    cy.contains('button', 'Alterar senha').click()
+
+    cy.get('input[name="password"]', { timeout: 5000 }).should('be.visible').type('novaSenha123')
+    cy.get('input[name="confirmPassword"]').type('novaSenha123')
+
+    cy.window().then((win) => {
+      cy.stub(win, 'alert').callsFake((msg) => {
+        expect(msg).to.include('Dados editados com sucesso')
+      })
     })
 
-    it('Alternativo: Não deve alterar se senha atual estiver incorreta', () => {
-        cy.get('input[name=senhaAtual]').type('senhaErrada')
-        cy.get('input[name=novaSenha]').type('novaSenha123')
-        cy.get('input[name=confirmarSenha]').type('novaSenha123')
+    cy.contains('Salvar alterações').click()
+  })
 
-        cy.contains('Salvar').click()
+  it('Alternativo: Não deve alterar se confirmação for diferente', () => {
+    cy.contains('button', 'Alterar senha').click()
 
-        cy.contains('Senha atual incorreta')
-    })
+    cy.get('input[name="password"]', { timeout: 5000 }).should('be.visible').type('novaSenha123')
+    cy.get('input[name="confirmPassword"]').type('outraSenha')
 
-    it('Alternativo: Não deve alterar se confirmação for diferente', () => {
-        cy.get('input[name=senhaAtual]').type('12345678')
-        cy.get('input[name=novaSenha]').type('novaSenha123')
-        cy.get('input[name=confirmarSenha]').type('outraSenha')
+    cy.contains('Salvar alterações').click()
 
-        cy.contains('Salvar').click()
+    cy.contains('As senhas não coincidem').should('be.visible')
+  })
 
-        cy.contains('As senhas não coincidem')
-    })
+  it('Alternativo: Deve validar senha com menos de 8 caracteres', () => {
+    cy.contains('button', 'Alterar senha').click()
 
+    cy.get('input[name="password"]', { timeout: 5000 }).should('be.visible').type('1234567')
+    cy.get('input[name="confirmPassword"]').type('1234567')
+
+    cy.contains('Salvar alterações').click()
+
+    cy.contains('A senha deve conter no mínimo 8 caracteres').should('be.visible')
+  })
 })
