@@ -4,17 +4,22 @@ import * as S from './DefaultLoggedPageLayout.styles'
 import { ArrowLeft, List, User } from '@phosphor-icons/react'
 import { getUserData } from '@/helpers/get-user-data'
 import { UserMenu } from '@/components/UserMenu'
-import { useState } from 'react'
+import { useState, useEffect } from 'react' // 1. Adicionamos o useEffect aqui
 import Image from 'next/image'
 import logo from '../../assets/logo-with-name.png'
 
-// BUG se o menu mobile estiver aberto, o conteúdo da página não é renderizado, portanto se a largura da tela aumentar e o menu mobile sumir, o conteúdo da página não aparece
 export function DefaultLoggedPageLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState(false)
+  const [isClient, setIsClient] = useState(false) // 2. Criamos um estado para saber se já estamos no navegador
+
+  // 3. Esse efeito só roda quando a página termina de carregar no navegador
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
 
   const userData = getUserData()
 
@@ -39,16 +44,20 @@ export function DefaultLoggedPageLayout({
         </S.LogoWrapper>
         <S.UserInfo>
           <User size={32} />
-          <span>{userData?.name}</span>
+          {/* 4. Só mostra o nome se isClient for true (ou seja, se já saiu do servidor) */}
+          <span>{isClient ? userData?.name : ''}</span>
         </S.UserInfo>
       </S.MobileHeader>
+      
       <S.AsideMenu>
         <S.UserInfo>
           <User size={48} />
-          <span>{userData?.name}</span>
+          {/* Fazemos o mesmo aqui no menu lateral */}
+          <span>{isClient ? userData?.name : ''}</span>
         </S.UserInfo>
         <UserMenu />
       </S.AsideMenu>
+      
       {!mobileMenuIsOpen ? <S.PageContent>{children}</S.PageContent> : null}
     </S.Wrapper>
   )
