@@ -1,6 +1,6 @@
 # Documentação de Melhorias DevOps - CI/CD
 
-Análise e descrição das implementações de otimização no ciclo de vida de desenvolvimento do projeto, focando em: **Segurança**, **Performance de Build**, **Automação de Testes e Entregas** 
+Análise e descrição das implementações de otimização no ciclo de vida de desenvolvimento do projeto, focando em: **Segurança**, **Performance de Build**, **Automação de Testes e Ciclo de Entregas** 
 
 <br>
 

@@ -27,7 +27,7 @@ jobs:
 
       - name: Filter paths
         id: filter
-        uses: dorny/paths-filter@v3 # Action para detectar mudanças em arquivos
+        uses: dorny/paths-filter@v3 # Action para detectar mudanças em arquivos (histórico)
         with:
           filters: | # Gatilhos de filtros para identificar se houve mudanças
             backend:
@@ -189,7 +189,7 @@ jobs:
   # Só roda se for PUSH na MAIN e se os testes passaram:
   publish-images:
     name: Push to DockerHub
-    needs: integration-test # Só excueta se o job de integração passou
+    needs: integration-test # Só executa se o job de integração passou
     runs-on: ubuntu-latest
     # Só publica se estiver na main - evitando que imagens apenas para testes passem
     if: github.ref == 'refs/heads/main' && github.event_name == 'push' && needs.integration-test.result == 'success'
@@ -199,8 +199,8 @@ jobs:
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }} # Credenciais seguras configuradas 
+          password: ${{ secrets.DOCKERHUB_TOKEN }}    # no GitHub Secrets 
 
       - name: Set up Docker Buildx # Para builds mais avançados e multiplataforma
         uses: docker/setup-buildx-action@v3
