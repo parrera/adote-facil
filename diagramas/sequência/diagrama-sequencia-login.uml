@@ -1,0 +1,44 @@
+@startuml
+title Diagrama de sequência — Login (Adote Fácil)
+
+actor "Usuário" as U
+boundary "Frontend (Next.js)\nTela de Login" as FE
+control "UserLoginController\nhandle(req,res)" as C
+control "UserLoginService\nexecute({email,password})" as S
+database "PostgreSQL\n(Prisma)" as DB
+
+U -> FE: Preenche email e senha\nClica em "Login"
+FE -> C: POST /login\n{ email, password }
+
+activate C
+C -> S: execute({ email, password })
+activate S
+
+S -> DB: Buscar usuário por email
+activate DB
+DB --> S: usuário (ou null)
+deactivate DB
+
+alt usuário não encontrado
+  S --> C: Result(Failure)\nvalue: { message: "E-mail ou senha inválidos" }
+  C -> C: statusCode = 400\n(result.isFailure())
+  C --> FE: HTTP 400\njson(result.value)
+else usuário encontrado
+  S -> S: Validar senha\n(ex: compare hash)
+  alt senha inválida
+    S --> C: Result(Failure)\nvalue: { message: "E-mail ou senha inválidos" }
+    C -> C: statusCode = 400\n(result.isFailure())
+    C --> FE: HTTP 400\njson(result.value)
+  else senha válida
+    S -> S: Gerar token / payload
+    S --> C: Result(Success)\nvalue: { token, user }
+    C -> C: statusCode = 201\n(result.isFailure()==false)
+    C --> FE: HTTP 201\njson(result.value)
+    FE --> U: Login ok\nRedireciona para área logada
+  end
+end
+
+deactivate S
+deactivate C
+
+@enduml

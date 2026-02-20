@@ -1,0 +1,40 @@
+@startuml
+title Diagrama de sequência — Cadastrar Animal (Adote Fácil)
+
+actor "Usuário" as U
+boundary "Frontend (Next.js)\nTela: Disponibilizar animal" as FE
+control "CreateAnimalController\nhandle(req,res)" as C
+control "CreateAnimalService\nexecute(dto)" as S
+database "PostgreSQL\n(Prisma)" as DB
+
+U -> FE: Preenche dados do animal\nAnexa fotos\nClica em "Cadastrar"
+FE -> C: POST /animals\n(form-data: name,type,gender,race,description,pictures)\n+ Authorization (token)
+
+activate C
+
+
+C -> S: execute({\n name,type,gender,race,description,\n userId,\n pictures: pictureBuffers\n})
+activate S
+
+S -> DB: Inserir Animal (dados + userId)
+activate DB
+DB --> S: animal criado (id, dados)
+deactivate DB
+
+S -> DB: Inserir imagens do animal\n(relacionadas ao animalId)
+activate DB
+DB --> S: imagens criadas
+deactivate DB
+
+alt Falha (Result.isFailure())
+  S --> C: Result(Failure)\nvalue: { message, ... }
+  C --> FE: HTTP 400\njson(result.value)
+else Sucesso
+  S --> C: Result(Success)\nvalue: { animal, ... }
+  C --> FE: HTTP 201\njson(result.value)
+  FE -> U: Exibe "Animal cadastrado"\nNavega para "Meus animais"
+end
+
+deactivate S
+deactivate C
+@enduml

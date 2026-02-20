@@ -1,0 +1,43 @@
+@startuml
+title Diagrama de sequência — Criar Chat (Adote Fácil)
+
+actor "Usuário (Adotante)" as U
+boundary "Frontend (Next.js)\nTela: Perfil do animal / Chat" as FE
+control "CreateUserChatController\nhandle(req,res)" as C
+control "CreateUserChatService\nexecute(dto)" as S
+database "PostgreSQL (Prisma)" as DB
+
+U -> FE: Clica em "Entrar em contato\ncom o doador"
+FE -> C: POST /chat\n{ userId: user2Id }\n+ Authorization (token)
+
+activate C
+C -> C: Extrair userId do body
+C -> C: Ler req.user (user1Id autenticado)
+
+C -> S: execute({ user1Id, user2Id })
+activate S
+
+S -> DB: Verificar se já existe chat\nentre user1Id e user2Id
+activate DB
+DB --> S: chat existente ou null
+deactivate DB
+
+alt Chat já existe
+    S --> C: Result(Success)\nvalue: { chat }
+    C --> FE: HTTP 200/201\njson(chat)
+    FE -> U: Redireciona para tela de chat
+else Novo chat
+    S -> DB: Criar registro de chat\n(user1Id, user2Id)
+    activate DB
+    DB --> S: chat criado
+    deactivate DB
+
+    S --> C: Result(Success)\nvalue: { chat }
+    C --> FE: HTTP 201\njson(chat)
+    FE -> U: Abre tela de conversa
+end
+
+deactivate S
+deactivate C
+
+@enduml
