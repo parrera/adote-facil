@@ -1,0 +1,87 @@
+@startuml
+title AdoteFácil - Backend (Diagrama de Componentes)
+
+skinparam componentStyle rectangle
+skinparam shadowing false
+skinparam wrapWidth 200
+skinparam defaultTextAlignment center
+left to right direction
+
+actor "Client\n(Web/Mobile)" as Client
+
+package "API (Express)" as API {
+  [server.ts] as server
+  [app.ts] as app
+  [routes.ts] as routes
+}
+
+package "Middlewares" as MW {
+  [user-auth.ts] as userauth
+}
+
+package "Application" as APP {
+  [Controllers] as controllers
+  [Services] as services
+  [Repositories] as repos
+}
+
+package "Cross-cutting" as CC {
+  [providers/authenticator.ts] as authenticator
+  [providers/encrypter.ts] as encrypter
+  [utils/either.ts\n(Success/Failure/Either)] as either
+}
+
+package "Persistence" as PERSIST {
+  [database.ts] as database
+  [Prisma Client] as prisma
+  database "PostgreSQL" as pg
+}
+
+
+Client --> server : HTTP requests
+server --> app : bootstrap
+app --> routes : register routes
+routes --> controllers : dispatch handlers
+
+routes --> userauth : protected routes
+userauth --> authenticator : verify token
+
+
+controllers --> services : call use-cases
+services --> repos : persistence operations
+
+
+services --> encrypter : hash/compare password
+services --> authenticator : sign token (JWT)
+services --> either : return Success/Failure
+
+
+app --> database : init db
+database --> prisma : connect
+prisma --> pg : DATABASE_URL
+
+note right of controllers
+Contém endpoints agrupados por domínio:
+- user
+- animal
+- chat
+end note
+
+note right of services
+Orquestra regras de negócio (use-cases):
+- create/update user
+- login
+- create/update animal
+- chats e mensagens
+end note
+
+note right of repos
+Implementa acesso ao banco via Prisma:
+- user
+- animal
+- animal-image
+- chat
+- user-message
+end note
+
+@enduml
