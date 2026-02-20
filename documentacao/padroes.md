@@ -13,7 +13,6 @@ Separação de camadas e responsabilidades claras no back-end, em que cada class
 
 - CreateUserController: apenas lida com a requisição HTTP, recebendo os dados, repassando para o service e retornando o status obtido.
     ```ts
-    adote-facil/backend/src/controllers/user/create-user.ts
     class CreateUserController {
     async handle(request: Request, response: Response): Promise<Response> {
         const { name, email, password } = request.body
@@ -238,6 +237,9 @@ export async function insertUserChat(input: { userId: string }): Promise<{ chatI
 const { chatId } = await insertUserChat({ animal.userId })
 router.push(`/area_logada/conversas/${chatId}`)
 ```
+*Local: adote-facil/frontend/src/app/area_logada/animais_disponiveis/[id]/AnimalDetailsPage.tsx*
+
+<br>
 
 A UI passa a conhecer menos a estrutura interna da resposta, apenas recendo a resposta em si diretamente.
 
@@ -268,6 +270,8 @@ CreateUserService depende da classe concreta Encrypter, violando o princípio qu
     }
 ```
 *Local: backend/src/services/user/create-user.ts*
+
+<br>
 
 **Classe Encrypter**:
 
@@ -336,7 +340,7 @@ const createUserServiceInstance = new CreateUserService(
   userRepositoryInstance
 );
 ```
--> O componente que for instanciar a classe de serviço de usuário, vai definir qual encrypter vai ser utilizado
+O componente que for instanciar a classe de serviço de usuário, vai definir qual encrypter vai ser utilizado
 
 <br>
 
