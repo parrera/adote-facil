@@ -4,7 +4,7 @@ Este diretório contém os testes de aceitação automatizados do sistema Adote 
 
 ## Estrutura
 
-- tests/selenium/: arquivo .side (Selenium IDE)
+- tests/Adote Facil - Testes/: arquivo .side (Selenium IDE)
 - tests/README.md: instruções de execução
 
 ## Pré-requisitos
