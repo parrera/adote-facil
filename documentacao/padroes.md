@@ -8,7 +8,7 @@ Este documento identifica a aplicação (ou ausência) de princípios SOLID no p
 
 Este princípio afirma que uma classe ou módulo deve ter uma única responsabilidade: "lógica ou regra de negócio".
 
-#### ✅ Aplicação Positiva (Backend)
+#### ✅ Aplicação Backend
 O backend demonstra uma boa separação de responsabilidades:
 
 **Rotas (`routes.ts`):** Apenas definem os endpoints e delegam a execução para os *controllers*. Não contêm lógica de negócios.
@@ -40,30 +40,6 @@ export class CreateAnimalService {
 }
 ```
 >**Observação:** No exemplo acima, não há definição de rota apenas há a regra de negócio para criação do animal.
-
-**DTOs:** O uso de classes/interfaces como `CreateAnimalDTO` separa a definição dos dados da lógica.
-
-```typescript
-// backend/src/services/animal/create-animal.ts
-export namespace CreateAnimalDTO {
-  export type Params = {
-    name: string
-    type: string
-    // ... outros campos
-  }
-}
-```
->**Observação:** No exemplo acima, não há definição de rota, ou lógica de negócio, apenas define os tipos de dados pertencentes ao objeto
-
-#### ❌ Pontos de Atenção (Frontend)
-No frontend, há casos em que o princípio é frequentemente violado nos componentes, que tendem a acumular responsabilidades de UI e Lógica.
-- **`AnimalCard.tsx`:** Este componente é responsável por:
-    1. Renderizar a interface do card.
-    2. Chamar a API (`handleConfirmAnimalAdoption`, `handleRemoveAnimal`).
-    3. Gerenciar feedback ao usuário (`alert`).
-    4. Gerenciar navegação (`window.location.href`).
-- **Formulários (ex: `UpdateUserInfoForm.tsx`):** Misturam renderização com lógica de submissão e manipulação direta de armazenamento local (cookies/localStorage).
-
 </details>
 
 ---
@@ -73,7 +49,7 @@ No frontend, há casos em que o princípio é frequentemente violado nos compone
 
 Classes devem estar abertas para extensão, mas fechadas para modificação.
 
-#### ✅ Aplicação Positiva
+#### ✅ Aplicação Frontend
 
 **Componentes UI (ex: `DefaultLoggedPageLayout.tsx`):** O layout define a estrutura fixa (Header, Menu), mas é "aberto" para receber qualquer conteúdo via `children`. Não é necessário alterar o código do layout para criar uma nova página que o utilize.
 
@@ -95,20 +71,6 @@ export function DefaultLoggedPageLayout({
 ```
 > **Observação:** O componente aceita novos elementos (conteúdos de página) sem alterar seu código fonte.
 
-**Backend Services (Injeção de Dependência):** O serviço `CreateAnimalService` depende de uma interface `AnimalRepository`. Então ao criar o banco de dados, cria-se uma nova implementação do repositório sem modificar o código do serviço.
-
-```typescript
-// backend/src/services/animal/create-animal.ts
-export class CreateAnimalService {
-  constructor(
-    // Aberto para extensão: aceita qualquer classe que implemente AnimalRepository
-    private readonly animalRepository: AnimalRepository,
-    // ...
-  ) {}
-}
-```
-> **Observação:** O serviço não precisa ser modificado se a tecnologia de banco de dados mudar, desde que o contrato da interface seja mantido.
-
 </details>
 
 ---
@@ -118,7 +80,7 @@ export class CreateAnimalService {
 
 Objetos de uma superclasse devem ser substituíveis por objetos de suas subclasses sem quebrar a aplicação.
 
-#### ✅ Aplicação Implícita (Backend)
+#### ✅ Aplicação Backend
 - Nos serviços (ex: `CreateAnimalService`), as dependências são injetadas via construtor (ex: `AnimalRepository`).
 - Isso permite que qualquer implementação concreta de `AnimalRepository` (seja Postgres, Mongo ou um Mock em memória para testes) seja usada sem quebrar o serviço, respeitando o contrato da interface.
 
@@ -141,7 +103,6 @@ export class CreateAnimalService {
 // backend/src/services/animal/create-animal.spec.ts
 const animalRepository = mock<AnimalRepository>() // Cria um substituto (Mock)
 const sut = new CreateAnimalService(animalRepository, ...) // Injeta o substituto
-// O serviço executa sua lógica sem saber que está usando um mock, validando o LSP.
 ```
 </details>
 
@@ -165,20 +126,6 @@ const userLoginFormSchema = z.object({
 // O componente depende apenas desta interface enxuta
 export type UserLoginFormData = z.infer<typeof userLoginFormSchema>
 ```
-
-**Backend (DTOs):** O `CreateAnimalDTO.Params` define estritamente os dados necessários para a criação de um animal. Ele não obriga o serviço a lidar com uma entidade completa de banco de dados (que teria `id`, `created_at`, `updated_at`), mantendo o contrato limpo e segregado.
-
-```typescript
-// backend/src/services/animal/create-animal.ts
-export namespace CreateAnimalDTO {
-  export type Params = {
-    name: string
-    type: string
-    // ... outros campos específicos para criação
-  }
-}
-```
-
 </details>
 
 ---
@@ -218,8 +165,7 @@ export class CreateAnimalService {
 **Onde é usado:** No Backend, na instanciação de Controllers e Services.
 
 **Explicação:** O padrão Singleton garante que uma classe tenha apenas uma instância e fornece um ponto global de acesso a ela.
-1. **Mecanismo:** No Node.js, ao exportar uma instância criada com `new`, o sistema de módulos faz cache do objeto.
-2. **Uso:** O padrão se confirma pelo fato de que **apenas essa instância específica é importada e utilizada em todo o código**, garantindo que não existam duplicatas de estado ou conexões.
+**Uso:** O padrão se confirma pelo fato de que **apenas essa instância específica é importada e utilizada em todo o código**, garantindo que não existam duplicatas de estado ou conexões.
 
 ```typescript
 // Exemplo inferido da estrutura de rotas
@@ -234,7 +180,7 @@ export const createUserControllerInstance = new CreateUserController(createUserS
 <details>
 <summary><strong> 2. Facade </strong></summary>
 
-O componente consome uma interface simples, ignorando a complexidade do Axios 
+O componente consome uma interface simples, através de uma função importada, ignorando a complexidade do Axios 
 
 **Exemplo (`frontend/src/components/UpdateUserInfoForm/UpdateUserInfoForm.tsx `):**
 ```typescript
