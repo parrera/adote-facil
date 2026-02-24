@@ -2,3 +2,7 @@ Eng. de Software
 
 PR1: AlbertJohnson994:feature/arquitetura-documentation
 link: https://github.com/parrera/adote-facil/pull/136
+
+PR3: AlbertJohnson994:feature/Code_Smells_e_Refatorações
+link: https://github.com/parrera/adote-facil/pull/138
+
